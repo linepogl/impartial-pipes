@@ -1,14 +1,15 @@
 {
-  "name": "linepogl/from",
-  "description": "A php library for iterables",
+  "name": "linepogl/pipes",
+  "description": "A php library with partial functions suitable for the pipe operator",
   "type": "library",
   "license": "MIT",
   "keywords": [
     "iterable",
+    "pipe",
     "linq",
     "functional"
   ],
-  "homepage": "https://github.com/linepogl/from",
+  "homepage": "https://github.com/linepogl/pipes",
   "authors": [
     {
       "name": "Lazare Inepologlou",
@@ -29,7 +30,7 @@
     }
   },
   "require": {
-    "php": "^8.4"
+    "php": "^8.5"
   },
   "require-dev": {
     "phpunit/phpunit": "^11",
