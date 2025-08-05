@@ -12,33 +12,35 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.5'
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate --strict
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v3
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
 
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
 
-    - name: Code style
-      run: composer run-script cs:validate
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
 
-    - name: Code static analyst
-      run: composer run-script phpstan
+      - name: Code style
+        run: composer run-script cs:validate
 
-    - name: Unit tests
-      run: composer run-script phpunit
+      - name: Code static analysis
+        run: composer run-script phpstan
+
+      - name: Unit tests
+        run: composer run-script phpunit
