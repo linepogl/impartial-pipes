@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Pipes;
+namespace pipes;
 
 if (!function_exists(__NAMESPACE__ . '\it_map_keys')) {
     /**
