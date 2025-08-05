@@ -1,0 +1,45 @@
+{
+  "name": "linepogl/from",
+  "description": "A php library for iterables",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "iterable",
+    "linq",
+    "functional"
+  ],
+  "homepage": "https://github.com/linepogl/from",
+  "authors": [
+    {
+      "name": "Lazare Inepologlou",
+      "email": "linepogl@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Pipes\\": "src/"
+    },
+    "files": [
+      "src/_.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tst/"
+    }
+  },
+  "require": {
+    "php": "^8.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11",
+    "phpstan/phpstan": "^2",
+    "friendsofphp/php-cs-fixer": "^3"
+  },
+  "scripts": {
+    "phpunit": "vendor/bin/phpunit",
+    "cs:fix": "php-cs-fixer fix --show-progress=dots --verbose ",
+    "cs:validate": "php-cs-fixer fix --show-progress=none --dry-run --no-interaction --stop-on-violation",
+    "phpstan": "phpstan --memory-limit=4G"
+  }
+}
