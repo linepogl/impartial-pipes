@@ -18,7 +18,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "pipes\\": "src/"
+      "Pipes\\": "src/"
     },
     "files": [
       "src/_.php"
@@ -26,7 +26,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "tests\\": "tst/"
+      "Tests\\": "tst/"
     }
   },
   "require": {

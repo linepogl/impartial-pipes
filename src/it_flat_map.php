@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace pipes;
+namespace Pipes;
+
+use Pipes\Util\LazyRewindableIterator;
 
 if (!function_exists(__NAMESPACE__ . '\it_flat_map')) {
     /**
@@ -16,12 +18,12 @@ if (!function_exists(__NAMESPACE__ . '\it_flat_map')) {
      */
     function it_flat_map(callable $valueProjection): callable
     {
-        return static function (iterable $iterable) use ($valueProjection): iterable {
+        return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $valueProjection): iterable {
             foreach ($iterable as $key => $value) {
                 foreach ($valueProjection($value, $key) as $innerValue) {
                     yield $innerValue;
                 }
             }
-        };
+        });
     }
 }

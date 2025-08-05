@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace pipes;
+namespace Pipes;
 
-if (!function_exists(__NAMESPACE__ . '\it_map_keys')) {
+use Pipes\Util\LazyRewindableIterator;
+
+if (!function_exists(__NAMESPACE__ . '\it_reindex')) {
     /**
      * @no-named-arguments
      *
@@ -14,12 +16,12 @@ if (!function_exists(__NAMESPACE__ . '\it_map_keys')) {
      * @param callable(V,K):K2 $keyProjection
      * @return callable(iterable<K,V>):iterable<K2,V>
      */
-    function it_map_keys(callable $keyProjection): callable
+    function it_reindex(callable $keyProjection): callable
     {
-        return static function (iterable $iterable) use ($keyProjection): iterable {
+        return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $keyProjection): iterable {
             foreach ($iterable as $key => $value) {
                 yield $keyProjection($value, $key) => $value;
             }
-        };
+        });
     }
 }

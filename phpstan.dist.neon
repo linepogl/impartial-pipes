@@ -8,7 +8,7 @@ parameters:
   level: 10
   paths:
     - src
-    - tst
+#    - tst # disabled, because there is PHP 8.5 syntax in tests
   fileExtensions:
     - php
   tmpDir: var/cache/.phpstan
