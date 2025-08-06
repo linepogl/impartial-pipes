@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Tests\Mapping;
 
+use Tests\UnitTestCase;
 use function Pipes\it_keys;
 
 /**

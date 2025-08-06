@@ -17,11 +17,8 @@
     }
   ],
   "autoload": {
-    "psr-4": {
-      "Pipes\\": "src/"
-    },
     "files": [
-      "src/_.php"
+      "src/_bootstrap.php"
     ]
   },
   "autoload-dev": {
