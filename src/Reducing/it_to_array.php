@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Pipes;
 
 /**
- * @return callable<K of array-key,V of float|int>(iterable<K, V>):array<K,V>
+ * @return callable<K of array-key,V>(iterable<K, V>):array<K,V>
  */
 function it_to_array(): callable
 {
