@@ -5,49 +5,54 @@ declare(strict_types=1);
 namespace Tests\Filtering;
 
 use Tests\UnitTestCase;
+
 use function ImpartialPipes\p_unique;
-use const ImpartialPipes\identity;
 
 /**
  * @internal
  */
 final class p_unique_Test extends UnitTestCase
 {
-    public function test_p_filter(): void
+    public function test_p_unique(): void
     {
-        $this->assertIterEquals(
-            [],
-            [] |> p_unique(identity, preserveKeys: true),
-        );
-        $this->assertIterEquals(
-            [],
-            [] |> p_unique(identity, preserveKeys: false),
-        );
-//        $this->assertIterEquals(
-//            [2, 3],
-//            [1, 2, 3] |> p_filter(fn (int $x) => $x > 1, preserveKeys: false),
-//        );
-//        $this->assertIterEquals(
-//            [1 => 2, 2 => 3],
-//            [1, 2, 3] |> p_filter(fn (int $x) => $x > 1, preserveKeys: true),
-//        );
-//        $this->assertIterEquals(
-//            [3],
-//            [1, 2, 3] |> p_filter(fn (int $x, int $k) => $k > 1, preserveKeys: false),
-//        );
-//        $this->assertIterEquals(
-//            [2 => 3],
-//            [1, 2, 3] |> p_filter(fn (int $x, int $k) => $k > 1, preserveKeys: true),
-//        );
-    }
+        $this
+            ->expect([])
+            ->pipe(p_unique())
+            ->toIterateLike([]);
 
-//    public function test_p_unique_is_rewindable(): void
-//    {
-//        $a = [1, 2, 3] |> p_filter(fn (int $x) => $x > 1, preserveKeys: false);
-//        $this->assertIterEquals([2, 3], $a);
-//        $this->assertIterEquals([2, 3], $a); // again to see if $a is rewindable
-//        $a = [1, 2, 3] |> p_filter(fn (int $x) => $x > 1, preserveKeys: true);
-//        $this->assertIterEquals([1 => 2, 2 => 3], $a);
-//        $this->assertIterEquals([1 => 2, 2 => 3], $a); // again to see if $a is rewindable
-//    }
+        $this
+            ->expect([])
+            ->pipe(p_unique(preserveKeys: true))
+            ->toIterateLike([]);
+
+        $this
+            ->expect(['a' => 1, 'b' => 2, 'c' => 1, 'd' => 4])
+            ->pipe(p_unique())
+            ->toIterateLike([1, 2, 4]);
+
+        $this
+            ->expect(['a' => 1, 'b' => 2, 'c' => 1, 'd' => 4])
+            ->pipe(p_unique(preserveKeys: true))
+            ->toIterateLike(['a' => 1, 'b' => 2, 'd' => 4]);
+
+        $this
+            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+            ->pipe(p_unique(static fn (int $x) => $x % 2))
+            ->toIterateLike([1, 2]);
+
+        $this
+            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+            ->pipe(p_unique(static fn (int $x) => $x % 2, preserveKeys: true))
+            ->toIterateLike(['a' => 1, 'b' => 2]);
+
+        $this
+            ->expect(['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4])
+            ->pipe(p_unique(static fn (int $x, string $k) => $k[0]))
+            ->toIterateLike([1, 3]);
+
+        $this
+            ->expect(['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4])
+            ->pipe(p_unique(static fn (int $x, string $k) => $k[0], preserveKeys: true))
+            ->toIterateLike(['a' => 1, 'b' => 3]);
+    }
 }

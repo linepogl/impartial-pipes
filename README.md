@@ -20,8 +20,9 @@ $iterable
 4. Immutability, lazy evaluation.
 5. Iterating with generators, without creating copies of the data.
 
+# Usage
 
-## 1. Mapping partial functions
+## 1. Mapping
 
 ### p_map
 
@@ -77,7 +78,7 @@ $iterable
 ### p_group_by
 ```php
 ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-|> p_group_by(static fn (int $value) => $value % 2, preserveKeys: false)
+|> p_group_by(static fn (int $value) => $value % 2)
 // [1 => [1, 3], 0 => [2, 4]]
 ```
 ```php
@@ -86,7 +87,7 @@ $iterable
 // [1 => ['a' => 1, 'c' => 3], 0 => ['b' => 2, 'd' => 4]]
 ```
 
-## 2. Filtering partial functions
+## 2. Filtering
 
 ### p_filter
 ```php
@@ -96,7 +97,7 @@ $iterable
 ```
 ```php
 ['a' => 1, 'b' => 2]
-|> p_filter(static fn (int $value) => $value > 1, preserveKeys: false)
+|> p_filter(static fn (int $value) => $value > 1)
 // [2]
 ```
 ```php
@@ -106,7 +107,7 @@ $iterable
 ```
 ```php
 ['a' => 1, 'b' => 2]
-|> p_filter(static fn (int $value, string $key) => $key === 'b', preserveKeys: false)
+|> p_filter(static fn (int $value, string $key) => $key === 'b')
 // [2]
 ```
 ### p_compact
@@ -117,7 +118,7 @@ $iterable
 ```
 ```php
 ['a' => null, 'b' => 2]
-|> p_compact(preserveKeys: false)
+|> p_compact()
 // [2]
 ```
 
@@ -129,7 +130,7 @@ $iterable
 ```
 ```php
 ['a' => 1, 'b' => 2, 'c' => 3]
-|> p_take(preserveKeys: false)
+|> p_take()
 // [1, 2]
 ```
 ### p_take_while
@@ -141,7 +142,7 @@ $iterable
 ```
 ```php
 ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 1]
-|> p_take_while(static fn (int $value) => $value < 3, preserveKeys: false)
+|> p_take_while(static fn (int $value) => $value < 3)
 // [1, 2]
 ```
 ```php
@@ -151,7 +152,7 @@ $iterable
 ```
 ```php
 ['a' => 1, 'b' => 2]
-|> p_filter(static fn (int $value, string $key) => $key === 'a', preserveKeys: false)
+|> p_filter(static fn (int $value, string $key) => $key === 'a')
 // [1]
 ```
 
@@ -163,7 +164,7 @@ $iterable
 ```
 ```php
 ['a' => 1, 'b' => 2, 'c' => 3]
-|> p_skip(1, preserveKeys: false)
+|> p_skip(1)
 // [2, 3]
 ```
 
@@ -176,7 +177,7 @@ $iterable
 ```
 ```php
 ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 1]
-|> p_take_while(static fn (int $value) => $value < 3, preserveKeys: false)
+|> p_take_while(static fn (int $value) => $value < 3)
 // [1, 2]
 ```
 ```php
@@ -186,7 +187,7 @@ $iterable
 ```
 ```php
 ['a' => 1, 'b' => 2]
-|> p_filter(static fn (int $value, string $key) => $key === 'a', preserveKeys: false)
+|> p_filter(static fn (int $value, string $key) => $key === 'a')
 // [1]
 ```
 
@@ -198,7 +199,7 @@ $iterable
 ```
 ```php
 ['a' => 1, 'b' => 1, 'c' => 2]
-|> p_unique(identity, preserveKeys: false)
+|> p_unique(identity)
 // [1, 2]
 ```
 ```php
@@ -208,7 +209,7 @@ $iterable
 ```
 ```php
 ['a' => 1, 'b' => 1, 'c' => 2, 'd' => 20]
-|> p_unique(function (int $value1) => intval($value1 / 10), preserveKeys: false)
+|> p_unique(function (int $value1) => intval($value1 / 10))
 // [1, 20]
 ```
 ```php
@@ -218,11 +219,11 @@ $iterable
 ```
 ```php
 ['a' => 1, 'b' => 1, 'c' => 2, 'd' => 20]
-|> p_unique(function (int $value1, string $key) => $key, preserveKeys: false)
+|> p_unique(function (int $value1, string $key) => $key)
 // ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 20]
 ```
 
-## 3. Reducing partial functions
+## 3. Reducing
 
 ### p_any
 ```php
@@ -259,7 +260,7 @@ $iterable
 // '1-2'
 ```
 
-## 4. Combining partial functions
+## 4. Combining
 
 ### p_union
 ```php

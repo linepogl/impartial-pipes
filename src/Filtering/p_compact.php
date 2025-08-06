@@ -19,7 +19,7 @@ function p_compact(bool $preserveKeys = false): callable
             }
         })
         : static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable): iterable {
-            foreach ($iterable as $key => $value) {
+            foreach ($iterable as $value) {
                 if (null !== $value) {
                     yield $value;
                 }

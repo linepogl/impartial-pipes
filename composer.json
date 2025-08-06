@@ -36,6 +36,7 @@
   },
   "scripts": {
     "phpunit": "vendor/bin/phpunit",
+    "phpunit:coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover var/cache/.phpunit/clover.xml",
     "cs:fix": "php-cs-fixer fix --show-progress=dots --verbose ",
     "cs:validate": "php-cs-fixer fix --show-progress=none --dry-run --no-interaction --stop-on-violation",
     "phpstan": "phpstan --memory-limit=4G"

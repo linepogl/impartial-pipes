@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Filtering;
 
 use Tests\UnitTestCase;
+
 use function ImpartialPipes\p_filter;
 
 /**
@@ -14,39 +15,34 @@ final class p_filter_Test extends UnitTestCase
 {
     public function test_p_filter(): void
     {
-        $this->assertIterEquals(
-            [],
-            [] |> p_filter(fn (int $x) => $x > 1, preserveKeys: false),
-        );
-        $this->assertIterEquals(
-            [],
-            [] |> p_filter(fn (int $x) => $x > 1, preserveKeys: true),
-        );
-        $this->assertIterEquals(
-            [2, 3],
-            [1, 2, 3] |> p_filter(fn (int $x) => $x > 1, preserveKeys: false),
-        );
-        $this->assertIterEquals(
-            [1 => 2, 2 => 3],
-            [1, 2, 3] |> p_filter(fn (int $x) => $x > 1, preserveKeys: true),
-        );
-        $this->assertIterEquals(
-            [3],
-            [1, 2, 3] |> p_filter(fn (int $x, int $k) => $k > 1, preserveKeys: false),
-        );
-        $this->assertIterEquals(
-            [2 => 3],
-            [1, 2, 3] |> p_filter(fn (int $x, int $k) => $k > 1, preserveKeys: true),
-        );
-    }
+        $this
+            ->expect([])
+            ->pipe(p_filter(fn (int $x) => $x % 2 === 0))
+            ->toIterateLike([]);
 
-    public function test_p_filter_is_rewindable(): void
-    {
-        $a = [1, 2, 3] |> p_filter(fn (int $x) => $x > 1, preserveKeys: false);
-        $this->assertIterEquals([2, 3], $a);
-        $this->assertIterEquals([2, 3], $a); // again to see if $a is rewindable
-        $a = [1, 2, 3] |> p_filter(fn (int $x) => $x > 1, preserveKeys: true);
-        $this->assertIterEquals([1 => 2, 2 => 3], $a);
-        $this->assertIterEquals([1 => 2, 2 => 3], $a); // again to see if $a is rewindable
+        $this
+            ->expect([])
+            ->pipe(p_filter(fn (int $x) => $x % 2 === 0, preserveKeys: true))
+            ->toIterateLike([]);
+
+        $this
+            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+            ->pipe(p_filter(fn (int $x) => $x % 2 === 0))
+            ->toIterateLike([2, 4]);
+
+        $this
+            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+            ->pipe(p_filter(fn (int $x) => $x % 2 === 0, preserveKeys: true))
+            ->toIterateLike(['b' => 2, 'd' => 4]);
+
+        $this
+            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+            ->pipe(p_filter(fn (int $x, string $k) => $k === 'b'))
+            ->toIterateLike([2]);
+
+        $this
+            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+            ->pipe(p_filter(fn (int $x, string $k) => $k === 'b', preserveKeys: true))
+            ->toIterateLike(['b' => 2]);
     }
 }

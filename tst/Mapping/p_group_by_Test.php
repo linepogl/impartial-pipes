@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Mapping;
 
 use Tests\UnitTestCase;
-use function ImpartialPipes\p_filter;
+
 use function ImpartialPipes\p_group_by;
 
 /**
@@ -15,32 +15,29 @@ final class p_group_by_Test extends UnitTestCase
 {
     public function test_p_group_by(): void
     {
-        $this->assertIterEquals(
-            [],
-            [] |> p_group_by(fn (int $x) => $x, preserveKeys: false),
-        );
+        $this
+            ->expect([])
+            ->pipe(p_group_by(fn (int $x) => $x % 2))
+            ->toIterateLike([]);
 
-        $this->assertIterEquals(
-            [1 => [1, 3], 0 => [2, 4]],
-            ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-            |> p_group_by(fn (int $x) => $x % 2, preserveKeys: false),
-        );
+        $this->expect([])
+            ->pipe(p_group_by(fn (int $x) => $x % 2, preserveKeys: true))
+            ->toIterateLike([]);
 
-        $this->assertIterEquals(
-            [1 => ['a' => 1, 'c' => 3], 0 => ['b' => 2, 'd' => 4]],
-            ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-            |> p_group_by(fn (int $x) => $x % 2, preserveKeys: true),
-        );
+        $this->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+            ->pipe(p_group_by(fn (int $x) => $x % 2))
+            ->toIterateLike([1 => [1, 3], 0 => [2, 4]]);
 
-    }
+        $this->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+            ->pipe(p_group_by(fn (int $x) => $x % 2, preserveKeys: true))
+            ->toIterateLike([1 => ['a' => 1, 'c' => 3], 0 => ['b' => 2, 'd' => 4]]);
 
-    public function test_p_group_by_is_rewindable(): void
-    {
-        $a = ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4] |> p_group_by(fn (int $x) => $x % 2, preserveKeys: false);
-        $this->assertIterEquals([1 => [1, 3], 0 => [2, 4]], $a);
-        $this->assertIterEquals([1 => [1, 3], 0 => [2, 4]], $a); // again to see if $a is rewindable
-        $a = ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4] |> p_group_by(fn (int $x) => $x % 2, preserveKeys: true);
-        $this->assertIterEquals([1 => ['a' => 1, 'c' => 3], 0 => ['b' => 2, 'd' => 4]], $a);
-        $this->assertIterEquals([1 => ['a' => 1, 'c' => 3], 0 => ['b' => 2, 'd' => 4]], $a); // again to see if $a is rewindable
+        $this->expect(['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4])
+            ->pipe(p_group_by(fn (int $x, string $k) => $k[0]))
+            ->toIterateLike(['a' => [1, 2], 'b' => [3, 4]]);
+
+        $this->expect(['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4])
+            ->pipe(p_group_by(fn (int $x, string $k) => $k[0], preserveKeys: true))
+            ->toIterateLike(['a' => ['a' => 1, 'aa' => 2], 'b' => ['b' => 3, 'bb' => 4]]);
     }
 }

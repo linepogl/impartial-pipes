@@ -6,7 +6,10 @@ return $config
     ->setCacheFile('var/cache/.phpcsfix/.php-cs-fixer.cache')
     ->setRiskyAllowed(true)
     ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
-    ->setFinder(new PhpCsFixer\Finder()->in([__DIR__. '/src'])) // do not scan tests because they use PHP 8.5 syntax
+    ->setFinder(new PhpCsFixer\Finder()
+        ->in([__DIR__. '/src', __DIR__. '/tst'])
+        ->notName('*Php85Test.php')// avoid PHP 8.5 syntax
+    )
     ->setRules([
         '@PSR12'                                     => true,
         'array_indentation'                          => true,

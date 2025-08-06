@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Mapping;
 
 use Tests\UnitTestCase;
+
 use function ImpartialPipes\p_reindex;
 
 /**
@@ -14,16 +15,24 @@ final class p_reindex_Test extends UnitTestCase
 {
     public function test_p_reindex(): void
     {
-        $this->assertIterEquals(
-            ['a' => 'a', 'b' => 'b'],
-            ['a','b'] |> p_reindex(fn (string $x, int $k) => $x),
-        );
-    }
+        $this
+            ->expect([])
+            ->pipe(p_reindex(fn (int $x) => $x * $x))
+            ->toIterateLike([]);
 
-    public function test_p_reindex_is_rewindable(): void
-    {
-        $a = [1, 2, 3] |> p_reindex(fn (int $x, int $k) => 2 * $k);
-        $this->assertIterEquals([0 => 1,2 => 2,4 => 3], $a);
-        $this->assertIterEquals([0 => 1,2 => 2,4 => 3], $a); // again to see if $a is rewindable
+        $this
+            ->expect([1, 2, 3, 4])
+            ->pipe(p_reindex(fn (int $x) => $x * $x))
+            ->toIterateLike([1 => 1, 4 => 2, 9 => 3, 16 => 4]);
+
+        $this
+            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+            ->pipe(p_reindex(fn (int $x) => $x * $x))
+            ->toIterateLike([1 => 1, 4 => 2, 9 => 3, 16 => 4]);
+
+        $this
+            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+            ->pipe(p_reindex(fn (int $x, string $k) => $x . $k))
+            ->toIterateLike(['1a' => 1, '2b' => 2, '3c' => 3, '4d' => 4]);
     }
 }
