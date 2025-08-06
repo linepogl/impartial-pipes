@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Pipes;
+namespace ImpartialPipes;
+
+const identity = __NAMESPACE__ . '\identity';
 
 /**
  * @template T
@@ -15,5 +17,3 @@ function identity(mixed $x): mixed
 {
     return $x;
 }
-
-const identity = __NAMESPACE__ . '\identity'; // this is a callable constant

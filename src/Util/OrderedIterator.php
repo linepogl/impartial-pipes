@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Pipes;
+namespace ImpartialPipes;
 
 /**
  * @template K of array-key

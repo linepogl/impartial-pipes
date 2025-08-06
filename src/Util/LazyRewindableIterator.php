@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Pipes;
+namespace ImpartialPipes;
 
 use Generator;
 use Iterator;
