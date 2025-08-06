@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Mapping;
 
 use Tests\UnitTestCase;
-use function Pipes\p_flat_map;
+use function ImpartialPipes\p_flat_map;
 
 /**
  * @internal

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Reducing;
 
 use Tests\UnitTestCase;
-use function Pipes\p_any;
+use function ImpartialPipes\p_any;
 
 /**
  * @internal

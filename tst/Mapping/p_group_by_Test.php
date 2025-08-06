@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Mapping;
 
 use Tests\UnitTestCase;
-use function Pipes\p_filter;
-use function Pipes\p_group_by;
+use function ImpartialPipes\p_filter;
+use function ImpartialPipes\p_group_by;
 
 /**
  * @internal

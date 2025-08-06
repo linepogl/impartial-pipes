@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Reducing;
 
 use Tests\UnitTestCase;
-use function Pipes\p_sum;
+use function ImpartialPipes\p_sum;
 
 /**
  * @internal

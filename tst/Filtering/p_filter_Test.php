@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Filtering;
 
 use Tests\UnitTestCase;
-use function Pipes\p_filter;
+use function ImpartialPipes\p_filter;
 
 /**
  * @internal

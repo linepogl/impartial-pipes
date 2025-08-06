@@ -1,6 +1,6 @@
 {
-  "name": "linepogl/pipes",
-  "description": "A php library with partial functions suitable for the pipe operator",
+  "name": "linepogl/impartial-pipes",
+  "description": "A PHP library with partial functions suitable for the pipe operator",
   "type": "library",
   "license": "MIT",
   "keywords": [
@@ -9,7 +9,7 @@
     "linq",
     "functional"
   ],
-  "homepage": "https://github.com/linepogl/pipes",
+  "homepage": "https://github.com/linepogl/impartial-pipes",
   "authors": [
     {
       "name": "Lazare Inepologlou",

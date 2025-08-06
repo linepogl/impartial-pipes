@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Filtering;
 
 use Tests\UnitTestCase;
-use function Pipes\p_unique;
-use const Pipes\identity;
+use function ImpartialPipes\p_unique;
+use const ImpartialPipes\identity;
 
 /**
  * @internal

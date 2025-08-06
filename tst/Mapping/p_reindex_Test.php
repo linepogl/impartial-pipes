@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Mapping;
 
 use Tests\UnitTestCase;
-use function Pipes\p_reindex;
+use function ImpartialPipes\p_reindex;
 
 /**
  * @internal
