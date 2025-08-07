@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Reducing;
 
+use ArrayIterator;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_all;
@@ -13,7 +14,7 @@ use function ImpartialPipes\p_all;
  */
 final class p_all_Test extends UnitTestCase
 {
-    public function test_p_all(): void
+    public function test_p_all_with_arrays(): void
     {
         $this
             ->expect([])
@@ -42,6 +43,39 @@ final class p_all_Test extends UnitTestCase
 
         $this
             ->expect(['a' => 1, 'b' => 2, 'c' => 3])
+            ->pipe(p_all(static fn (int $x, string $k) => $k[0] === 'a'))
+            ->toBe(false);
+    }
+
+    public function test_p_all_with_iterators(): void
+    {
+        $this
+            ->expect(new ArrayIterator([]))
+            ->pipe(p_all(static fn (int $x) => $x % 2 === 1))
+            ->toBe(true);
+
+        $this
+            ->expect(new ArrayIterator([]))
+            ->pipe(p_all(static fn (int $x, string $k) => $k[0] === 'a'))
+            ->toBe(true);
+
+        $this
+            ->expect(new ArrayIterator([1, 3, 5]))
+            ->pipe(p_all(static fn (int $x) => $x % 2 === 1))
+            ->toBe(true);
+
+        $this
+            ->expect(new ArrayIterator([1, 2, 5]))
+            ->pipe(p_all(static fn (int $x) => $x % 2 === 1))
+            ->toBe(false);
+
+        $this
+            ->expect(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
+            ->pipe(p_all(static fn (int $x, string $k) => $k[0] === 'a'))
+            ->toBe(true);
+
+        $this
+            ->expect(new ArrayIterator(['a' => 1, 'b' => 2, 'c' => 3]))
             ->pipe(p_all(static fn (int $x, string $k) => $k[0] === 'a'))
             ->toBe(false);
     }

@@ -1,0 +1,89 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Tests\Reducing;
+
+use ArrayIterator;
+use OutOfBoundsException;
+use Tests\UnitTestCase;
+
+use function ImpartialPipes\p_last_key;
+
+/**
+ * @internal
+ */
+final class p_last_key_Test extends UnitTestCase
+{
+    public function test_p_last_key_with_arrays(): void
+    {
+        $this
+            ->expect([])
+            ->lazyPipe(p_last_key())
+            ->toThrow(OutOfBoundsException::class);
+        $this
+            ->expect([])
+            ->lazyPipe(p_last_key(static fn (int $x) => $x < 3))
+            ->toThrow(OutOfBoundsException::class);
+        $this
+            ->expect([1,2,3])
+            ->pipe(p_last_key())
+            ->toBe(2);
+        $this
+            ->expect([1,2,3])
+            ->pipe(p_last_key(static fn (int $x) => $x < 3))
+            ->toBe(1);
+        $this
+            ->expect([1,2,3])
+            ->lazyPipe(p_last_key(static fn (int $x) => $x > 3))
+            ->toThrow(OutOfBoundsException::class);
+        $this
+            ->expect(['a' => 1, 'aa' => 2, 'aaa' => 3])
+            ->pipe(p_last_key())
+            ->toBe('aaa');
+        $this
+            ->expect(['a' => 1, 'aa' => 2, 'aaa' => 3])
+            ->pipe(p_last_key(static fn (int $x, string $k) => strlen($k) < 3))
+            ->toBe('aa');
+        $this
+            ->expect(['a' => 1, 'aa' => 2, 'aaa' => 3])
+            ->lazyPipe(p_last_key(static fn (int $x, string $k) => strlen($k) > 3))
+            ->toThrow(OutOfBoundsException::class);
+    }
+
+    public function test_p_last_key_with_iterables(): void
+    {
+        $this
+            ->expect(new ArrayIterator([]))
+            ->lazyPipe(p_last_key())
+            ->toThrow(OutOfBoundsException::class);
+        $this
+            ->expect(new ArrayIterator([]))
+            ->lazyPipe(p_last_key(static fn (int $x) => $x < 3))
+            ->toThrow(OutOfBoundsException::class);
+        $this
+            ->expect(new ArrayIterator([1,2,3]))
+            ->pipe(p_last_key())
+            ->toBe(2);
+        $this
+            ->expect(new ArrayIterator([1,2,3]))
+            ->pipe(p_last_key(static fn (int $x) => $x < 3))
+            ->toBe(1);
+        $this
+            ->expect(new ArrayIterator([1,2,3]))
+            ->lazyPipe(p_last_key(static fn (int $x) => $x > 3))
+            ->toThrow(OutOfBoundsException::class);
+        $this
+            ->expect(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
+            ->pipe(p_last_key())
+            ->toBe('aaa');
+        $this
+            ->expect(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
+            ->pipe(p_last_key(static fn (int $x, string $k) => strlen($k) < 3))
+            ->toBe('aa');
+        $this
+            ->expect(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
+            ->lazyPipe(p_last_key(static fn (int $x, string $k) => strlen($k) > 3))
+            ->toThrow(OutOfBoundsException::class);
+    }
+}

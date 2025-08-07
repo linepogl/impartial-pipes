@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace ImpartialPipes;
 
+use Countable;
 use Generator;
 use Iterator;
 use Override;
-use RuntimeException;
 
 /**
  * @template K
  * @template V
  * @implements Iterator<K,V>
  */
-class LazyRewindableIterator implements Iterator
+class LazyRewindableIterator implements Iterator, Countable
 {
     /** @var callable(): iterable<K,V> */
     private readonly mixed $lazyIterable;
@@ -34,8 +34,7 @@ class LazyRewindableIterator implements Iterator
     public function rewind(): void
     {
         if ($this->iterator === null || $this->iterator instanceof Generator) {
-            $iterable = ($this->lazyIterable)();
-            $this->iterator = iterable_to_iterator($iterable);
+            $this->init();
         }
         $this->iterator->rewind();
     }
@@ -44,7 +43,7 @@ class LazyRewindableIterator implements Iterator
     public function current(): mixed
     {
         if ($this->iterator === null) {
-            throw new RuntimeException('The iterator must be rewound first');
+            $this->init();
         }
         return $this->iterator->current();
     }
@@ -53,7 +52,7 @@ class LazyRewindableIterator implements Iterator
     public function next(): void
     {
         if ($this->iterator === null) {
-            throw new RuntimeException('The iterator must be rewound first');
+            $this->init();
         }
 
         $this->iterator->next();
@@ -63,7 +62,7 @@ class LazyRewindableIterator implements Iterator
     public function key(): mixed
     {
         if ($this->iterator === null) {
-            throw new RuntimeException('The iterator must be rewound first');
+            $this->init();
         }
 
         return $this->iterator->key();
@@ -73,9 +72,28 @@ class LazyRewindableIterator implements Iterator
     public function valid(): bool
     {
         if ($this->iterator === null) {
-            throw new RuntimeException('The iterator must be rewound first');
+            $this->init();
         }
 
         return $this->iterator->valid();
+    }
+
+    /**
+     * @phpstan-assert Iterator<K,V> $this->iterator //post-condition: after calling this method, $this->iterator is not null
+     */
+    private function init(): void
+    {
+        $this->iterator = iterable_to_iterator(($this->lazyIterable)());
+    }
+
+    #[Override]
+    public function count(): int
+    {
+        if ($this->iterator === null) {
+            $this->init();
+        }
+        return $this->iterator instanceof Countable
+            ? $this->iterator->count()
+            : iterator_count($this->iterator);
     }
 }

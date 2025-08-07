@@ -54,6 +54,16 @@ class Expectation
         return new self($callable($this->value));
     }
 
+    /**
+     * @template T2
+     * @param callable(T):T2 $callable
+     * @return Expectation<callable():T2>
+     */
+    public function lazyPipe(callable $callable): self
+    {
+        return new self(fn () => $callable($this->value)); // @phpstan-ignore return.type (Closure and callable are the essentially same)
+    }
+
     public function toBe(mixed $expected): void
     {
         Assert::assertEquals($expected, $this->value);

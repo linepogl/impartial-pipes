@@ -10,22 +10,18 @@ namespace ImpartialPipes;
  * @param ?callable(V,K):bool $predicate
  * @return ($predicate is null ? callable<K2,V2>(iterable<K2,V2>):?V2 : callable(iterable<K,V>):?V)
  */
-function p_last_or_null(?callable $predicate = null): callable
+function p_last_key_or_null(?callable $predicate = null): callable
 {
     return null === $predicate
         ? static function (iterable $iterable) {
             if (is_array($iterable)) {
-                $lastKey = array_key_last($iterable);
-                if (null === $lastKey) {
-                    return null;
-                }
-                return $iterable[$lastKey];
+                return array_key_last($iterable);
             }
-            $last = null;
+            $lastKey = null;
             foreach ($iterable as $key => $value) {
-                $last = $value;
+                $lastKey = $key;
             }
-            return $last;
+            return $lastKey;
 
         }
     : static function (iterable $iterable) use ($predicate) {
@@ -33,18 +29,18 @@ function p_last_or_null(?callable $predicate = null): callable
             for ($value = end($iterable); null !== ($key = key($iterable)); $value = prev($iterable)) {
                 // @phpstan-ignore argument.type (since the $iterable is an array, $predicate accepts $key of type array-key)
                 if ($predicate($value, $key)) {
-                    return $value;
+                    return $key;
                 }
             }
             return null;
         }
-        $last = null;
+        $lastKey = null;
         foreach ($iterable as $key => $value) {
             if ($predicate($value, $key)) {
-                $last = $value;
+                $lastKey = $key;
             }
         }
-        return $last;
+        return $lastKey;
 
     };
 }

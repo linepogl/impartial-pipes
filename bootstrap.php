@@ -23,5 +23,16 @@ require __DIR__ . '/src/Mapping/p_values.php';
 
 require __DIR__ . '/src/Reducing/p_any.php';
 require __DIR__ . '/src/Reducing/p_all.php';
+require __DIR__ . '/src/Reducing/p_count.php';
+require __DIR__ . '/src/Reducing/p_first.php';
+require __DIR__ . '/src/Reducing/p_first_key.php';
+require __DIR__ . '/src/Reducing/p_first_key_or_null.php';
+require __DIR__ . '/src/Reducing/p_first_or_null.php';
+require __DIR__ . '/src/Reducing/p_foreach.php';
 require __DIR__ . '/src/Reducing/p_implode.php';
+require __DIR__ . '/src/Reducing/p_last.php';
+require __DIR__ . '/src/Reducing/p_last_key.php';
+require __DIR__ . '/src/Reducing/p_last_key_or_null.php';
+require __DIR__ . '/src/Reducing/p_last_or_null.php';
 require __DIR__ . '/src/Reducing/p_sum.php';
+require __DIR__ . '/src/Reducing/p_to_array.php';
