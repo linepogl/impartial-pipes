@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace ImpartialPipes;
 
-use Override;
-
 /**
  * @template K
  * @template V
@@ -23,7 +21,7 @@ function p_order_by(callable $hasher, bool $descending = false, bool $preserveKe
         ? static fn (iterable $iterable): iterable => new AssociativeOrderedIterator($iterable, $hasher, $descending)
         // @phpstan-ignore argument.type ($iterable is in fact iterable<K, V>)
         : static fn (iterable $iterable): iterable => new ListOrderedIterator($iterable, $hasher, $descending)
-        ;
+    ;
 }
 
 /**
@@ -119,7 +117,7 @@ final class AssociativeOrderedIterator extends LazyRewindableIterator
      * @param bool $descending
      * @param array<(callable(array<array{V,K}>&):void)> $otherSorters
      */
-    public final function __construct(
+    final public function __construct(
         protected readonly iterable $inner,
         callable $hasher,
         bool $descending = false,
@@ -159,7 +157,7 @@ final class ListOrderedIterator extends LazyRewindableIterator
      * @param bool $descending
      * @param array<(callable(array<array{V,K}>&):void)> $otherSorters
      */
-    public final function __construct(
+    final public function __construct(
         protected readonly iterable $inner,
         callable $hasher,
         bool $descending = false,
@@ -180,4 +178,3 @@ final class ListOrderedIterator extends LazyRewindableIterator
         return new self($this->inner, $hasher, $descending, $this->sorters);
     }
 }
-

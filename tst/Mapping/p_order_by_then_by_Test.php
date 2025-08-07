@@ -6,10 +6,8 @@ namespace Tests\Mapping;
 
 use Tests\UnitTestCase;
 
-use function ImpartialPipes\p_foreach;
 use function ImpartialPipes\p_order_by;
 use function ImpartialPipes\p_then_by;
-use function ImpartialPipes\p_values;
 
 /**
  * @internal
@@ -65,7 +63,8 @@ final class p_order_by_then_by_Test extends UnitTestCase
         $this
             ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3])
             ->pipe(p_order_by(fn (int $x, string $k) => $k[0], descending: true, preserveKeys: true))
-            ->toIterateLike(['c' => 3, 'cc' => -3, 'b' => 2, 'bb' => -2, 'a' => 1, 'aa' => -1]);;
+            ->toIterateLike(['c' => 3, 'cc' => -3, 'b' => 2, 'bb' => -2, 'a' => 1, 'aa' => -1]);
+        ;
     }
     public function test_p_then_by(): void
     {
