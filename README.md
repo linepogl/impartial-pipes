@@ -15,10 +15,9 @@ $iterable
 ### Why use it?
 
 1. Consistent interface: always one argument expected to be passed by the pipe operator.
-2. Consistent interface: always fn($value,$key).
-3. Type checking with phpstan and generics.
-4. Immutability, lazy evaluation.
-5. Iterating with generators, without creating copies of the data.
+2. Type checking with phpstan and generics.
+3. Immutability and lazy evaluation.
+4. Iterating with generators without creating copies of the data.
 
 # Usage
 

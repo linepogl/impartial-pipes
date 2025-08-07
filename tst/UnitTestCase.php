@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Tests;
 
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\TestCase;
+use Throwable;
 
 /**
  * @internal
@@ -52,12 +54,17 @@ class Expectation
         return new self($callable($this->value));
     }
 
-    /**
-     * @param T $expected
-     */
     public function toBe(mixed $expected): void
     {
         Assert::assertEquals($expected, $this->value);
+    }
+
+    /**
+     * @param class-string $expected
+     */
+    public function toBeInstanceOf(string $expected): void
+    {
+        Assert::assertInstanceOf($expected, $this->value);
     }
 
     /**
@@ -71,5 +78,27 @@ class Expectation
         iterator_to_array($value);
         $actual = iterator_to_array($value); // again to see if it is rewindable
         Assert::assertEquals($expected, $actual);
+    }
+
+    /**
+     * @param class-string<Throwable>|Throwable $expected
+     */
+    public function toThrow(string|Throwable $expected): void
+    {
+        /** @var callable $value */
+        $value = $this->value;
+        $class = is_string($expected) ? $expected : $expected::class;
+        try {
+            $value();
+            Assert::fail("Expected $class to be thrown, but nothing was.");
+        } catch (AssertionFailedError $ex) {
+            throw $ex;
+        } catch (Throwable $actual) {
+            Assert::assertInstanceOf($class, $actual);
+            if ($expected instanceof Throwable) {
+                Assert::assertEquals($expected->getMessage(), $actual->getMessage());
+                Assert::assertEquals($expected->getCode(), $actual->getCode());
+            }
+        }
     }
 }

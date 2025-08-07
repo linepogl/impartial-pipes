@@ -17,6 +17,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.5'
+          coverage: xdebug
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -43,4 +44,4 @@ jobs:
         run: composer run-script phpstan
 
       - name: Unit tests
-        run: composer run-script phpunit
+        run: composer run-script phpunit:coverage

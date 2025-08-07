@@ -1,0 +1,27 @@
+<?php
+
+declare(strict_types=1);
+
+require __DIR__ . '/src/Util/iterable_to_iterator.php';
+require __DIR__ . '/src/Util/LazyRewindableIterator.php';
+
+require __DIR__ . '/src/Filtering/p_compact.php';
+require __DIR__ . '/src/Filtering/p_filter.php';
+require __DIR__ . '/src/Filtering/p_skip.php';
+require __DIR__ . '/src/Filtering/p_skip_while.php';
+require __DIR__ . '/src/Filtering/p_take.php';
+require __DIR__ . '/src/Filtering/p_take_while.php';
+require __DIR__ . '/src/Filtering/p_unique.php';
+
+require __DIR__ . '/src/Mapping/p_flat_map.php';
+require __DIR__ . '/src/Mapping/p_group_by.php';
+require __DIR__ . '/src/Mapping/p_keys.php';
+require __DIR__ . '/src/Mapping/p_map.php';
+require __DIR__ . '/src/Mapping/p_order_by_then_by.php';
+require __DIR__ . '/src/Mapping/p_reindex.php';
+require __DIR__ . '/src/Mapping/p_values.php';
+
+require __DIR__ . '/src/Reducing/p_any.php';
+require __DIR__ . '/src/Reducing/p_all.php';
+require __DIR__ . '/src/Reducing/p_implode.php';
+require __DIR__ . '/src/Reducing/p_sum.php';
