@@ -6,39 +6,38 @@ namespace Tests\Combining;
 
 use Tests\UnitTestCase;
 
-use function ImpartialPipes\p_union;
+use function ImpartialPipes\p_merge;
 
 /**
  * @internal
  */
-final class p_union_Test extends UnitTestCase
+final class p_merge_Test extends UnitTestCase
 {
-    public function test_p_union(): void
+    public function test_p_merge(): void
     {
         $this
             ->expect([])
-            ->pipe(p_union([]))
+            ->pipe(p_merge([]))
             ->toIterateLike([]);
         $this
             ->expect([])
-            ->pipe(p_union([], preserveKeys: true))
+            ->pipe(p_merge([], preserveKeys: true))
             ->toIterateLike([]);
         $this
             ->expect([1,2])
-            ->pipe(p_union([3,4]))
+            ->pipe(p_merge([3,4]))
             ->toIterateLike([1,2,3,4]);
         $this
             ->expect([1,2])
-            ->pipe(p_union([3,4], preserveKeys: true))
+            ->pipe(p_merge([3,4], preserveKeys: true))
             ->toIterateLike([1,2]);
         $this
             ->expect(['a' => 1,'b' => 2,'c' => 3])
-            ->pipe(p_union(['b' => 22,'c' => 33,'d' => 4]))
+            ->pipe(p_merge(['b' => 22,'c' => 33,'d' => 4]))
             ->toIterateLike([1,2,3,22,33,4]);
         $this
             ->expect(['a' => 1,'b' => 2,'c' => '3'])
-            ->pipe(p_union(['b' => 2,'c' => 3,'d' => 4], preserveKeys: true))
+            ->pipe(p_merge(['b' => 2,'c' => 3,'d' => 4], preserveKeys: true))
             ->toIterateLike(['a' => 1,'b' => 2,'c' => 3,'d' => 4]);
-        ;
     }
 }

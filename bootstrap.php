@@ -6,7 +6,7 @@ require __DIR__ . '/src/Util/iterable_count.php';
 require __DIR__ . '/src/Util/iterable_to_iterator.php';
 require __DIR__ . '/src/Util/LazyRewindableIterator.php';
 
-require __DIR__ . '/src/Combining/p_union.php';
+require __DIR__ . '/src/Combining/p_merge.php';
 
 require __DIR__ . '/src/Filtering/p_compact.php';
 require __DIR__ . '/src/Filtering/p_filter.php';

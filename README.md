@@ -17,7 +17,8 @@ $iterable
 1. Consistent interface: always one argument expected to be passed by the pipe operator.
 2. Type checking with phpstan and generics.
 3. Immutability and lazy evaluation.
-4. Iterating with generators without creating copies of the data.
+4. Iterating with rewindable generators without creating copies of the data. Fallback to array functions when no copies are involved.
+5. 100% test coverage.
 
 # Usage
 
@@ -40,12 +41,22 @@ $iterable
 
 ```php
 ['a' => 1, 'b' => 2]
+|> p_flat_map(static fn (int $value) => [$value, $value * $value])
+// [1, 1, 2, 4]
+```
+```php
+['a' => 1, 'b' => 2]
 |> p_flat_map(static fn (int $value, string $key) => [$key, $value])
 // ['a', 1, 'b', 2]
 ```
 
 ### p_reindex
 
+```php
+['a' => 1, 'b' => 2]
+|> p_reindex(static fn (int $value) => $value * $value)
+// [1 => 1, 4 => 2]
+```
 ```php
 ['a' => 1, 'b' => 2]
 |> p_reindex(static fn (int $value, string $key) => $key . $value)
@@ -132,29 +143,6 @@ $iterable
 |> p_take()
 // [1, 2]
 ```
-### p_take_while
-
-```php
-['a' => 1, 'b' => 2, 'c' => 3, 'd' => 1]
-|> p_take_while(static fn (int $value) => $value < 3, preserveKeys: true)
-// ['a' => 1, 'b' => 2]
-```
-```php
-['a' => 1, 'b' => 2, 'c' => 3, 'd' => 1]
-|> p_take_while(static fn (int $value) => $value < 3)
-// [1, 2]
-```
-```php
-['a' => 1, 'b' => 2]
-|> p_filter(static fn (int $value, string $key) => $key === 'a', preserveKeys: true)
-// ['a' => 1]
-```
-```php
-['a' => 1, 'b' => 2]
-|> p_filter(static fn (int $value, string $key) => $key === 'a')
-// [1]
-```
-
 ### p_skip
 ```php
 ['a' => 1, 'b' => 2, 'c' => 3]
@@ -189,6 +177,30 @@ $iterable
 |> p_filter(static fn (int $value, string $key) => $key === 'a')
 // [1]
 ```
+
+### p_take_while
+
+```php
+['a' => 1, 'b' => 2, 'c' => 3, 'd' => 1]
+|> p_take_while(static fn (int $value) => $value < 3, preserveKeys: true)
+// ['a' => 1, 'b' => 2]
+```
+```php
+['a' => 1, 'b' => 2, 'c' => 3, 'd' => 1]
+|> p_take_while(static fn (int $value) => $value < 3)
+// [1, 2]
+```
+```php
+['a' => 1, 'b' => 2]
+|> p_filter(static fn (int $value, string $key) => $key === 'a', preserveKeys: true)
+// ['a' => 1]
+```
+```php
+['a' => 1, 'b' => 2]
+|> p_filter(static fn (int $value, string $key) => $key === 'a')
+// [1]
+```
+
 
 ### p_unique
 ```php
@@ -261,9 +273,9 @@ $iterable
 
 ## 4. Combining
 
-### p_union
+### p_merge
 ```php
 ['a' => 1, 'b' => 2]
-|> p_union(['c' => 3, 'd' => 4])
+|> p_merge(['c' => 3, 'd' => 4])
 // ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]]
 ```

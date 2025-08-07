@@ -40,7 +40,7 @@ abstract class UnitTestCase extends TestCase
 class Expectation
 {
     /** @param T $value */
-    public function __construct(private readonly mixed $value)
+    public function __construct(public readonly mixed $value)
     {
     }
 
@@ -82,12 +82,20 @@ class Expectation
      */
     public function toIterateLike(iterable $expected): void
     {
-        $expected = iterator_to_array($expected);
-        /** @var iterable<mixed> $value */
-        $value = $this->value;
-        iterator_to_array($value);
-        $actual = iterator_to_array($value); // again to see if it is rewindable
-        Assert::assertEquals($expected, $actual);
+        $expectedArray = [];
+        foreach ($expected as $key => $value) {
+            $expectedArray[] = [$key, $value];
+        }
+
+        /** @var iterable<mixed> $actual */
+        $actual = $this->value;
+        iterator_to_array($actual); // iterate once to see if it is rewindable
+        $actualArray = [];
+        foreach ($actual as $key => $value) {
+            $actualArray[] = [$key, $value];
+        }
+
+        Assert::assertEquals($expectedArray, $actualArray);
     }
 
     /**

@@ -5,6 +5,21 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
+ * Partial function to filter elements of an iterable with a predicate.
+ *
+ * ### Examples
+ *
+ * ```
+ * [1, 2, 3, 4, 5]
+ * |> p_filter(static fn (int $x) => $x % 2 === 0);
+ * //= [2, 4]
+ * ```
+ * ```
+ * * [1, 2, 3, 4, 5]
+ * * |> p_filter(static fn (int $x) => $x % 2 === 0);
+ * * //= [2, 4]
+ * * ```
+ *
  * @template V
  * @template K
  * @param callable(V,K):bool $predicate
