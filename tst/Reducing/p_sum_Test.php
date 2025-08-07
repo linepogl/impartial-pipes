@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Reducing;
 
+use Tests\SimpleIterator;
+use Tests\UniterableArrayIterator;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_sum;
@@ -13,20 +15,48 @@ use function ImpartialPipes\p_sum;
  */
 final class p_sum_Test extends UnitTestCase
 {
-    public function test_p_sum(): void
+    public function test_p_sum_with_arrays(): void
     {
         $this
             ->expect([])
             ->pipe(p_sum())
             ->toBe(0);
-
         $this
             ->expect([1,2,3])
             ->pipe(p_sum())
             ->toBe(6);
-
         $this
             ->expect([1,-12.8,4.4])
+            ->pipe(p_sum())
+            ->toBe(-7.4);
+    }
+    public function test_p_sum_with_array_iterators(): void
+    {
+        $this
+            ->expect(new UniterableArrayIterator([]))
+            ->pipe(p_sum())
+            ->toBe(0);
+        $this
+            ->expect(new UniterableArrayIterator([1,2,3]))
+            ->pipe(p_sum())
+            ->toBe(6);
+        $this
+            ->expect(new UniterableArrayIterator([1,-12.8,4.4]))
+            ->pipe(p_sum())
+            ->toBe(-7.4);
+    }
+    public function test_p_sum_with_simple_iterators(): void
+    {
+        $this
+            ->expect(new SimpleIterator([]))
+            ->pipe(p_sum())
+            ->toBe(0);
+        $this
+            ->expect(new SimpleIterator([1,2,3]))
+            ->pipe(p_sum())
+            ->toBe(6);
+        $this
+            ->expect(new SimpleIterator([1,-12.8,4.4]))
             ->pipe(p_sum())
             ->toBe(-7.4);
     }

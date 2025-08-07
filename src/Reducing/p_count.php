@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 use Countable;
+use Iterator;
+use IteratorAggregate;
 
 /**
- * @return callable<K,V>(iterable<K, V>):int
+ * @return callable<K,V>(iterable<K, V>|Countable):int<0,max>
  */
 function p_count(): callable
 {
-    return static function (iterable $iterable) {
-        return match (true) {
-            is_array($iterable) => count($iterable),
-            $iterable instanceof Countable => $iterable->count(),
-            default => iterator_count($iterable),
-        };
+    return static function (iterable|Countable $input) {
+        return $input instanceof Countable
+            ? $input->count()
+            : iterable_count($input);
     };
 }

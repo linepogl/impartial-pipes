@@ -92,8 +92,6 @@ class LazyRewindableIterator implements Iterator, Countable
         if ($this->iterator === null) {
             $this->init();
         }
-        return $this->iterator instanceof Countable
-            ? $this->iterator->count()
-            : iterator_count($this->iterator);
+        return iterable_count($this->iterator);
     }
 }

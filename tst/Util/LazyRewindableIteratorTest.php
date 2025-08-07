@@ -6,8 +6,9 @@ namespace Tests\Util;
 
 use ArrayIterator;
 use ImpartialPipes\LazyRewindableIterator;
-use Override;
-use RuntimeException;
+use Tests\SimpleIterator;
+use Tests\SimpleIteratorAggregate;
+use Tests\UniterableArrayIterator;
 use Tests\UnitTestCase;
 
 /**
@@ -64,8 +65,6 @@ final class LazyRewindableIteratorTest extends UnitTestCase
         iterator_to_array($it);
         iterator_to_array($it);
         $this->expect(iterator_to_array($it))->toBe([1,2,3]);
-
-
     }
 
     public function test_init(): void
@@ -98,36 +97,16 @@ final class LazyRewindableIteratorTest extends UnitTestCase
         $it = new LazyRewindableIterator(static fn () => [1,2,3]);
         $this->expect($it->count())->toBe(3);
 
-        $it = new LazyRewindableIterator(
-            static fn () =>
-            new class ([1,2,3]) extends ArrayIterator {
-                #[Override]
-                public function rewind(): void
-                {
-                    throw new RuntimeException('Counting arrays should happen in O(1) without iterating.');
-                }
-                #[Override]
-                public function next(): void
-                {
-                    throw new RuntimeException('Counting arrays should happen in O(1) without iterating.');
-                }
-                #[Override]
-                public function key(): null|int|string
-                {
-                    throw new RuntimeException('Counting arrays should happen in O(1) without iterating.');
-                }
-                #[Override]
-                public function current(): mixed
-                {
-                    throw new RuntimeException('Counting arrays should happen in O(1) without iterating.');
-                }
-                #[Override]
-                public function valid(): bool
-                {
-                    throw new RuntimeException('Counting arrays should happen in O(1) without iterating.');
-                }
-            },
-        );
+        $it = new LazyRewindableIterator(static fn () => new SimpleIterator([1]));
+        $this->expect($it->count())->toBe(1);
+
+        $it = new LazyRewindableIterator(static fn () => new UniterableArrayIterator([1,2]));
+        $this->expect($it->count())->toBe(2);
+
+        $it = new LazyRewindableIterator(static fn () => new SimpleIteratorAggregate(new SimpleIterator([1,2,3])));
         $this->expect($it->count())->toBe(3);
+
+        $it = new LazyRewindableIterator(static fn () => new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4])));
+        $this->expect($it->count())->toBe(4);
     }
 }

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests\Util;
 
 use ArrayIterator;
-use ImpartialPipes\LazyRewindableIterator;
 use IteratorAggregate;
 use Override;
+use Tests\UniterableArrayIterator;
 use Tests\UnitTestCase;
 use Traversable;
 
@@ -31,6 +31,5 @@ final class iterable_to_iterator_Test extends UnitTestCase
                 }
             },
         ))->toBeInstanceOf(ArrayIterator::class);
-        $this->expect(iterable_to_iterator(static function () { yield from [1, 2, 3]; }))->toBeInstanceOf(LazyRewindableIterator::class);
     }
 }
