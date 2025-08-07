@@ -7,12 +7,43 @@ $iterable
  |> p_skip(5)
  |> p_take(10)
  |> p_unique()
- |> p_map(static fn (int $x) => $x + 1)
  |> p_filter(static fn (int $x) => $x % 2 === 0)
- |> p_sum()
+ |> p_map(static fn (int $x, int $key) => ['key' => $key, 'value' => $x])
+ |> p_order_by(static fn (array $x) => $x['value'])
+ |> p_implode('-')
 ```
 
 ### Why use it?
+
+The pipe operator of PHP is a great way to chain functions together. However, it is not perfect because it requires that the chained functions accept exactly one mandatory argument. When this is not the case, we have to resort to workarounds by wrapping the functions in a closure.
+
+```php
+$array
+ |> static fn ($in) => array_map(static fn (int $x) => $x * $x), $in)
+ |> static fn ($in) => array_filter($in, static fn (int $x) => $x % 2 === 1))
+```
+
+This might be solved in a future version of PHP, with a proposed syntax like this:
+
+```php
+$array
+ |> array_map(static fn (int $x) => $x * $x), ...)
+ |> array_filter(..., static fn (int $x) => $x % 2 === 1))
+```
+
+This is a step in the right direction. However, it is still not perfect:
+ - We still have to remember the infamously inconsistent order of the arguments.
+ - It works only for arrays, but not for iterables, because the standard library offers too few functions for that.
+
+With Impartial Pipes, we can write the same code as this, right off the 8.5 version of PHP:
+
+```php
+$iterable
+ |> p_map(static fn (int $x) => $x * $x)
+ |> p_filter(static fn (int $x) => $x % 2 === 1)
+```
+
+### Features
 
 1. Consistent interface: always one argument expected to be passed by the pipe operator.
 2. Type checking with phpstan and generics.
