@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Tests;
 
 use ArrayIterator;
-use Countable;
-use Iterator;
 use Override;
 use RuntimeException;
 

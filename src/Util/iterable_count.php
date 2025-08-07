@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace ImpartialPipes;
 
-use ArrayIterator;
 use Countable;
 use InvalidArgumentException;
 use Iterator;

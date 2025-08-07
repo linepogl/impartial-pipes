@@ -4,19 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Util;
 
-use ArrayIterator;
 use ImpartialPipes\LazyRewindableIterator;
-use IteratorAggregate;
-use Override;
 use Tests\SimpleIterator;
 use Tests\SimpleIteratorAggregate;
 use Tests\UniterableArrayIterator;
 use Tests\UnitTestCase;
-use Traversable;
 
 use function ImpartialPipes\iterable_count;
-use function ImpartialPipes\iterable_to_iterator;
-use function ImpartialPipes\p_count;
 
 /**
  * @internal

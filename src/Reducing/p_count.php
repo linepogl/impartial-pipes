@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 use Countable;
-use Iterator;
-use IteratorAggregate;
 
 /**
  * @return callable<K,V>(iterable<K, V>|Countable):int<0,max>

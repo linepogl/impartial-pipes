@@ -7,7 +7,6 @@ namespace Tests\Util;
 use ArrayIterator;
 use IteratorAggregate;
 use Override;
-use Tests\UniterableArrayIterator;
 use Tests\UnitTestCase;
 use Traversable;
 

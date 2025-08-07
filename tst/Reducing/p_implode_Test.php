@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Reducing;
 
-use ArrayIterator;
-use ImpartialPipes\LazyRewindableIterator;
 use Tests\SimpleIterator;
 use Tests\UniterableArrayIterator;
 use Tests\UnitTestCase;
