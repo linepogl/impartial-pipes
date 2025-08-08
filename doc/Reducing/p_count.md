@@ -32,7 +32,7 @@ Count with a value predicate
 ```
 Count with a value and key predicate
 ```php
-['a' => 1, 'bb' => 2, 'c' => 3, 'd' => 3]
-|> p_any(fn (int $x, string $key) => strlen($key) === 1)
+['a' => 1, 'bb' => 2, 'c' => 3, 'd' => 4]
+|> p_count(fn (int $x, string $key) => strlen($key) === 1)
 //= 3
 ```

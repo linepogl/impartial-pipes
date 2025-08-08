@@ -9,28 +9,29 @@ namespace ImpartialPipes;
  *
  * @template K
  * @template V
+ * @template D
+ * @param D $default
  * @param ?callable(V,K):bool $predicate
- * @return ($predicate is null ? callable<K2,V2>(iterable<K2,V2>):?V2 : callable(iterable<K,V>):?V)
+ * @return ($predicate is null ? callable<K2,V2>(iterable<K2,V2>):(V2|D) : callable(iterable<K,V>):(V|D))
  */
-function p_last_or_null(?callable $predicate = null): callable
+function p_last_or(mixed $default, ?callable $predicate = null): callable
 {
     return null === $predicate
-        ? static function (iterable $iterable) {
+        ? static function (iterable $iterable) use ($default) {
             if (is_array($iterable)) {
                 $lastKey = array_key_last($iterable);
                 if (null === $lastKey) {
-                    return null;
+                    return $default;
                 }
                 return $iterable[$lastKey];
             }
-            $last = null;
-            foreach ($iterable as $key => $value) {
+            $last = $default;
+            foreach ($iterable as $value) {
                 $last = $value;
             }
             return $last;
-
         }
-    : static function (iterable $iterable) use ($predicate) {
+    : static function (iterable $iterable) use ($default, $predicate) {
         if (is_array($iterable)) {
             for ($value = end($iterable); null !== ($key = key($iterable)); $value = prev($iterable)) {
                 // @phpstan-ignore argument.type (since the $iterable is an array, $predicate accepts $key of type array-key)
@@ -38,15 +39,14 @@ function p_last_or_null(?callable $predicate = null): callable
                     return $value;
                 }
             }
-            return null;
+            return $default;
         }
-        $last = null;
+        $last = $default;
         foreach ($iterable as $key => $value) {
             if ($predicate($value, $key)) {
                 $last = $value;
             }
         }
         return $last;
-
     };
 }

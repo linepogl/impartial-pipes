@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace ImpartialPipes;
 
-use OutOfBoundsException;
-
 /**
  * Partial function to get the value of the first element that satisfies some optional predicate.
  * If no predicate is provided, the function returns the first value.
  *
- * If no element is found, an `OutOfBoundsException` is thrown.
+ * If no element is found, a predefined default is returned.
  *
  * ### Syntax
  * ```
- * p_first(
- *   [callable(TValue[, TKey]): bool]
+ * p_first_or(
+ *   TDefault
+ *   [, callable(TValue[, TKey]): bool]
  * )
  * ```
  *
@@ -23,64 +22,66 @@ use OutOfBoundsException;
  * First without a predicate
  * ```
  * []
- * |> p_first()
- * //= OutOfBoundsException
+ * |> p_first_or(null)
+ * //= null
  * ```
  * ```
  * [1, 2]
- * |> p_first()
+ * |> p_first_or(null)
  * //= 2
  * ```
  * First with a value predicate
  * ```
  * [1, 2, 3, 4, 5]
- * |> p_first(fn (int $x) => $x % 2 === 0)
+ * |> p_first_or(null, fn (int $x) => $x % 2 === 0)
  * //= 2
  * ```
  * ```
  * [1, 3, 5, 7, 9]
- * |> p_first(fn (int $x) => $x % 2 === 0)
- * //= OutOfBoundsException
+ * |> p_first_or(null, fn (int $x) => $x % 2 === 0)
+ * //= null
  * ```
  * First with a value and key predicate
  * ```
  * ['a' => 1, 'bb' => 2, 'ccc' => 3, 'dddd' => 4]
- * |> p_first(fn (int $x, string $key) => strlen($key) === 2)
+ * |> p_first_or(null, fn (int $x, string $key) => strlen($key) === 2)
  * //= 2
  * ```
  * ['a' => 1, 'bb' => 2, 'ccc' => 3, 'dddd' => 4]
- * |> p_first(fn (int $x, string $key) => strlen($key) === 5)
- * //= OutOfBoundsException
+ * |> p_first_or(null, fn (int $x, string $key) => strlen($key) === 5)
+ * //= null
  * ```
  *
  * @template K
  * @template V
+ * @template D
+ * @param D $default
  * @param ?callable(V,K):bool $predicate
- * @return ($predicate is null ? callable<K2,V2>(iterable<K2,V2>):V2 : callable(iterable<K,V>):V)
+ * @return ($predicate is null ? callable<K2,V2>(iterable<K2,V2>):(V2|D) : callable(iterable<K,V>):(V|D))
  */
-function p_first(?callable $predicate = null): callable
+function p_first_or(mixed $default, ?callable $predicate = null): callable
 {
     return null === $predicate
-        ? static function (iterable $iterable) {
+        ? static function (iterable $iterable) use ($default) {
             if (is_array($iterable)) {
                 $firstKey = array_key_first($iterable);
                 if (null === $firstKey) {
-                    throw new OutOfBoundsException('Cannot get first element of an empty iterable');
+                    return $default;
                 }
                 return $iterable[$firstKey];
             }
             foreach ($iterable as $value) {
                 return $value;
             }
-            throw new OutOfBoundsException('Cannot get first element of an empty iterable');
+            return $default;
 
         }
-    : static function (iterable $iterable) use ($predicate) {
+    : static function (iterable $iterable) use ($default, $predicate) {
         foreach ($iterable as $key => $value) {
             if ($predicate($value, $key)) {
                 return $value;
             }
         }
-        throw new OutOfBoundsException('Element not found');
+        return $default;
     };
 }
