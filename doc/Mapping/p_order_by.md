@@ -3,7 +3,7 @@
 ## p_order_by
 
 Partial function to order an iterable using a projection for comparisons. The projection must return
-a comparable value, that is any value that can be compared with the <=> operator.
+a comparable value, that is any value that can be compared with the `<=> operator`.
 
 ### Syntax
 
