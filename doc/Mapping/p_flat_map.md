@@ -14,14 +14,14 @@ p_flat_map(
 
 ### Examples
 
-Map by value
+Flat-map by value
 ```
 ['a' => 1, 'b' => 2, 'c' => 3]
 |> p_flat_map(static fn (int $value) => [$value, $value * $value])
 //= [1, 1, 2, 4, 3, 9]
 ```
 
-Map by value and key
+Flat-map by value and key
 ```
 ['a' => 1, 'b' => 2, 'c' => 3]
 |> p_flat_map(static fn (int $value, string $key) => [$value, $key, $key . $value])
