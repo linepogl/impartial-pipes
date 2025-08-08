@@ -44,7 +44,8 @@ First with a value and key predicate
 |> p_first_or(null, fn (int $x, string $key) => strlen($key) === 2)
 //= 2
 ```
+```php
 ['a' => 1, 'bb' => 2, 'ccc' => 3, 'dddd' => 4]
 |> p_first_or(null, fn (int $x, string $key) => strlen($key) === 5)
 //= null
-```php
+```
