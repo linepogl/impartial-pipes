@@ -35,8 +35,9 @@
     "friendsofphp/php-cs-fixer": "^3.85"
   },
   "scripts": {
-    "phpunit": "vendor/bin/phpunit",
-    "phpunit:coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover var/cache/.phpunit/clover.xml",
+    "phpunit": "vendor/bin/phpunit --testsuite=unit",
+    "phpunit:coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --testsuite=unit --coverage-clover var/cache/.phpunit/clover.xml",
+    "phpunit:php85": "vendor/bin/phpunit --testsuite=unit85",
     "cs:fix": "php-cs-fixer fix --show-progress=dots --verbose ",
     "cs:validate": "php-cs-fixer fix --show-progress=none --dry-run --no-interaction --stop-on-violation",
     "phpstan": "phpstan --memory-limit=4G"

@@ -20,8 +20,11 @@
     </source>
 
     <testsuites>
-        <testsuite name="Unit tests">
+        <testsuite name="unit">
             <directory>tst</directory>
+        </testsuite>
+        <testsuite name="unit85">
+            <directory phpVersion="8.5" suffix="Test.php85">tst</directory>
         </testsuite>
     </testsuites>
 </phpunit>

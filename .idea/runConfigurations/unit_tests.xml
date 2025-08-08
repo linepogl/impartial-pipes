@@ -1,6 +1,11 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="unit tests" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
-    <TestRunner configuration_file="$PROJECT_DIR$/phpunit.dist.xml" directory="$PROJECT_DIR$/tst" scope="XML" options="--display-deprecations" />
+    <CommandLine>
+      <PhpTestInterpreterSettings>
+        <option name="interpreterName" value="homebrew 8.4" />
+      </PhpTestInterpreterSettings>
+    </CommandLine>
+    <TestRunner configuration_file="$PROJECT_DIR$/phpunit.dist.xml" directory="$PROJECT_DIR$/tst" scope="XML" options="--testsuite=&quot;unit tests&quot; --display-deprecations" />
     <method v="2" />
   </configuration>
 </component>

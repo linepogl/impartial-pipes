@@ -9,8 +9,6 @@ use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_first_or_null;
 
-;
-
 /**
  * @internal
  */

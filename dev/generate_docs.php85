@@ -19,8 +19,7 @@ get_defined_functions()['user']
         $doc = explode("\n", $function->getDocComment())
             |> p_map(fn($line) => substr($line, 3))
             |> p_take_while(fn($line) => !str_starts_with($line, '@'))
-            |> p_implode("\n")
-        ;
+            |> p_implode("\n");
 
         $dir = substr(dirname(realpath($function->getFileName())), strlen(realpath(__DIR__.'/../src')));
         @mkdir(__DIR__.'/../doc/'.$dir, recursive: true);
