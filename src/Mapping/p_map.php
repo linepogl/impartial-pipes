@@ -31,8 +31,8 @@ namespace ImpartialPipes;
  * //= ['a' => 'a1', 'b' => 'b2']
  * ```
  *
- * @template V
  * @template K
+ * @template V
  * @template V2
  * @param callable(V,K):V2 $valueProjection
  * @return callable(iterable<K,V>):iterable<K,V2>

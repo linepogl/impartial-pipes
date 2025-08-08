@@ -2,3 +2,47 @@
 
 ## p_any
 
+Partial function to checks if any element of the iterable satisfies some optional predicate. If no predicate is
+provided, the function checks if the iterable is not empty.
+
+### Syntax
+```
+p_any(
+  [callable(TValue[, TKey]): bool]
+)
+```
+
+### Examples
+Check without a predicate
+```
+[]
+|> p_any()
+//= false
+```
+```
+[1, 2]
+|> p_any()
+//= true
+```
+Check with a value predicate
+```
+[2, 4, 6, 8, 10]
+|> p_any(fn (int $x) => $x % 2 === 1)
+//= false
+```
+```
+[2, 4, 6, 7, 10]
+|> p_any(fn (int $x) => $x % 2 === 1)
+//= true
+```
+Check with a value and key predicate
+```
+['a' => 1, 'bb' => 2, 'ccc' => 3]
+|> p_any(fn (int $x, string $key) => strlen($key) > 5)
+//= false
+```
+```
+['a' => 1, 'bb' => 2, 'ccc' => 3]
+|> p_any(fn (int $x, string $key) => strlen($key) > 2)
+//= true
+```

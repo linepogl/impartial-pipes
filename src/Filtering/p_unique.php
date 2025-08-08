@@ -51,8 +51,8 @@ namespace ImpartialPipes;
  * //= ['a' => 1, 'cc' => 3, 'ddd' => 4]
  * ```
  *
- * @template V
  * @template K
+ * @template V
  * @param ?callable(V,K):array-key $hasher
  * @param bool $preserveKeys
  * @return ($hasher is null

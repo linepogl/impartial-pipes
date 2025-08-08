@@ -7,6 +7,9 @@ namespace ImpartialPipes;
 use Countable;
 
 /**
+ * Partial function to count the element of the iterable that satisfy some optional predicate. If no predicate is
+ * provided, the function counts the number of all the elements in the iterable.
+ *
  * @template K
  * @template V
  * @param ?callable(V,K):bool $predicate

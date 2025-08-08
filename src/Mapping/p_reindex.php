@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * @template V
  * @template K
+ * @template V
  * @template K2
  * @param callable(V,K):K2 $keyProjection
  * @return callable(iterable<K,V>):iterable<K2,V>

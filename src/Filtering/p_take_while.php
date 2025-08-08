@@ -39,8 +39,8 @@ namespace ImpartialPipes;
  * //= ['a' => 3, 'bb' => 4]
  * ```
  *
- * @template V
  * @template K
+ * @template V
  * @param callable(V,K):bool $predicate
  * @param bool $preserveKeys
  * @return ($preserveKeys is true ? callable(iterable<K,V>):iterable<K,V> : callable(iterable<K,V>):iterable<int,V>)

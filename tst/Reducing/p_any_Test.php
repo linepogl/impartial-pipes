@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Tests\Reducing;
 
 use ArrayIterator;
+use Tests\SimpleIterator;
+use Tests\UniterableArrayIterator;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_any;
@@ -78,5 +80,33 @@ final class p_any_Test extends UnitTestCase
             ->expect(new ArrayIterator(['aa' => 1, 'bb' => 2, 'cc' => 3]))
             ->pipe(p_any(static fn (int $x, string $k) => $k[0] === 'd'))
             ->toBe(false);
+    }
+
+    public function test_p_any_without_a_predicate(): void
+    {
+        $this
+            ->expect([])
+            ->pipe(p_any())
+            ->toBe(false);
+        $this
+            ->expect([1, 2])
+            ->pipe(p_any())
+            ->toBe(true);
+        $this
+            ->expect(new UniterableArrayIterator([]))
+            ->pipe(p_any())
+            ->toBe(false);
+        $this
+            ->expect(new UniterableArrayIterator([1, 2]))
+            ->pipe(p_any())
+            ->toBe(true);
+        $this
+            ->expect(new SimpleIterator([]))
+            ->pipe(p_any())
+            ->toBe(false);
+        $this
+            ->expect(new SimpleIterator([1, 2]))
+            ->pipe(p_any())
+            ->toBe(true);
     }
 }

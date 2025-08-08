@@ -7,8 +7,8 @@ namespace ImpartialPipes;
 use OutOfBoundsException;
 
 /**
- * @template V
  * @template K
+ * @template V
  * @param ?callable(V,K):bool $predicate
  * @return ($predicate is null ? callable<K2,V2>(iterable<K2,V2>):V2 : callable(iterable<K,V>):V)
  */

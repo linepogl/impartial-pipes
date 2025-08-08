@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * @template V
  * @template K
+ * @template V
  * @param ?callable(V,K):bool $predicate
  * @return ($predicate is null ? callable<K2,V2>(iterable<K2,V2>):?K2 : callable(iterable<K,V>):?K)
  */

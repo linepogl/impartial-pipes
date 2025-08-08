@@ -5,33 +5,41 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * Checks if all elements of the iterable pass the given truth test.
+ * Partial function to checks if all elements of the iterable satisfy some predicate.
+ *
+ * ### Syntax
+ * ```
+ * p_all(
+ *   callable(TValue[, TKey]): bool
+ * )
+ * ```
  *
  * ### Examples
- *
- * ```php
+ * Check with a value predicate
+ * ```
  * [1, 2, 3, 4, 5]
- *     |> p_all(fn (int $x) => $x % 2 === 1)
+ * |> p_all(fn (int $x) => $x % 2 === 1)
  * //= false
  * ```
- * ```php
+ * ```
  * [1, 3, 5, 7, 11]
- *     |> p_all(fn (int $x) => $x % 2 === 1)
+ * |> p_all(fn (int $x) => $x % 2 === 1)
  * //= true
  * ```
- * ```php
+ * Check with a value and key predicate
+ * ```
  * ['a' => 1, 'bb' => 2, 'ccc' => 3]
- *     |> p_all(fn (int $x, string $key) => strlen($key) < 2)
+ * |> p_all(fn (int $x, string $key) => strlen($key) < 2)
  * //= false
  * ```
- * ```php
+ * ```
  * ['a' => 1, 'bb' => 2, 'ccc' => 3]
- *     |> p_all(fn (int $x, string $key) => strlen($key) < 5)
+ * |> p_all(fn (int $x, string $key) => strlen($key) < 5)
  * //= true
  * ```
  *
- * @template V
  * @template K
+ * @template V
  * @param callable(V,K):bool $predicate
  * @return callable(iterable<K,V>):bool
  */
