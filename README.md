@@ -8,8 +8,8 @@ $iterable
  |> p_take(10)
  |> p_unique()
  |> p_filter(static fn (int $x) => $x % 2 === 0)
- |> p_map(static fn (int $x, int $key) => ['key' => $key, 'value' => $x])
- |> p_order_by(static fn (array $x) => $x['value'])
+ |> p_map(static fn (int $x, int $key) => $key + $x)
+ |> p_order_by(static fn (int $x) => abs($x))
  |> p_implode('-')
 ```
 
