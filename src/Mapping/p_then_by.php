@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * Partial function that can be chained to p_order_by, to provide tie-breakers. Multiple p_then_by calls
+ * Partial function that can be chained to `p_order_by`, to provide tie-breakers. Multiple `p_then_by` calls
  * can be chained to provide multiple tie-breakers.
  *
- * It works in the same way as p_order_by, using a projection for comparisons. The projection
+ * It works in the same way as `p_order_by`, using a projection for comparisons. The projection
  * must return a comparable value, that is any value that can be compared with the `<=>` operator.
  *
  * Key preservation is defined on the p_order_by function and propagated to the entire chain.
