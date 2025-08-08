@@ -64,10 +64,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/stopwatch" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/string" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/theseer/tokenizer" />
-      <excludeFolder url="file://$MODULE_DIR$/doc/Combining" />
-      <excludeFolder url="file://$MODULE_DIR$/doc/Filtering" />
-      <excludeFolder url="file://$MODULE_DIR$/doc/Mapping" />
-      <excludeFolder url="file://$MODULE_DIR$/doc/Reducing" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -5,21 +5,31 @@
 Partial function to filter elements of an iterable with a predicate.
 
 ### Syntax
-
 ```
 p_filter(
-  predicate: callable( TValue $value[, TKey $key ] ): bool
+  callable( TValue $value[, TKey $key ] ): bool
+  [, preserveKeys: bool = false]
 )
 ```
-### Examples
 
+### Examples
 ```
 [1, 2, 3, 4, 5]
 |> p_filter(static fn (int $x) => $x % 2 === 0);
 //= [2, 4]
 ```
 ```
-1, 2, 3, 4, 5]
-|> p_filter(static fn (int $x) => $x % 2 === 0);
-//= [2, 4]
+[1, 2, 3, 4, 5]
+|> p_filter(static fn (int $x) => $x % 2 === 0, preserveKeys: true);
+//= [1 => 2, 3 => 4]
+```
+```
+['a' => 1, 'bb' => 2, 'ccc' => 3]
+|> p_filter(static fn (int $x, string $k) => strlen($k) < 3);
+//= [1, 2]
+```
+```
+['a' => 1, 'bb' => 2, 'ccc' => 3]
+|> p_filter(static fn (int $x, string $k) => strlen($k) < 3, preserveKeys: true);
+//= ['a' => 1, 'bb' => 2]
 ```

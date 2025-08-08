@@ -5,7 +5,14 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * Partial function to filter out null values of an iterable.
+ * Partial function to filter null values out of an iterable.
+ *
+ * ### Syntax
+ * ```
+ * p_filter_out_nulls(
+ *    [preserveKeys: bool = false]
+ * )
+ * ```
  *
  * ### Examples
  *

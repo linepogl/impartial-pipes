@@ -9,8 +9,15 @@ namespace ImpartialPipes;
  *  - If `$preserveKeys` is `false`, the result is a 0-indexed iteration.
  *  - If `$preserveKeys` is `true`, the keys of the two iterables are preserved. If the same key exists in both iterables, only the first occurrence is used.
  *
- * ### Examples
+ * ### Syntax
+ * ```
+ * p_megre(
+ *   iterable<TOtherKey, TOtherValue>
+ *   [, preserveKeys: bool = false]
+ * )
+ * ```
  *
+ * ### Examples
  * ```
  * [1, 2]
  * |> p_merge([3, 4])
