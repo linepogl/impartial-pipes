@@ -11,7 +11,7 @@ namespace ImpartialPipes;
  *
  * ```
  * p_flat_map(
- *   callable(TValue[, TKey]): iterable<TValueNew>
+ *   callable(TValue[, TKey]): iterable<TNewValue>
  * )
  * ```
  *
