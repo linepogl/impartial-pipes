@@ -8,7 +8,7 @@ If no hashing projection is provided, an identity projection is used. In that ca
 ### Syntax
 ```php
 p_unique(
-  [callable(TValue $value[, TKey $key ]): array-key,]
+  [callable(TValue $value[, TKey $key]): array-key,]
   [preserveKeys: bool = false,]
 )
 ```
