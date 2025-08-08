@@ -5,6 +5,40 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
+ * Partial function to skip the elements of an iterable, while some predicate is true.
+ *
+ * ### Syntax
+ * ```
+ * p_skip_while(
+ *   callable(TValue[, TKey]):bool
+ *   [, preserveKeys: bool = false]
+ * )
+ * ```
+ *
+ * ### Examples
+ * Skip elements with a value predicate
+ * ```
+ * [1, 2, 3, 4]
+ * |> p_skip_while(static fn (int $x) => $x < 3)
+ * //= [3, 4]
+ * ```
+ * ```
+ * [1, 2, 3, 4]
+ * |> p_skip_while(static fn (int $x) => $x < 3, preserveKeys: true)
+ * //= [2 => 3, 3 => 4]
+ * ```
+ * Skip elements with a value and key predicate
+ * ```
+ * ['a' => 1, 'bb' => 2, 'ccc' => 3, 'd' => 4]
+ * |> p_skip_while(static fn (int $x, string $k) => strlen($k) < 3)
+ * //= [3, 4]
+ * ```
+ * ```
+ * ['a' => 1, 'bb' => 2, 'ccc' => 3, 'd' => 4]
+ * |> p_skip_while(static fn (int $x, string $k) => strlen($k) < 3, preserveKeys: true)
+ * //= ['ccc' => 3, 'd' => 4]
+ * ```
+ *
  * @template V
  * @template K
  * @param callable(V,K):bool $predicate

@@ -5,6 +5,39 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
+ * Partial function to take the first n elements of an iterable.
+ *
+ * ### Syntax
+ * ```
+ * p_take(
+ *   int
+ *   [, preserveKeys: bool = false]
+ * )
+ * ```
+ *
+ * ### Examples
+ * Take elements
+ * ```
+ * [1, 2, 3, 4]
+ * |> p_take(2)
+ * //= [1, 2]
+ * ```
+ * ```
+ * [1, 2, 3, 4]
+ * |> p_take(2, preserveKeys: true)
+ * //= [1, 2]
+ * ```
+ * ```
+ * ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
+ * |> p_take(2)
+ * //= [1, 2]
+ * ```
+ * ```
+ * ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
+ * |> p_take(2, preserveKeys: true)
+ * //= ['a' => 1, 'b' => 2]
+ * ```
+ * 
  * @template V
  * @template K
  * @param int $howMany

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * Maps the values of an array using a projection callable, while preserving the keys.
+ * Partial function to map the values of an array using a projection callable, while preserving the keys.
  *
  * ### Syntax
  *
