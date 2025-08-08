@@ -47,6 +47,21 @@ $iterable
 |> p_filter(static fn (int $x) => $x % 2 === 1)
 ```
 
+### Can I use it before PHP 8.5?
+
+Yes, you can! 
+
+Even if the pipe operator is not available, partial functions can still be used. We still get a more consistent syntax, and we can use them with arrays and iterables.
+
+```php
+// PHP 8.4, with Impartial Pipes
+p_filter(static fn (int $x) => $x % 2 === 1)(
+  p_map(static fn (int $x) => $x * $x)(
+    $iterable
+  )
+)
+```
+
 ### Features
 
 1. Consistent interface: always one argument expected to be passed by the pipe operator.
@@ -54,6 +69,7 @@ $iterable
 3. Immutability and lazy evaluation.
 4. Iterating with rewindable generators without creating copies of the data. Fallback to array functions when no copies are involved.
 5. 100% test coverage.
+
 
 # Full Reference
 
