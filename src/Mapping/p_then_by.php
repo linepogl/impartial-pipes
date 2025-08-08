@@ -11,7 +11,7 @@ namespace ImpartialPipes;
  * It works in the same way as `p_order_by`, using a projection for comparisons. The projection
  * must return a comparable value, that is any value that can be compared with the `<=>` operator.
  *
- * Key preservation is defined on the p_order_by function and propagated to the entire chain.
+ * Key preservation is defined on the `p_order_by` function and propagated to the entire chain.
  *
  * ### Syntax
  *
