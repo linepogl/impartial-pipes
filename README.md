@@ -13,6 +13,11 @@ $users
 |> p_take(10)
 |> p_implode(';')
 ```
+### Instalation
+
+```
+composer require linepogl/impartial-pipes
+```
 
 ### Why use it?
 
