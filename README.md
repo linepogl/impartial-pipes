@@ -304,9 +304,4 @@ $iterable
 
 ## 4. Combining
 
-### p_merge
-```php
-['a' => 1, 'b' => 2]
-|> p_merge(['c' => 3, 'd' => 4])
-// ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]]
-```
+ - [p_merge](src/Combining/p_merge.php)

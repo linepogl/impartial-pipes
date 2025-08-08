@@ -5,6 +5,33 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
+ * ## p_all
+ *
+ * Checks if all elements of the iterable pass the given truth test.
+ *
+ * ### Examples
+ *
+ * ```php
+ * [1, 2, 3, 4, 5]
+ *     |> p_all(fn (int $x) => $x % 2 === 1)
+ * //= false
+ * ```
+ * ```php
+ * [1, 3, 5, 7, 11]
+ *     |> p_all(fn (int $x) => $x % 2 === 1)
+ * //= true
+ * ```
+ * ```php
+ * ['a' => 1, 'bb' => 2, 'ccc' => 3]
+ *     |> p_all(fn (int $x, string $key) => strlen($key) < 2)
+ * //= false
+ * ```
+ * ```php
+ * ['a' => 1, 'bb' => 2, 'ccc' => 3]
+ *     |> p_all(fn (int $x, string $key) => strlen($key) < 5)
+ * //= true
+ * ```
+ *
  * @template V
  * @template K
  * @param callable(V,K):bool $predicate
