@@ -11,7 +11,7 @@ $users
 |> p_unique()
 |> p_skip(5)
 |> p_take(10)
-|> p_implode('-')
+|> p_implode(';')
 ```
 
 ### Why use it?
