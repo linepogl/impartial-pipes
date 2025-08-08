@@ -3,7 +3,7 @@
 A PHP library providing partial functions suitable for the pipe operator.
 
 ```
-$users
+$iterable
 |> p_skip(5)
 |> p_take(10)
 |> p_unique()
