@@ -48,6 +48,7 @@ use OutOfBoundsException;
  * |> p_first_key(fn (int $x, string $key) => strlen($key) === 2)
  * //= 'bb'
  * ```
+ * ```
  * ['a' => 1, 'bb' => 2, 'ccc' => 3, 'dddd' => 4]
  * |> p_first_key(fn (int $x, string $key) => strlen($key) === 5)
  * //= OutOfBoundsException
