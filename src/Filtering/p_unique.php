@@ -11,8 +11,7 @@ namespace ImpartialPipes;
  * ### Syntax
  * ```
  * p_unique(
- *   callable(TValue $value[, TKey $key ]):array-key
- *   int
+ *   [callable(TValue $value[, TKey $key ]):array-key]
  *   [, preserveKeys: bool = false]
  * )
  * ```
