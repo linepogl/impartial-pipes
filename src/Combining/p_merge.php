@@ -18,20 +18,22 @@ namespace ImpartialPipes;
  * ```
  *
  * ### Examples
+ * Merging two iterables
  * ```
  * [1, 2]
  * |> p_merge([3, 4])
  * //= [1, 2, 3, 4]
  * ```
  * ```
- * [1, 2]
- * |> p_merge([3, 4], preserveKeys: true)
- * //= [1, 2]
- * ```
- * ```
  * ['a' => 1, 'b' => 2]
  * |> p_merge(['b' => 22,'c' => 3])
  * //= [1, 2, 22, 3]
+ * ```
+ * Merging two iterables, preserving keys, keeping only the first occurrence of each key
+ * ```
+ * [1, 2]
+ * |> p_merge([3, 4], preserveKeys: true)
+ * //= [1, 2], because it returns only one occurence of the keys 0 and 1
  * ```
  * ```
  * ['a' => 1,'b' => 2]

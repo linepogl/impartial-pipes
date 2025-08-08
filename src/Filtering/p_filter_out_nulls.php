@@ -15,7 +15,7 @@ namespace ImpartialPipes;
  * ```
  *
  * ### Examples
- *
+ * Filter out nulls
  * ```
  * [1, 2, null, 3]
  * |> p_filter_out_nulls()

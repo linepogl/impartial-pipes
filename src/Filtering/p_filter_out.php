@@ -16,6 +16,7 @@ namespace ImpartialPipes;
  * ```
  *
  * ### Examples
+ * Filter out even numbers from an array
  * ```
  * [1, 2, 3, 4, 5]
  * |> p_filter_out(static fn (int $x) => $x % 2 === 0);
@@ -26,6 +27,7 @@ namespace ImpartialPipes;
  * |> p_filter_out(static fn (int $x) => $x % 2 === 0, preserveKeys: true);
  * //= [0 => 1, 2 => 3, 4 => 5]
  * ```
+ * Filter out elements with keys shorter than three characters
  * ```
  * ['a' => 1, 'bb' => 2, 'ccc' => 3]
  * |> p_filter_out(static fn (int $x, string $k) => strlen($k) < 3);
