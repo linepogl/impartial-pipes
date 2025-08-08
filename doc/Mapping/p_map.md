@@ -9,7 +9,7 @@ It always preserves the keys.
 
 ```php
 p_map(
-  callable(TValue[, TKey]): TNewValue
+  callable(TValue[, TKey]): TNewValue,
 )
 ```
 

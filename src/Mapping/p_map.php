@@ -12,7 +12,7 @@ namespace ImpartialPipes;
  *
  * ```
  * p_map(
- *   callable(TValue[, TKey]): TNewValue
+ *   callable(TValue[, TKey]): TNewValue,
  * )
  * ```
  *
