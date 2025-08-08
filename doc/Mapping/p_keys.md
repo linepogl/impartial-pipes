@@ -2,3 +2,17 @@
 
 ## p_keys
 
+Partial function to map to the key of an iterable.
+
+### Syntax
+
+```
+p_keys()
+```
+
+### Examples
+```
+['a' => 1, 'b' => 2]
+|> p_keys()
+//= ['a', 'b']
+```

@@ -2,3 +2,49 @@
 
 ## p_group_by
 
+Partial function to map the an iterable into groups of iterables, using a projection.
+
+### Syntax
+
+```
+p_group_by(
+  callable(TValue[, TKey]): array-key
+  [, preserveKeys: bool = false]
+)
+```
+
+### Examples
+Group with a value projection
+```
+['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
+|> p_group_by(static fn (int $value) => $value % 2)
+//= [
+//    1 => [1, 3],
+//    0 => [2, 4]
+//  ]
+```
+```
+['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
+|> p_group_by(static fn (int $value) => $value % 2, preserveKeys: true)
+//= [
+//    1 => ['a' => 1, 'c' => 3],
+//    0 => ['b' => 2, 'd' => 4]
+//  ]
+```
+Group with a value and key projection
+```
+['a' => 1, 'bb' => 2, 'c' => 3, 'dd' => 4]
+|> p_group_by(static fn (int $value, string $key) => strlen($key))
+//= [
+//    1 => [1, 3],
+//    2 => [2, 4]
+//  ]
+```
+```
+['a' => 1, 'bb' => 2, 'c' => 3, 'dd' => 4]
+* |> p_group_by(static fn (int $value, string $key) => strlen($key), preserveKeys: true)
+//= [
+//    1 => ['a' => 1, 'c' => 3],
+//    2 => ['b' => 2, 'd' => 4]
+//  ]
+```

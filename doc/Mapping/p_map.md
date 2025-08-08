@@ -2,13 +2,13 @@
 
 ## p_map
 
-Partial function to map the values of an array using a projection callable, while preserving the keys.
+Partial function to map the values of an iterable using a projection callable, while preserving the keys.
 
 ### Syntax
 
 ```
 p_map(
-  projection: callable( TValue $value[, TKey $key ] ): TValueNew
+  callable(TValue[, TKey]): TNewValue
 )
 ```
 
@@ -18,12 +18,12 @@ Map by value
 ```
 ['a' => 1, 'b' => 2]
 |> p_map(static fn (int $value) => $value * $value)
-// ['a' => 1, 'b' => 4]
+//= ['a' => 1, 'b' => 4]
 ```
 
 Map by value and key
 ```
 ['a' => 1, 'b' => 2]
 |> p_map(static fn (int $value, string $key) => $key . $value)
-// ['a' => 'a1', 'b' => 'b2']
+//= ['a' => 'a1', 'b' => 'b2']
 ```

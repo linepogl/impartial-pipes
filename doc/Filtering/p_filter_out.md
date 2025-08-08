@@ -7,7 +7,7 @@ Partial function to filter elements out of an iterable, using a predicate.
 ### Syntax
 ```
 p_filter_out(
-  callable( TValue $value[, TKey $key ] ): bool
+  callable(TValue[, TKey]): bool
   [, preserveKeys: bool = false]
 )
 ```
