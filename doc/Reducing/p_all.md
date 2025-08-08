@@ -5,7 +5,7 @@
 Partial function to check if all elements of the iterable satisfy some predicate.
 
 ### Syntax
-```
+```php
 p_all(
   callable(TValue[, TKey]): bool
 )
@@ -13,23 +13,23 @@ p_all(
 
 ### Examples
 Check with a value predicate
-```
+```php
 [1, 2, 3, 4, 5]
 |> p_all(fn (int $x) => $x % 2 === 1)
 //= false
 ```
-```
+```php
 [1, 3, 5, 7, 11]
 |> p_all(fn (int $x) => $x % 2 === 1)
 //= true
 ```
 Check with a value and key predicate
-```
+```php
 ['a' => 1, 'bb' => 2, 'ccc' => 3]
 |> p_all(fn (int $x, string $key) => strlen($key) < 2)
 //= false
 ```
-```
+```php
 ['a' => 1, 'bb' => 2, 'ccc' => 3]
 |> p_all(fn (int $x, string $key) => strlen($key) < 5)
 //= true

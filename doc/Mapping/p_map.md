@@ -7,7 +7,7 @@ It always preserves the keys.
 
 ### Syntax
 
-```
+```php
 p_map(
   callable(TValue[, TKey]): TNewValue
 )
@@ -16,14 +16,14 @@ p_map(
 ### Examples
 
 Map by value
-```
+```php
 ['a' => 1, 'b' => 2]
 |> p_map(static fn (int $value) => $value * $value)
 //= ['a' => 1, 'b' => 4]
 ```
 
 Map by value and key
-```
+```php
 ['a' => 1, 'b' => 2]
 |> p_map(static fn (int $value, string $key) => $key . $value)
 //= ['a' => 'a1', 'b' => 'b2']

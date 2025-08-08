@@ -7,7 +7,7 @@ Partial function to merge two iterables.
  - If `$preserveKeys` is `true`, the keys of the two iterables are preserved. If the same key exists in both iterables, only the first occurrence is used.
 
 ### Syntax
-```
+```php
 p_megre(
   iterable<TOtherKey, TOtherValue>
   [, preserveKeys: bool = false]
@@ -16,23 +16,23 @@ p_megre(
 
 ### Examples
 Merging two iterables
-```
+```php
 [1, 2]
 |> p_merge([3, 4])
 //= [1, 2, 3, 4]
 ```
-```
+```php
 ['a' => 1, 'b' => 2]
 |> p_merge(['b' => 22,'c' => 3])
 //= [1, 2, 22, 3]
 ```
 Merging two iterables, preserving keys, keeping only the first occurrence of each key
-```
+```php
 [1, 2]
 |> p_merge([3, 4], preserveKeys: true)
 //= [1, 2], because it returns only one occurence of the keys 0 and 1
 ```
-```
+```php
 ['a' => 1,'b' => 2]
 |> p_merge(['b' => 22,'c' => 3], preserveKeys: true)
 //= ['a' => 1,'b' => 2,'c' => 3]

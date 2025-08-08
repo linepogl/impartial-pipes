@@ -6,7 +6,7 @@ Partial function to map the an iterable into groups of iterables, using a projec
 
 ### Syntax
 
-```
+```php
 p_group_by(
   callable(TValue[, TKey]): array-key
   [, preserveKeys: bool = false]
@@ -15,7 +15,7 @@ p_group_by(
 
 ### Examples
 Group with a value projection
-```
+```php
 ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
 |> p_group_by(static fn (int $value) => $value % 2)
 //= [
@@ -23,7 +23,7 @@ Group with a value projection
 //    0 => [2, 4]
 //  ]
 ```
-```
+```php
 ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
 |> p_group_by(static fn (int $value) => $value % 2, preserveKeys: true)
 //= [
@@ -32,7 +32,7 @@ Group with a value projection
 //  ]
 ```
 Group with a value and key projection
-```
+```php
 ['a' => 1, 'bb' => 2, 'c' => 3, 'dd' => 4]
 |> p_group_by(static fn (int $value, string $key) => strlen($key))
 //= [
@@ -40,7 +40,7 @@ Group with a value and key projection
 //    2 => [2, 4]
 //  ]
 ```
-```
+```php
 ['a' => 1, 'bb' => 2, 'c' => 3, 'dd' => 4]
 * |> p_group_by(static fn (int $value, string $key) => strlen($key), preserveKeys: true)
 //= [

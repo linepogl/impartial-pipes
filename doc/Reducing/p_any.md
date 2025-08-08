@@ -6,7 +6,7 @@ Partial function to check if any element of the iterable satisfies some optional
 provided, the function checks if the iterable is not empty.
 
 ### Syntax
-```
+```php
 p_any(
   [callable(TValue[, TKey]): bool]
 )
@@ -14,34 +14,34 @@ p_any(
 
 ### Examples
 Check without a predicate
-```
+```php
 []
 |> p_any()
 //= false
 ```
-```
+```php
 [1, 2]
 |> p_any()
 //= true
 ```
 Check with a value predicate
-```
+```php
 [2, 4, 6, 8, 10]
 |> p_any(fn (int $x) => $x % 2 === 1)
 //= false
 ```
-```
+```php
 [2, 4, 6, 7, 10]
 |> p_any(fn (int $x) => $x % 2 === 1)
 //= true
 ```
 Check with a value and key predicate
-```
+```php
 ['a' => 1, 'bb' => 2, 'ccc' => 3]
 |> p_any(fn (int $x, string $key) => strlen($key) > 5)
 //= false
 ```
-```
+```php
 ['a' => 1, 'bb' => 2, 'ccc' => 3]
 |> p_any(fn (int $x, string $key) => strlen($key) > 2)
 //= true

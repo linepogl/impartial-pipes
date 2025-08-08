@@ -5,7 +5,7 @@
 Partial function to take the elements of an iterable, while some predicate is true.
 
 ### Syntax
-```
+```php
 p_take_while(
   callable(TValue[, TKey]):bool
   [, preserveKeys: bool = false]
@@ -14,23 +14,23 @@ p_take_while(
 
 ### Examples
 Take elements with a value predicate
-```
+```php
 [1, 2, 3, 4]
 |> p_take_while(static fn (int $x) => $x < 3)
 //= [1, 2]
 ```
-```
+```php
 [1, 2, 3, 4]
 |> p_take_while(static fn (int $x) => $x < 3, preserveKeys: true)
 //= [1, 2]
 ```
 Skip elements with a value and key predicate
-```
+```php
 ['a' => 1, 'bb' => 2, 'ccc' => 3, 'd' => 4]
 |> p_take_while(static fn (int $x, string $k) => strlen($k) < 3)
 //= [1, 2]
 ```
-```
+```php
 ['a' => 1, 'bb' => 2, 'ccc' => 3, 'd' => 4]
 |> p_take_while(static fn (int $x, string $k) => strlen($k) < 3, preserveKeys: true)
 //= ['a' => 3, 'bb' => 4]

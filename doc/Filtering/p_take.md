@@ -5,7 +5,7 @@
 Partial function to take the first n elements of an iterable.
 
 ### Syntax
-```
+```php
 p_take(
   int
   [, preserveKeys: bool = false]
@@ -14,22 +14,22 @@ p_take(
 
 ### Examples
 Take elements
-```
+```php
 [1, 2, 3, 4]
 |> p_take(2)
 //= [1, 2]
 ```
-```
+```php
 [1, 2, 3, 4]
 |> p_take(2, preserveKeys: true)
 //= [1, 2]
 ```
-```
+```php
 ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
 |> p_take(2)
 //= [1, 2]
 ```
-```
+```php
 ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
 |> p_take(2, preserveKeys: true)
 //= ['a' => 1, 'b' => 2]

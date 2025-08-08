@@ -6,12 +6,12 @@ Partial function to map to the values of an iterable.
 
 ### Syntax
 
-```
+```php
 p_values()
 ```
 
 ### Examples
-```
+```php
 ['a' => 1, 'b' => 2]
 |> p_values()
 //= [1, 2]

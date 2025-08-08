@@ -12,7 +12,7 @@ Key preservation is defined on the p_order_by function and propagated to the ent
 
 ### Syntax
 
-```
+```php
 p_then_by(
   callable(TValue[, TKey]): TComparable
   [, descending: bool = false]
@@ -21,7 +21,7 @@ p_then_by(
 
 ### Examples
 Order by ... then by a value projection
-```
+```php
 [
   'john' => ['name'=> 'John', 'age' => 30],
   'alice' => ['name' => 'Alice', 'age' => 30],
@@ -35,7 +35,7 @@ Order by ... then by a value projection
 //    ['name' => 'Bob', 'age' => 40],
 //  ]
 ```
-```
+```php
 [
 'john' => ['name'=> 'John', 'age' => 30],
 'alice' => ['name' => 'Alice', 'age' => 30],
@@ -49,7 +49,7 @@ Order by ... then by a value projection
 //    'bob' => ['name' => 'Bob', 'age' => 40],
 //  ]
 ```
-```
+```php
 [
   'john' => ['name'=> 'John', 'age' => 30],
   'alice' => ['name' => 'Alice', 'age' => 30],
@@ -63,7 +63,7 @@ Order by ... then by a value projection
 //    ['name' => 'Bob', 'age' => 40],
 //  ]
 ```
-```
+```php
 [
   'john' => ['name'=> 'John', 'age' => 30],
   'alice' => ['name' => 'Alice', 'age' => 30],
@@ -78,7 +78,7 @@ Order by ... then by a value projection
 //  ]
 ```
 Order by ... then by a value and key projection
-```
+```php
 [
   'john' => ['name'=> 'John', 'age' => 30],
   'alice' => ['name' => 'Alice', 'age' => 30],
@@ -92,7 +92,7 @@ Order by ... then by a value and key projection
 //    ['name' => 'Bob', 'age' => 40],
 //  ]
 ```
-```
+```php
 [
   'john' => ['name'=> 'John', 'age' => 30],
   'alice' => ['name' => 'Alice', 'age' => 30],
@@ -106,7 +106,7 @@ Order by ... then by a value and key projection
 //    'bob' => ['name' => 'Bob', 'age' => 40],
 //  ]
 ```
-```
+```php
 [
   'john' => ['name'=> 'John', 'age' => 30],
   'alice' => ['name' => 'Alice', 'age' => 30],
@@ -120,7 +120,7 @@ Order by ... then by a value and key projection
 //    ['name' => 'Bob', 'age' => 40],
 //  ]
 ```
-```
+```php
 [
   'john' => ['name'=> 'John', 'age' => 30],
   'alice' => ['name' => 'Alice', 'age' => 30],

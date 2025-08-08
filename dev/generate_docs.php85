@@ -16,9 +16,14 @@ get_defined_functions()['user']
     |> p_foreach(function (string $fqn)  {
         $function = new ReflectionFunction($fqn);
         $name = $function->getShortName();
+
         $doc = explode("\n", $function->getDocComment())
             |> p_map(fn($line) => substr($line, 3))
             |> p_take_while(fn($line) => !str_starts_with($line, '@'))
+            |> p_map(function($line)use(&$toggle) {
+                if ('```' === $line && ($toggle = !$toggle)) $line = '```php';
+                return $line;
+            })
             |> p_implode("\n");
 
         $dir = substr(dirname(realpath($function->getFileName())), strlen(realpath(__DIR__.'/../src')));

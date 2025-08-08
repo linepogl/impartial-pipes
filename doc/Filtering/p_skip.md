@@ -5,7 +5,7 @@
 Partial function to skip the first n elements of an iterable.
 
 ### Syntax
-```
+```php
 p_skip(
   int
   [, preserveKeys: bool = false]
@@ -14,22 +14,22 @@ p_skip(
 
 ### Examples
 Skip elements
-```
+```php
 [1, 2, 3, 4]
 |> p_skip(2)
 //= [3, 4]
 ```
-```
+```php
 [1, 2, 3, 4]
 |> p_skip(2, preserveKeys: true)
 //= [2 => 3, 3 => 4]
 ```
-```
+```php
 ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
 |> p_skip(2)
 //= [3, 4]
 ```
-```
+```php
 ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
 |> p_skip(2, preserveKeys: true)
 //= ['c' => 3, 'd' => 4]

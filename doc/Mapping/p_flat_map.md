@@ -6,7 +6,7 @@ Partial function to map the values of an iterable using a projection to an itera
 
 ### Syntax
 
-```
+```php
 p_flat_map(
   callable(TValue[, TKey]): iterable<TNewValue>
 )
@@ -15,14 +15,14 @@ p_flat_map(
 ### Examples
 
 Flat-map by value
-```
+```php
 ['a' => 1, 'b' => 2, 'c' => 3]
 |> p_flat_map(static fn (int $value) => [$value, $value * $value])
 //= [1, 1, 2, 4, 3, 9]
 ```
 
 Flat-map by value and key
-```
+```php
 ['a' => 1, 'b' => 2, 'c' => 3]
 |> p_flat_map(static fn (int $value, string $key) => [$value, $key, $key . $value])
 //= [1, 'a', 'a1', 2, 'b', 'b2', 3, 'c', 'c3']

@@ -6,12 +6,12 @@ Partial function to map to the key of an iterable.
 
 ### Syntax
 
-```
+```php
 p_keys()
 ```
 
 ### Examples
-```
+```php
 ['a' => 1, 'b' => 2]
 |> p_keys()
 //= ['a', 'b']

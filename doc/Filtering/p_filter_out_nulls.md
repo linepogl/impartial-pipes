@@ -5,7 +5,7 @@
 Partial function to filter null values out of an iterable.
 
 ### Syntax
-```
+```php
 p_filter_out_nulls(
    [preserveKeys: bool = false]
 )
@@ -13,12 +13,12 @@ p_filter_out_nulls(
 
 ### Examples
 Filter out nulls
-```
+```php
 [1, 2, null, 3]
 |> p_filter_out_nulls()
 //= [1, 2, 3]
 ```
-```
+```php
 ['a' => 1, 'b' => null, 'c' => 3]
 |> p_filter_out_nulls(preserveKeys: true)
 //= ['a' => 1, 'c' => 3]

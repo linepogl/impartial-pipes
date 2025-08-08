@@ -7,7 +7,7 @@ a comparable value, that is any value that can be compared with the <=> operator
 
 ### Syntax
 
-```
+```php
 p_order_by(
   callable(TValue[, TKey]): TComparable
   [, descending: bool = false]
@@ -17,7 +17,7 @@ p_order_by(
 
 ### Examples
 Order by a value projection
-```
+```php
 [
   'john' => ['name'=> 'John', 'age' => 30],
   'jane' => ['name' => 'Jane', 'age' => 25],
@@ -30,7 +30,7 @@ Order by a value projection
 //    ['name' => 'Bob', 'age' => 40],
 //  ]
 ```
-```
+```php
 [
 'john' => ['name'=> 'John', 'age' => 30],
 'jane' => ['name' => 'Jane', 'age' => 25],
@@ -43,7 +43,7 @@ Order by a value projection
 //    'bob' => ['name' => 'Bob', 'age' => 40],
 //  ]
 ```
-```
+```php
 [
 'john' => ['name'=> 'John', 'age' => 30],
 'jane' => ['name' => 'Jane', 'age' => 25],
@@ -56,7 +56,7 @@ Order by a value projection
 //    ['name' => 'Jane', 'age' => 25],
 //  ]
 ```
-```
+```php
 [
 'john' => ['name'=> 'John', 'age' => 30],
 'jane' => ['name' => 'Jane', 'age' => 25],
@@ -70,7 +70,7 @@ Order by a value projection
 //  ]
 ```
 Order by a value and key projection
-```
+```php
 [
 'john' => ['name'=> 'John', 'age' => 30],
 'jane' => ['name' => 'Jane', 'age' => 25],
@@ -83,7 +83,7 @@ Order by a value and key projection
 //    ['name' => 'John', 'age' => 30],
 //  ]
 ```
-```
+```php
 [
 'john' => ['name'=> 'John', 'age' => 30],
 'jane' => ['name' => 'Jane', 'age' => 25],
@@ -96,7 +96,7 @@ Order by a value and key projection
 //    'john' => ['name' => 'John', 'age' => 30],
 //  ]
 ```
-```
+```php
 [
 'john' => ['name'=> 'John', 'age' => 30],
 'jane' => ['name' => 'Jane', 'age' => 25],
@@ -109,7 +109,7 @@ Order by a value and key projection
 //    ['name' => 'Bob', 'age' => 40],
 //  ]
 ```
-```
+```php
 [
 'john' => ['name'=> 'John', 'age' => 30],
 'jane' => ['name' => 'Jane', 'age' => 25],

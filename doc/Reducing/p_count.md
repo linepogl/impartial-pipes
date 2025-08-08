@@ -6,7 +6,7 @@ Partial function to count the element of the iterable that satisfy some optional
 provided, the function counts the number of all the elements in the iterable.
 
 ### Syntax
-```
+```php
 p_count(
   [callable(TValue[, TKey]): bool]
 )
@@ -14,24 +14,24 @@ p_count(
 
 ### Examples
 Count without a predicate
-```
+```php
 []
 |> p_count()
 //= 0
 ```
-```
+```php
 [1, 2]
 |> p_count()
 //= 2
 ```
 Count with a value predicate
-```
+```php
 [1, 2, 3, 4, 5]
 |> p_count(fn (int $x) => $x % 2 === 1)
 //= 3
 ```
 Count with a value and key predicate
-```
+```php
 ['a' => 1, 'bb' => 2, 'c' => 3, 'd' => 3]
 |> p_any(fn (int $x, string $key) => strlen($key) === 1)
 //= 3

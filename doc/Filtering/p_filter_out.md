@@ -5,7 +5,7 @@
 Partial function to filter elements out of an iterable, using a predicate.
 
 ### Syntax
-```
+```php
 p_filter_out(
   callable(TValue[, TKey]): bool
   [, preserveKeys: bool = false]
@@ -14,23 +14,23 @@ p_filter_out(
 
 ### Examples
 Filter out even numbers from an array
-```
+```php
 [1, 2, 3, 4, 5]
 |> p_filter_out(static fn (int $x) => $x % 2 === 0);
 //= [1, 3, 5]
 ```
-```
+```php
 [1, 2, 3, 4, 5]
 |> p_filter_out(static fn (int $x) => $x % 2 === 0, preserveKeys: true);
 //= [0 => 1, 2 => 3, 4 => 5]
 ```
 Filter out elements with keys shorter than three characters
-```
+```php
 ['a' => 1, 'bb' => 2, 'ccc' => 3]
 |> p_filter_out(static fn (int $x, string $k) => strlen($k) < 3);
 //= [3]
 ```
-```
+```php
 ['a' => 1, 'bb' => 2, 'ccc' => 3]
 |> p_filter_out(static fn (int $x, string $k) => strlen($k) < 3, preserveKeys: true);
 //= ['ccc' => 3]
