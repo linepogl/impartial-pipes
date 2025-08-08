@@ -2,7 +2,7 @@
 
 ## p_all
 
-Partial function to checks if all elements of the iterable satisfy some predicate.
+Partial function to check if all elements of the iterable satisfy some predicate.
 
 ### Syntax
 ```

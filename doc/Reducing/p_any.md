@@ -2,7 +2,7 @@
 
 ## p_any
 
-Partial function to checks if any element of the iterable satisfies some optional predicate. If no predicate is
+Partial function to check if any element of the iterable satisfies some optional predicate. If no predicate is
 provided, the function checks if the iterable is not empty.
 
 ### Syntax
