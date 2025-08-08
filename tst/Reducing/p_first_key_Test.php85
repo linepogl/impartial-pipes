@@ -1,0 +1,103 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Tests\Reducing;
+
+use ArrayIterator;
+use OutOfBoundsException;
+use Tests\UnitTestCase;
+
+use function ImpartialPipes\p_first_key;
+
+/**
+ * @internal
+ */
+final class p_first_key_Test extends UnitTestCase
+{
+    public function test_p_first_key_with_arrays(): void
+    {
+        $this->expect(static fn () =>
+            []
+            |>p_first_key()
+        )->toThrow(OutOfBoundsException::class);
+
+        $this->expect(static fn () =>
+            []
+            |>p_first_key(static fn (int $x) => $x > 1)
+        )->toThrow(OutOfBoundsException::class);
+
+        $this->expect(
+            [1,2,3]
+            |> p_first_key()
+        )->toBe(0);
+
+        $this->expect(
+            [1,2,3]
+            |> p_first_key(static fn (int $x) => $x > 1)
+        )->toBe(1);
+
+        $this->expect(static fn () =>
+            [1,2,3]
+            |>p_first_key(static fn (int $x) => $x > 3)
+        )->toThrow(OutOfBoundsException::class);
+
+        $this->expect(
+            ['a' => 1, 'aa' => 2, 'aaa' => 3]
+            |> p_first_key()
+        )->toBe('a');
+
+        $this->expect(
+            ['a' => 1, 'aa' => 2, 'aaa' => 3]
+            |> p_first_key(static fn (int $x, string $k) => strlen($k) > 1)
+        )->toBe('aa');
+
+        $this->expect(static fn () =>
+            ['a' => 1, 'aa' => 2, 'aaa' => 3]
+            |>p_first_key(static fn (int $x, string $k) => strlen($k) > 3)
+        )->toThrow(OutOfBoundsException::class);
+    }
+
+    public function test_p_first_key_with_iterables(): void
+    {
+        $this->expect(static fn () =>
+            new ArrayIterator([])
+            |>p_first_key()
+        )->toThrow(OutOfBoundsException::class);
+
+        $this->expect(static fn () =>
+            new ArrayIterator([])
+            |>p_first_key(static fn (int $x) => $x > 1)
+        )->toThrow(OutOfBoundsException::class);
+
+        $this->expect(
+            new ArrayIterator([1,2,3])
+            |> p_first_key()
+        )->toBe(0);
+
+        $this->expect(
+            new ArrayIterator([1,2,3])
+            |> p_first_key(static fn (int $x) => $x > 1)
+        )->toBe(1);
+
+        $this->expect(static fn () =>
+            new ArrayIterator([1,2,3])
+            |>p_first_key(static fn (int $x) => $x > 3)
+        )->toThrow(OutOfBoundsException::class);
+
+        $this->expect(
+            new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
+            |> p_first_key()
+        )->toBe('a');
+
+        $this->expect(
+            new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
+            |> p_first_key(static fn (int $x, string $k) => strlen($k) > 1)
+        )->toBe('aa');
+
+        $this->expect(static fn () =>
+            new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
+            |>p_first_key(static fn (int $x, string $k) => strlen($k) > 3)
+        )->toThrow(OutOfBoundsException::class);
+    }
+}
