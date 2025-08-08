@@ -8,7 +8,7 @@ provided, the function checks if the iterable is not empty.
 ### Syntax
 ```php
 p_any(
-  [callable(TValue[, TKey]): bool]
+  [callable(TValue[, TKey]): bool,]
 )
 ```
 

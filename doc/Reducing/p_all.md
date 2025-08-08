@@ -7,7 +7,7 @@ Partial function to check if all elements of the iterable satisfy some predicate
 ### Syntax
 ```php
 p_all(
-  callable(TValue[, TKey]): bool
+  callable(TValue[, TKey]): bool,
 )
 ```
 

@@ -10,8 +10,8 @@ namespace ImpartialPipes;
  * ### Syntax
  * ```
  * p_skip(
- *   int
- *   [, preserveKeys: bool = false]
+ *   int,
+ *   [preserveKeys: bool = false,]
  * )
  * ```
  *

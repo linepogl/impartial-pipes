@@ -10,7 +10,7 @@ namespace ImpartialPipes;
  * ### Syntax
  * ```
  * p_foreach(
- *   callable(TValue[, TKey]): mixed
+ *   callable(TValue[, TKey]): mixed,
  * )
  * ```
  *

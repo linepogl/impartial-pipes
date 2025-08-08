@@ -13,8 +13,8 @@ namespace ImpartialPipes;
  * ### Syntax
  * ```
  * p_last_or(
- * TDefault
- * [, callable(TValue[, TKey]): bool]
+ *   TDefault,
+ *   [callable(TValue[, TKey]): bool,]
  * )
  * ```
  *

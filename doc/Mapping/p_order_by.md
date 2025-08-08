@@ -9,9 +9,9 @@ a comparable value, that is any value that can be compared with the `<=>` operat
 
 ```php
 p_order_by(
-  callable(TValue[, TKey]): TComparable
-  [, descending: bool = false]
-  [, preserveKeys: bool = false]
+  callable(TValue[, TKey]): TComparable,
+  [descending: bool = false,]
+  [preserveKeys: bool = false,]
 )
 ```
 

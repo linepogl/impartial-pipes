@@ -7,7 +7,7 @@ Partial function to get a concatenation string of all the elements, all of which
 ### Syntax
 ```php
 p_implode(
-  [separator: string = '']
+  [separator: string = '',]
 )
 ```
 

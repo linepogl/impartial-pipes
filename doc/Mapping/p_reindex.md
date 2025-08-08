@@ -10,7 +10,7 @@ If the projection returns a key that already exists in the iterable, the value i
 
 ```php
 p_reindex(
-  callable(TValue[, TKey]): TNewKey of array-key
+  callable(TValue[, TKey]): TNewKey of array-key,
 )
 ```
 

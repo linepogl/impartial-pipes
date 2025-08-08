@@ -8,7 +8,7 @@ Partial function to map the values of an iterable using a projection to an itera
 
 ```php
 p_flat_map(
-  callable(TValue[, TKey]): iterable<TNewValue>
+  callable(TValue[, TKey]): iterable<TNewValue>,
 )
 ```
 

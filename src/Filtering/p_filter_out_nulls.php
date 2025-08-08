@@ -10,7 +10,7 @@ namespace ImpartialPipes;
  * ### Syntax
  * ```
  * p_filter_out_nulls(
- *    [preserveKeys: bool = false]
+ *    [preserveKeys: bool = false,]
  * )
  * ```
  *

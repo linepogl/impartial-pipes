@@ -8,8 +8,8 @@ Partial function to map the an iterable into groups of iterables, using a projec
 
 ```php
 p_group_by(
-  callable(TValue[, TKey]): TNewKey of array-key
-  [, preserveKeys: bool = false]
+  callable(TValue[, TKey]): TNewKey of array-key,
+  [preserveKeys: bool = false,]
 )
 ```
 

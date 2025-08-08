@@ -10,8 +10,8 @@ namespace ImpartialPipes;
  * ### Syntax
  * ```
  * p_take(
- *   int
- *   [, preserveKeys: bool = false]
+ *   int,
+ *   [preserveKeys: bool = false,]
  * )
  * ```
  *

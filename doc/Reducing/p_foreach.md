@@ -7,7 +7,7 @@ Partial function to apply a function to all the elements of an iterable
 ### Syntax
 ```php
 p_foreach(
-  callable(TValue[, TKey]): mixed
+  callable(TValue[, TKey]): mixed,
 )
 ```
 

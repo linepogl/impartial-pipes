@@ -7,8 +7,8 @@ Partial function to take the first n elements of an iterable.
 ### Syntax
 ```php
 p_take(
-  int
-  [, preserveKeys: bool = false]
+  int,
+  [preserveKeys: bool = false,]
 )
 ```
 

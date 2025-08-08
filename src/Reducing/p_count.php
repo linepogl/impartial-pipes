@@ -13,7 +13,7 @@ use Countable;
  * ### Syntax
  * ```
  * p_count(
- *   [callable(TValue[, TKey]): bool]
+ *   [callable(TValue[, TKey]): bool,]
  * )
  * ```
  *

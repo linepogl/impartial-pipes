@@ -10,7 +10,7 @@ namespace ImpartialPipes;
  * ### Syntax
  * ```
  * p_all(
- *   callable(TValue[, TKey]): bool
+ *   callable(TValue[, TKey]): bool,
  * )
  * ```
  *

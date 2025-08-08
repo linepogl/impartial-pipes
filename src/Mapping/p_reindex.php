@@ -13,7 +13,7 @@ namespace ImpartialPipes;
  *
  * ```
  * p_reindex(
- *   callable(TValue[, TKey]): TNewKey of array-key
+ *   callable(TValue[, TKey]): TNewKey of array-key,
  * )
  * ```
  *

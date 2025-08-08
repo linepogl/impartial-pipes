@@ -8,7 +8,7 @@ provided, the function counts the number of all the elements in the iterable.
 ### Syntax
 ```php
 p_count(
-  [callable(TValue[, TKey]): bool]
+  [callable(TValue[, TKey]): bool,]
 )
 ```
 

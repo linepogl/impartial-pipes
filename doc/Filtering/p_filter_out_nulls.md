@@ -7,7 +7,7 @@ Partial function to filter null values out of an iterable.
 ### Syntax
 ```php
 p_filter_out_nulls(
-   [preserveKeys: bool = false]
+   [preserveKeys: bool = false,]
 )
 ```
 

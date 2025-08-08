@@ -12,9 +12,9 @@ namespace ImpartialPipes;
  *
  * ```
  * p_order_by(
- *   callable(TValue[, TKey]): TComparable
- *   [, descending: bool = false]
- *   [, preserveKeys: bool = false]
+ *   callable(TValue[, TKey]): TComparable,
+ *   [descending: bool = false,]
+ *   [preserveKeys: bool = false,]
  * )
  * ```
  *

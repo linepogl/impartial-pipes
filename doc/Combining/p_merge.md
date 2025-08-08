@@ -9,8 +9,8 @@ Partial function to merge two iterables.
 ### Syntax
 ```php
 p_megre(
-  iterable<TOtherKey, TOtherValue>
-  [, preserveKeys: bool = false]
+  iterable<TOtherKey, TOtherValue>,
+  [preserveKeys: bool = false,]
 )
 ```
 

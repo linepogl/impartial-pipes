@@ -11,8 +11,8 @@ namespace ImpartialPipes;
  *
  * ```
  * p_group_by(
- *   callable(TValue[, TKey]): TNewKey of array-key
- *   [, preserveKeys: bool = false]
+ *   callable(TValue[, TKey]): TNewKey of array-key,
+ *   [preserveKeys: bool = false,]
  * )
  * ```
  *

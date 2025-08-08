@@ -7,8 +7,8 @@ Partial function to filter elements out of an iterable, using a predicate.
 ### Syntax
 ```php
 p_filter_out(
-  callable(TValue[, TKey]): bool
-  [, preserveKeys: bool = false]
+  callable(TValue[, TKey]): bool,
+  [preserveKeys: bool = false,]
 )
 ```
 

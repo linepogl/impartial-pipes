@@ -13,7 +13,7 @@ use ArrayIterator;
  * ### Syntax
  * ```
  * p_any(
- *   [callable(TValue[, TKey]): bool]
+ *   [callable(TValue[, TKey]): bool,]
  * )
  * ```
  *

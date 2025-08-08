@@ -10,7 +10,7 @@ If no element is found, an `OutOfBoundsException` is thrown.
 ### Syntax
 ```php
 p_last(
-[callable(TValue[, TKey]): bool]
+  [callable(TValue[, TKey]): bool,]
 )
 ```
 

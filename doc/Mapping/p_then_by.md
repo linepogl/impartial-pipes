@@ -11,11 +11,10 @@ must return a comparable value, that is any value that can be compared with the 
 Key preservation is defined on the `p_order_by` function and propagated to the entire chain.
 
 ### Syntax
-
 ```php
 p_then_by(
-  callable(TValue[, TKey]): TComparable
-  [, descending: bool = false]
+  callable(TValue[, TKey]): TComparable,
+  [descending: bool = false,]
 )
 ```
 

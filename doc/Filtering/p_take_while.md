@@ -7,8 +7,8 @@ Partial function to take the elements of an iterable, while some predicate is tr
 ### Syntax
 ```php
 p_take_while(
-  callable(TValue[, TKey]):bool
-  [, preserveKeys: bool = false]
+  callable(TValue[, TKey]): bool,
+  [preserveKeys: bool = false,]
 )
 ```
 

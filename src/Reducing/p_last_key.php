@@ -15,7 +15,7 @@ use OutOfBoundsException;
  * ### Syntax
  * ```
  * p_last_key(
- * [callable(TValue[, TKey]): bool]
+ *   [callable(TValue[, TKey]): bool,]
  * )
  * ```
  *

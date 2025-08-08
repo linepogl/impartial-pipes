@@ -7,8 +7,8 @@ Partial function to skip the elements of an iterable, while some predicate is tr
 ### Syntax
 ```php
 p_skip_while(
-  callable(TValue[, TKey]):bool
-  [, preserveKeys: bool = false]
+  callable(TValue[, TKey]): bool,
+  [preserveKeys: bool = false,]
 )
 ```
 

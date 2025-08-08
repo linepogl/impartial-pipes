@@ -10,8 +10,8 @@ namespace ImpartialPipes;
  * ### Syntax
  * ```
  * p_filter(
- *   callable(TValue[, TKey]): bool
- *   [, preserveKeys: bool = false]
+ *   callable(TValue[, TKey]): bool,
+ *   [preserveKeys: bool = false,]
  * )
  * ```
  *

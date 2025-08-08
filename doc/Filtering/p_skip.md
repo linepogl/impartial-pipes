@@ -7,8 +7,8 @@ Partial function to skip the first n elements of an iterable.
 ### Syntax
 ```php
 p_skip(
-  int
-  [, preserveKeys: bool = false]
+  int,
+  [preserveKeys: bool = false,]
 )
 ```
 

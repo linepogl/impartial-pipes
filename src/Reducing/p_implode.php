@@ -13,7 +13,7 @@ use Stringable;
  * ### Syntax
  * ```
  * p_implode(
- *   [separator: string = '']
+ *   [separator: string = '',]
  * )
  * ```
  *

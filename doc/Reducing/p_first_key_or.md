@@ -10,8 +10,8 @@ If no element is found, a predefined default is returned.
 ### Syntax
 ```php
 p_first_key_or(
-  TDefault
-  [, callable(TValue[, TKey]): bool]
+  TDefault,
+  [callable(TValue[, TKey]): bool,]
 )
 ```
 

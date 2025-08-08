@@ -12,8 +12,8 @@ namespace ImpartialPipes;
  * ### Syntax
  * ```
  * p_megre(
- *   iterable<TOtherKey, TOtherValue>
- *   [, preserveKeys: bool = false]
+ *   iterable<TOtherKey, TOtherValue>,
+ *   [preserveKeys: bool = false,]
  * )
  * ```
  *
