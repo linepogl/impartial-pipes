@@ -18,6 +18,7 @@ $iterable
 The pipe operator of PHP is a great way to chain functions together. However, it is not perfect because it requires that the chained functions accept exactly one mandatory argument. When this is not the case, we have to resort to workarounds by wrapping the functions in a closure.
 
 ```php
+// PHP 8.5
 $array
 |> static fn ($in) => array_map(static fn (int $x) => $x * $x), $in)
 |> static fn ($in) => array_filter($in, static fn (int $x) => $x % 2 === 1))
@@ -26,6 +27,7 @@ $array
 This might be solved in a future version of PHP, with a proposed syntax like this:
 
 ```php
+// PHP > 8.5, if accepted
 $array
 |> array_map(static fn (int $x) => $x * $x), ...)
 |> array_filter(..., static fn (int $x) => $x % 2 === 1))
@@ -38,6 +40,7 @@ This is a step in the right direction. However, it is still not perfect:
 With Impartial Pipes, we can write the same code as this:
 
 ```php
+// PHP 8.5, with Impartial Pipes
 $iterable
 |> p_map(static fn (int $x) => $x * $x)
 |> p_filter(static fn (int $x) => $x % 2 === 1)

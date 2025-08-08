@@ -2,4 +2,124 @@
 
 ## p_order_by
 
-TODO: docs
+Partial function to order an iterable using a projection for comparisons. The projection must return
+a comparable value, that is any value that can be compared with the <=> operator.
+
+### Syntax
+
+```
+p_order_by(
+  callable(TValue[, TKey]): TComparable
+  [, descending: bool = false]
+  [, preserveKeys: bool = false]
+)
+```
+
+### Examples
+Order by a value projection
+```
+[
+  'john' => ['name'=> 'John', 'age' => 30],
+  'jane' => ['name' => 'Jane', 'age' => 25],
+  'bob' => ['name' => 'Bob', 'age' => 40]],
+]
+|> p_order_by(static fn (array $person) => $person['age'])
+//= [
+//    ['name' => 'Jane', 'age' => 25],
+//    ['name' => 'John', 'age' => 30],
+//    ['name' => 'Bob', 'age' => 40],
+//  ]
+```
+```
+[
+'john' => ['name'=> 'John', 'age' => 30],
+'jane' => ['name' => 'Jane', 'age' => 25],
+'bob' => ['name' => 'Bob', 'age' => 40]],
+]
+|> p_order_by(static fn (array $person) => $person['age'], preserveKeys: true)
+//= [
+//    'jane' => ['name' => 'Jane', 'age' => 25],
+//    'john' => ['name' => 'John', 'age' => 30],
+//    'bob' => ['name' => 'Bob', 'age' => 40],
+//  ]
+```
+```
+[
+'john' => ['name'=> 'John', 'age' => 30],
+'jane' => ['name' => 'Jane', 'age' => 25],
+'bob' => ['name' => 'Bob', 'age' => 40]],
+]
+|> p_order_by(static fn (array $person) => $person['age'], descending: true)
+//= [
+//    ['name' => 'Bob', 'age' => 40],
+//    ['name' => 'John', 'age' => 30],
+//    ['name' => 'Jane', 'age' => 25],
+//  ]
+```
+```
+[
+'john' => ['name'=> 'John', 'age' => 30],
+'jane' => ['name' => 'Jane', 'age' => 25],
+'bob' => ['name' => 'Bob', 'age' => 40]],
+]
+|> p_order_by(static fn (array $person) => $person['age'], descending: true, preserveKeys: true)
+//= [
+//    'bob' => ['name' => 'Bob', 'age' => 40],
+//    'john' => ['name' => 'John', 'age' => 30],
+//    'jane' => ['name' => 'Jane', 'age' => 25],
+//  ]
+```
+Order by a value and key projection
+```
+[
+'john' => ['name'=> 'John', 'age' => 30],
+'jane' => ['name' => 'Jane', 'age' => 25],
+'bob' => ['name' => 'Bob', 'age' => 40]],
+]
+|> p_order_by(static fn (array $person, string $key) => $key)
+//= [
+//    ['name' => 'Bob', 'age' => 40],
+//    ['name' => 'Jane', 'age' => 25],
+//    ['name' => 'John', 'age' => 30],
+//  ]
+```
+```
+[
+'john' => ['name'=> 'John', 'age' => 30],
+'jane' => ['name' => 'Jane', 'age' => 25],
+'bob' => ['name' => 'Bob', 'age' => 40]],
+]
+|> p_order_by(static fn (array $person, string $key) => $key, preserveKeys: true)
+//= [
+//    'bob' => ['name' => 'Bob', 'age' => 40],
+//    'jane' => ['name' => 'Jane', 'age' => 25],
+//    'john' => ['name' => 'John', 'age' => 30],
+//  ]
+```
+```
+[
+'john' => ['name'=> 'John', 'age' => 30],
+'jane' => ['name' => 'Jane', 'age' => 25],
+'bob' => ['name' => 'Bob', 'age' => 40]],
+]
+|> p_order_by(static fn (array $person, string $key) => $key, descending: true)
+//= [
+//    ['name' => 'John', 'age' => 30],
+//    ['name' => 'Jane', 'age' => 25],
+//    ['name' => 'Bob', 'age' => 40],
+//  ]
+```
+```
+[
+'john' => ['name'=> 'John', 'age' => 30],
+'jane' => ['name' => 'Jane', 'age' => 25],
+'bob' => ['name' => 'Bob', 'age' => 40]],
+]
+|> p_order_by(static fn (array $person, string $key) => $key, descending: true, preserveKeys: true)
+//= [
+//    'john' => ['name' => 'John', 'age' => 30],
+//    'jane' => ['name' => 'Jane', 'age' => 25],
+//    'bob' => ['name' => 'Bob', 'age' => 40],
+//  ]
+```
+

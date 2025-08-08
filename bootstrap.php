@@ -21,7 +21,8 @@ require __DIR__ . '/src/Mapping/p_flat_map.php';
 require __DIR__ . '/src/Mapping/p_group_by.php';
 require __DIR__ . '/src/Mapping/p_keys.php';
 require __DIR__ . '/src/Mapping/p_map.php';
-require __DIR__ . '/src/Mapping/p_order_by_then_by.php';
+require __DIR__ . '/src/Mapping/p_order_by.php';
+require __DIR__ . '/src/Mapping/p_then_by.php';
 require __DIR__ . '/src/Mapping/p_reindex.php';
 require __DIR__ . '/src/Mapping/p_values.php';
 
