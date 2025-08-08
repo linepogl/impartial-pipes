@@ -22,7 +22,7 @@ The pipe operator of PHP is a great way to chain functions together. However, it
 // PHP 8.5
 $array
 |> static fn ($in) => array_map(static fn (int $x) => $x * $x), $in)
-|> static fn ($in) => array_filter($in, static fn (int $x) => $x % 2 === 1))
+|> static fn ($in) => array_filter($in, static fn (int $x) => $x % 2 === 1)
 ```
 
 This might be solved in a future version of PHP, with a proposed syntax like this:
@@ -31,7 +31,7 @@ This might be solved in a future version of PHP, with a proposed syntax like thi
 // PHP > 8.5, if accepted
 $array
 |> array_map(static fn (int $x) => $x * $x), ...)
-|> array_filter(..., static fn (int $x) => $x % 2 === 1))
+|> array_filter(..., static fn (int $x) => $x % 2 === 1)
 ```
 
 This is a step in the right direction. However, it is still not perfect:
