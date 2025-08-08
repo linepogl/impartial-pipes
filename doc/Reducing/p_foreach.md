@@ -2,4 +2,29 @@
 
 ## p_foreach
 
-TODO: docs
+Partial function to apply a function to all the elements of an iterable
+
+### Syntax
+```php
+p_foreach(
+  callable(TValue[, TKey]): mixed
+)
+```
+
+### Examples
+foreach value
+```php
+[1, 2, 3]
+|> p_foreach(function (int $value) { echo $value . PHP_EOL; }
+// 1
+// 2
+// 3
+```
+foreach value and key
+```php
+['a' => 1, 'b' => 2, 'c' => 3]
+|> p_foreach(function (int $value, string $key) { echo $key . ': ' . $value . PHP_EOL; }
+// a: 1
+// b: 2
+// c: 3
+```

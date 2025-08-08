@@ -2,4 +2,21 @@
 
 ## p_to_array
 
-TODO: docs
+Partial function to evaluate an iterable into an array.
+
+### Syntax
+```php
+p_to_array()
+```
+
+### Examples
+```php
+[]
+|> p_to_array()
+//= []
+```
+```php
+[1, 2, 3]
+|> p_to_array()
+//= [1, 2, 3]
+```

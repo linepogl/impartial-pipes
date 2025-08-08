@@ -8,7 +8,38 @@ use ArrayIterator;
 use Stringable;
 
 /**
- * TODO: docs
+ * Partial function to get a concatenation string of all the elements, all of which must be stringable.
+ *
+ * ### Syntax
+ * ```
+ * p_implode(
+ *   [separator: string = '']
+ * )
+ * ```
+ *
+ * ### Examples
+ * Implode without a separator
+ * ```
+ * []
+ * |> p_implode()
+ * //= ''
+ * ```
+ * ```
+ * [1, null, 'test', 2.5]
+ * |> p_implode()
+ * //= '1test2.5'
+ * ```
+ * Implode with a separator
+ * ```
+ * []
+ * |> p_implode('-')
+ * //= ''
+ * ```
+ * ```
+ * [1, null, 'test', 2.5]
+ * |> p_implode('-')
+ * //= '1--test-2.5'
+ * ```
  *
  * @return callable<K,V of null|scalar|Stringable>(iterable<K, V>):string
  */

@@ -7,7 +7,24 @@ namespace ImpartialPipes;
 use ArrayIterator;
 
 /**
- * TODO: docs
+ * Partial function to get sum of all the elements of an iterable, all of which must be ints or floats.
+ *
+ * ### Syntax
+ * ```
+ * p_sum()
+ * ```
+ *
+ * ### Examples
+ * ```
+ * []
+ * |> p_sum()
+ * //= 0
+ * ```
+ * ```
+ * [1, 2.5]
+ * |> p_sum()
+ * //= 3.5
+ * ```
  *
  * @return callable<K,V of float|int>(iterable<K, V>):V
  */

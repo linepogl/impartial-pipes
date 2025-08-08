@@ -5,7 +5,53 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * TODO: docs
+ * Partial function to get the value of the last element that satisfies some optional predicate.
+ * If no predicate is provided, the function returns the last value.
+ *
+ * If no element is found, a predefined default is returned.
+ *
+ * ### Syntax
+ * ```
+ * p_last_or(
+ * TDefault
+ * [, callable(TValue[, TKey]): bool]
+ * )
+ * ```
+ *
+ * ### Examples
+ * First without a predicate
+ * ```
+ * []
+ * |> p_last_or(null)
+ * //= null
+ * ```
+ * ```
+ * [1, 2]
+ * |> p_last_or(null)
+ * //= 2
+ * ```
+ * First with a value predicate
+ * ```
+ * [1, 2, 3, 4, 5]
+ * |> p_last_or(null, fn (int $x) => $x % 2 === 0)
+ * //= 2
+ * ```
+ * ```
+ * [1, 3, 5, 7, 9]
+ * |> p_last_or(null, fn (int $x) => $x % 2 === 0)
+ * //= null
+ * ```
+ * First with a value and key predicate
+ * ```
+ * ['a' => 1, 'bb' => 2, 'ccc' => 3, 'dddd' => 4]
+ * |> p_last_or(null, fn (int $x, string $key) => strlen($key) === 2)
+ * //= 2
+ * ```
+ * ```
+ * ['a' => 1, 'bb' => 2, 'ccc' => 3, 'dddd' => 4]
+ * |> p_last_or(null, fn (int $x, string $key) => strlen($key) === 5)
+ * //= null
+ * ```
  *
  * @template K
  * @template V

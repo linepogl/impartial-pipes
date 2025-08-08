@@ -2,4 +2,21 @@
 
 ## p_sum
 
-TODO: docs
+Partial function to get sum of all the elements of an iterable, all of which must be ints or floats.
+
+### Syntax
+```php
+p_sum()
+```
+
+### Examples
+```php
+[]
+|> p_sum()
+//= 0
+```
+```php
+[1, 2.5]
+|> p_sum()
+//= 3.5
+```

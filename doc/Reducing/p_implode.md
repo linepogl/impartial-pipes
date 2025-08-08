@@ -2,4 +2,35 @@
 
 ## p_implode
 
-TODO: docs
+Partial function to get a concatenation string of all the elements, all of which must be stringable.
+
+### Syntax
+```php
+p_implode(
+  [separator: string = '']
+)
+```
+
+### Examples
+Implode without a separator
+```php
+[]
+|> p_implode()
+//= ''
+```
+```php
+[1, null, 'test', 2.5]
+|> p_implode()
+//= '1test2.5'
+```
+Implode with a separator
+```php
+[]
+|> p_implode('-')
+//= ''
+```
+```php
+[1, null, 'test', 2.5]
+|> p_implode('-')
+//= '1--test-2.5'
+```

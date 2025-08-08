@@ -7,7 +7,52 @@ namespace ImpartialPipes;
 use OutOfBoundsException;
 
 /**
- * TODO: docs
+ * Partial function to get the value of the last element that satisfies some optional predicate.
+ * If no predicate is provided, the function returns the last value.
+ *
+ * If no element is found, an `OutOfBoundsException` is thrown.
+ *
+ * ### Syntax
+ * ```
+ * p_last(
+ * [callable(TValue[, TKey]): bool]
+ * )
+ * ```
+ *
+ * ### Examples
+ * First without a predicate
+ * ```
+ * []
+ * |> p_last()
+ * //= OutOfBoundsException
+ * ```
+ * ```
+ * [1, 2]
+ * |> p_last()
+ * //= 2
+ * ```
+ * First with a value predicate
+ * ```
+ * [1, 2, 3, 4, 5]
+ * |> p_last(fn (int $x) => $x % 2 === 0)
+ * //= 2
+ * ```
+ * ```
+ * [1, 3, 5, 7, 9]
+ * |> p_last(fn (int $x) => $x % 2 === 0)
+ * //= OutOfBoundsException
+ * ```
+ * First with a value and key predicate
+ * ```
+ * ['a' => 1, 'bb' => 2, 'ccc' => 3, 'dddd' => 4]
+ * |> p_last(fn (int $x, string $key) => strlen($key) === 2)
+ * //= 2
+ * ```
+ * ```
+ * ['a' => 1, 'bb' => 2, 'ccc' => 3, 'dddd' => 4]
+ * |> p_last(fn (int $x, string $key) => strlen($key) === 5)
+ * //= OutOfBoundsException
+ * ```
  *
  * @template K
  * @template V
