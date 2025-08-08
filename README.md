@@ -3,13 +3,14 @@
 A PHP library providing partial functions suitable for the pipe operator.
 
 ```
-$iterable
+$users
+|> p_filter(static fn (User $user) => $user->isAdmin)
+|> p_order_by(static fn (User $x) => $user->age, descending: true)
+|> p_then_by(static fn (User $x) => $user->name)
+|> p_map(static fn (User $user) => $user->email)
+|> p_unique()
 |> p_skip(5)
 |> p_take(10)
-|> p_unique()
-|> p_filter(static fn (int $x) => $x % 2 === 0)
-|> p_map(static fn (int $x, int $key) => $key + $x)
-|> p_order_by(static fn (int $x) => abs($x))
 |> p_implode('-')
 ```
 
