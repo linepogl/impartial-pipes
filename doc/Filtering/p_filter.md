@@ -2,7 +2,7 @@
 
 ## p_filter
 
-Partial function to filter elements of an iterable with a predicate.
+Partial function to filter elements of an iterable, using a predicate.
 
 ### Syntax
 ```

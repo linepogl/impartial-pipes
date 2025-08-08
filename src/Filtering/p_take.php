@@ -37,7 +37,7 @@ namespace ImpartialPipes;
  * |> p_take(2, preserveKeys: true)
  * //= ['a' => 1, 'b' => 2]
  * ```
- * 
+ *
  * @template V
  * @template K
  * @param int $howMany

@@ -37,7 +37,7 @@ namespace ImpartialPipes;
  * |> p_skip(2, preserveKeys: true)
  * //= ['c' => 3, 'd' => 4]
  * ```
- * 
+ *
  * @template V
  * @template K
  * @param int $howMany

@@ -2,7 +2,7 @@
 
 ## p_filter_out
 
-Partial function to filter elements out of an iterable with a predicate.
+Partial function to filter elements out of an iterable, using a predicate.
 
 ### Syntax
 ```
