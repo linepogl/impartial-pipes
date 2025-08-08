@@ -11,7 +11,7 @@ namespace ImpartialPipes;
  *
  * ```
  * p_group_by(
- *   callable(TValue[, TKey]): array-key
+ *   callable(TValue[, TKey]): TNewKey of array-key
  *   [, preserveKeys: bool = false]
  * )
  * ```
@@ -54,8 +54,10 @@ namespace ImpartialPipes;
  *
  * @template K
  * @template V
- * @param callable(V,K):array-key $hasher
- * @return ($preserveKeys is true ? callable(iterable<K,V>):iterable<array-key,iterable<K,V>> : callable(iterable<K,V>):iterable<array-key,list<V>>)
+ * @template K2 of array-key
+ * @param callable(V,K):K2 $hasher
+ * @param bool $preserveKeys
+ * @return ($preserveKeys is true ? callable(iterable<K,V>):iterable<K2,iterable<K,V>> : callable(iterable<K,V>):iterable<K2,list<V>>)
  */
 function p_group_by(callable $hasher, bool $preserveKeys = false): callable
 {
