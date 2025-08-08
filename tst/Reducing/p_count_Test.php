@@ -92,4 +92,20 @@ final class p_count_Test extends UnitTestCase
             ->pipe(p_count())
             ->toBe(5);
     }
+
+    public function test_p_count_with_a_predicate(): void
+    {
+        $this
+            ->expect([])
+            ->pipe(p_count(fn (int $x) => $x % 2 === 0))
+            ->toBe(0);
+        $this
+            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+            ->pipe(p_count(fn (int $x) => $x % 2 === 0))
+            ->toBe(2);
+        $this
+            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+            ->pipe(p_count(fn (int $x, string $k) => $k === 'b'))
+            ->toBe(1);
+    }
 }

@@ -8,9 +8,10 @@ parameters:
   level: 10
   paths:
     - src
-    - tst # disabled, because there is PHP 8.5 syntax in tests
+    - dev
+    - tst
   excludePaths:
-    - tst/**/*Php85Test.php
+    - **/*Php85*.php
   fileExtensions:
     - php
   tmpDir: var/cache/.phpstan

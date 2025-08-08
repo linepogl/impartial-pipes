@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * ## p_all
- *
  * Checks if all elements of the iterable pass the given truth test.
  *
  * ### Examples

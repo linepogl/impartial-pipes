@@ -7,8 +7,12 @@ return $config
     ->setRiskyAllowed(true)
     ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
     ->setFinder(new PhpCsFixer\Finder()
-        ->in([__DIR__. '/src', __DIR__. '/tst'])
-        ->notName('*Php85Test.php')// avoid PHP 8.5 syntax
+        ->in([
+            __DIR__. '/src',
+            __DIR__. '/tst',
+            __DIR__. '/dev',
+        ])
+        ->notName('*Php85*.php') // avoid PHP 8.5 syntax
     )
     ->setRules([
         '@PSR12'                                     => true,

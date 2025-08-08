@@ -8,7 +8,7 @@ require __DIR__ . '/src/Util/LazyRewindableIterator.php';
 
 require __DIR__ . '/src/Combining/p_merge.php';
 
-require __DIR__ . '/src/Filtering/p_compact.php';
+require __DIR__ . '/src/Filtering/p_filter_out_nulls.php';
 require __DIR__ . '/src/Filtering/p_filter.php';
 require __DIR__ . '/src/Filtering/p_skip.php';
 require __DIR__ . '/src/Filtering/p_skip_while.php';
