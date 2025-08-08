@@ -7,6 +7,8 @@ namespace ImpartialPipes;
 use ArrayIterator;
 
 /**
+ * TODO: docs
+ *
  * @return callable<K of array-key,V>(iterable<K, V>):array<K,V>
  */
 function p_to_array(): callable

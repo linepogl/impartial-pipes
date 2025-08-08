@@ -7,6 +7,8 @@ namespace ImpartialPipes;
 use ArrayIterator;
 
 /**
+ * TODO: docs
+ *
  * @return callable<K,V of float|int>(iterable<K, V>):V
  */
 function p_sum(): callable

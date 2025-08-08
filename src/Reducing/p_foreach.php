@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
+ * TODO: docs
+ *
  * @param callable<V,K>(V, K):mixed $callable
  * @return callable<V,K>(iterable<K, V>):void
  */

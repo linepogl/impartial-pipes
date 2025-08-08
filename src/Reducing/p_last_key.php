@@ -7,6 +7,8 @@ namespace ImpartialPipes;
 use OutOfBoundsException;
 
 /**
+ * TODO: docs
+ *
  * @template K
  * @template V
  * @param ?callable(V,K):bool $predicate

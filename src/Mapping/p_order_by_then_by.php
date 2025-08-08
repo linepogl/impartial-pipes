@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
+ * TODO: docs
+ *
  * @template K
  * @template V
  * @template TComparable
@@ -25,6 +27,8 @@ function p_order_by(callable $hasher, bool $descending = false, bool $preserveKe
 }
 
 /**
+ * TODO: docs
+ *
  * @template K
  * @template V
  * @template TComparable

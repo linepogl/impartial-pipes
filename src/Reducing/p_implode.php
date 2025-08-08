@@ -8,6 +8,8 @@ use ArrayIterator;
 use Stringable;
 
 /**
+ * TODO: docs
+ *
  * @return callable<K,V of null|scalar|Stringable>(iterable<K, V>):string
  */
 function p_implode(string $separator = ''): callable

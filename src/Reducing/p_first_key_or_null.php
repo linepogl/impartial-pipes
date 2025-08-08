@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
+ * TODO: docs
+ *
  * @template K
  * @template V
  * @param ?callable(V,K):bool $predicate
