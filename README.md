@@ -71,6 +71,7 @@ $iterable
 ### Filtering partial functions
 
 - [p_filter](doc/Filtering/p_filter.md)
+- [p_filter_out](doc/Filtering/p_filter_out.md)
 - [p_filter_out_nulls](doc/Filtering/p_filter_out_nulls.md)
 - [p_unique](doc/Filtering/p_unique.md)
 - [p_take](doc/Filtering/p_take.md)
