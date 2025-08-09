@@ -9,6 +9,8 @@ use OutOfBoundsException;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_first_key;
+use function Tests\p_assert_equals;
+use function Tests\p_assert_throws;
 
 /**
  * @internal
@@ -17,87 +19,79 @@ final class p_first_key_Test extends UnitTestCase
 {
     public function test_p_first_key_with_arrays(): void
     {
-        $this->expect(static fn () =>
+        static fn () => (
             []
-            |>p_first_key()
-        )->toThrow(OutOfBoundsException::class);
-
-        $this->expect(static fn () =>
-            []
-            |>p_first_key(static fn (int $x) => $x > 1)
-        )->toThrow(OutOfBoundsException::class);
-
-        $this->expect(
-            [1,2,3]
             |> p_first_key()
-        )->toBe(0);
+        ) |> p_assert_throws(OutOfBoundsException::class);
 
-        $this->expect(
-            [1,2,3]
+        static fn () => (
+            []
             |> p_first_key(static fn (int $x) => $x > 1)
-        )->toBe(1);
+        ) |> p_assert_throws(OutOfBoundsException::class);
 
-        $this->expect(static fn () =>
+        [1,2,3]
+        |> p_first_key()
+        |> p_assert_equals(0);
+
+        [1,2,3]
+        |> p_first_key(static fn (int $x) => $x > 1)
+        |> p_assert_equals(1);
+
+        static fn () => (
             [1,2,3]
-            |>p_first_key(static fn (int $x) => $x > 3)
-        )->toThrow(OutOfBoundsException::class);
+            |> p_first_key(static fn (int $x) => $x > 3)
+        ) |> p_assert_throws(OutOfBoundsException::class);
 
-        $this->expect(
-            ['a' => 1, 'aa' => 2, 'aaa' => 3]
-            |> p_first_key()
-        )->toBe('a');
+        ['a' => 1, 'aa' => 2, 'aaa' => 3]
+        |> p_first_key()
+        |> p_assert_equals('a');
 
-        $this->expect(
-            ['a' => 1, 'aa' => 2, 'aaa' => 3]
-            |> p_first_key(static fn (int $x, string $k) => strlen($k) > 1)
-        )->toBe('aa');
+        ['a' => 1, 'aa' => 2, 'aaa' => 3]
+        |> p_first_key(static fn (int $x, string $k) => strlen($k) > 1)
+        |> p_assert_equals('aa');
 
-        $this->expect(static fn () =>
+        static fn () => (
             ['a' => 1, 'aa' => 2, 'aaa' => 3]
-            |>p_first_key(static fn (int $x, string $k) => strlen($k) > 3)
-        )->toThrow(OutOfBoundsException::class);
+            |> p_first_key(static fn (int $x, string $k) => strlen($k) > 3)
+        ) |> p_assert_throws(OutOfBoundsException::class);
     }
 
     public function test_p_first_key_with_iterables(): void
     {
-        $this->expect(static fn () =>
+        static fn () => (
             new ArrayIterator([])
-            |>p_first_key()
-        )->toThrow(OutOfBoundsException::class);
-
-        $this->expect(static fn () =>
-            new ArrayIterator([])
-            |>p_first_key(static fn (int $x) => $x > 1)
-        )->toThrow(OutOfBoundsException::class);
-
-        $this->expect(
-            new ArrayIterator([1,2,3])
             |> p_first_key()
-        )->toBe(0);
+        ) |> p_assert_throws(OutOfBoundsException::class);
 
-        $this->expect(
-            new ArrayIterator([1,2,3])
+        static fn () => (
+            new ArrayIterator([])
             |> p_first_key(static fn (int $x) => $x > 1)
-        )->toBe(1);
+        ) |> p_assert_throws(OutOfBoundsException::class);
 
-        $this->expect(static fn () =>
+        new ArrayIterator([1,2,3])
+        |> p_first_key()
+        |> p_assert_equals(0);
+
+        new ArrayIterator([1,2,3])
+        |> p_first_key(static fn (int $x) => $x > 1)
+        |> p_assert_equals(1);
+
+        static fn () => (
             new ArrayIterator([1,2,3])
-            |>p_first_key(static fn (int $x) => $x > 3)
-        )->toThrow(OutOfBoundsException::class);
+            |> p_first_key(static fn (int $x) => $x > 3)
+        ) |> p_assert_throws(OutOfBoundsException::class);
 
-        $this->expect(
-            new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
-            |> p_first_key()
-        )->toBe('a');
+        new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
+        |> p_first_key()
+        |> p_assert_equals('a');
 
-        $this->expect(
-            new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
-            |> p_first_key(static fn (int $x, string $k) => strlen($k) > 1)
-        )->toBe('aa');
+        new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
+        |> p_first_key(static fn (int $x, string $k) => strlen($k) > 1)
+        |> p_assert_equals('aa');
 
-        $this->expect(static fn () =>
+        static fn () => (
             new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
-            |>p_first_key(static fn (int $x, string $k) => strlen($k) > 3)
-        )->toThrow(OutOfBoundsException::class);
+            |> p_first_key(static fn (int $x, string $k) => strlen($k) > 3)
+        ) |> p_assert_throws(OutOfBoundsException::class);
     }
 }

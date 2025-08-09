@@ -7,6 +7,8 @@ namespace Tests\Filtering;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_unique;
+use function Tests\p_assert_iterates_like;
+use function Tests\pipe;
 
 /**
  * @internal
@@ -15,44 +17,36 @@ final class p_unique_Test extends UnitTestCase
 {
     public function test_p_unique(): void
     {
-        $this
-            ->expect([])
-            ->pipe(p_unique())
-            ->toIterateLike([]);
+        pipe([])
+        ->to(p_unique())
+        ->to(p_assert_iterates_like([]));
 
-        $this
-            ->expect([])
-            ->pipe(p_unique(preserveKeys: true))
-            ->toIterateLike([]);
+        pipe([])
+        ->to(p_unique(preserveKeys: true))
+        ->to(p_assert_iterates_like([]));
 
-        $this
-            ->expect(['a' => 1, 'b' => 2, 'c' => 1, 'd' => 4])
-            ->pipe(p_unique())
-            ->toIterateLike([1, 2, 4]);
+        pipe(['a' => 1, 'b' => 2, 'c' => 1, 'd' => 4])
+        ->to(p_unique())
+        ->to(p_assert_iterates_like([1, 2, 4]));
 
-        $this
-            ->expect(['a' => 1, 'b' => 2, 'c' => 1, 'd' => 4])
-            ->pipe(p_unique(preserveKeys: true))
-            ->toIterateLike(['a' => 1, 'b' => 2, 'd' => 4]);
+        pipe(['a' => 1, 'b' => 2, 'c' => 1, 'd' => 4])
+        ->to(p_unique(preserveKeys: true))
+        ->to(p_assert_iterates_like(['a' => 1, 'b' => 2, 'd' => 4]));
 
-        $this
-            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
-            ->pipe(p_unique(static fn (int $x) => $x % 2))
-            ->toIterateLike([1, 2]);
+        pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+        ->to(p_unique(static fn (int $x) => $x % 2))
+        ->to(p_assert_iterates_like([1, 2]));
 
-        $this
-            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
-            ->pipe(p_unique(static fn (int $x) => $x % 2, preserveKeys: true))
-            ->toIterateLike(['a' => 1, 'b' => 2]);
+        pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+        ->to(p_unique(static fn (int $x) => $x % 2, preserveKeys: true))
+        ->to(p_assert_iterates_like(['a' => 1, 'b' => 2]));
 
-        $this
-            ->expect(['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4])
-            ->pipe(p_unique(static fn (int $x, string $k) => $k[0]))
-            ->toIterateLike([1, 3]);
+        pipe(['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4])
+        ->to(p_unique(static fn (int $x, string $k) => $k[0]))
+        ->to(p_assert_iterates_like([1, 3]));
 
-        $this
-            ->expect(['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4])
-            ->pipe(p_unique(static fn (int $x, string $k) => $k[0], preserveKeys: true))
-            ->toIterateLike(['a' => 1, 'b' => 3]);
+        pipe(['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4])
+        ->to(p_unique(static fn (int $x, string $k) => $k[0], preserveKeys: true))
+        ->to(p_assert_iterates_like(['a' => 1, 'b' => 3]));
     }
 }

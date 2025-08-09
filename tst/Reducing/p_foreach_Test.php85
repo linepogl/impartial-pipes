@@ -7,6 +7,7 @@ namespace Tests\Reducing;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_foreach;
+use function Tests\p_assert_equals;
 
 /**
  * @internal
@@ -17,27 +18,27 @@ final class p_foreach_Test extends UnitTestCase
     {
         $sum = 0;
         [] |> p_foreach(function (int $x) use (&$sum) { $sum += $x; });
-        $this->expect($sum)->toBe(0);
+        $sum|> p_assert_equals(0);
 
         $sum = 0;
         [0] |> p_foreach(function (int $x) use (&$sum) { $sum += $x; });
-        $this->expect($sum)->toBe(0);
+        $sum|> p_assert_equals(0);
 
         $sum = 0;
         [1,2,3] |> p_foreach(function (int $x) use (&$sum) { $sum += $x; });
-        $this->expect($sum)->toBe(6);
+        $sum|> p_assert_equals(6);
 
         $sum = '';
         [] |> p_foreach(function (int $x, int $key) use (&$sum) { $sum .= $key; });
-        $this->expect($sum)->toBe('');
+        $sum|> p_assert_equals('');
 
         $sum = '';
         [1] |> p_foreach(function (int $x, int $key) use (&$sum) { $sum .= $key; });
-        $this->expect($sum)->toBe('0');
+        $sum|> p_assert_equals('0');
 
         $sum = '';
         [1,2,3] |> p_foreach(function (int $x, int $key) use (&$sum) { $sum .= $key; });
-        $this->expect($sum)->toBe('012');
+        $sum|> p_assert_equals('012');
     }
 
 }

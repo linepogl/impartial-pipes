@@ -7,6 +7,8 @@ namespace Tests\Mapping;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_values;
+use function Tests\p_assert_iterates_like;
+use function Tests\pipe;
 
 /**
  * @internal
@@ -15,19 +17,16 @@ final class p_values_Test extends UnitTestCase
 {
     public function test_p_values(): void
     {
-        $this
-            ->expect([])
-            ->pipe(p_values())
-            ->toIterateLike([]);
+        pipe([])
+        ->to(p_values())
+        ->to(p_assert_iterates_like([]));
 
-        $this
-            ->expect([1, 2, 3, 4])
-            ->pipe(p_values())
-            ->toIterateLike([1, 2, 3, 4]);
+        pipe([1, 2, 3, 4])
+        ->to(p_values())
+        ->to((p_assert_iterates_like([1, 2, 3, 4])));
 
-        $this
-            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
-            ->pipe(p_values())
-            ->toIterateLike([1, 2, 3, 4]);
+        pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+        ->to(p_values())
+        ->to((p_assert_iterates_like([1, 2, 3, 4])));
     }
 }

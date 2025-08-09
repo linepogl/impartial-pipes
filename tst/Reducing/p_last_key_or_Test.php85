@@ -8,6 +8,7 @@ use ArrayIterator;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_last_key_or;
+use function Tests\p_assert_equals;
 
 /**
  * @internal
@@ -16,87 +17,71 @@ final class p_last_key_or_Test extends UnitTestCase
 {
     public function test_p_last_key_or_with_arrays(): void
     {
-        $this->expect(
-            []
-            |> p_last_key_or(null)
-        )->toBe(null);
+        []
+        |> p_last_key_or(null)
+        |> p_assert_equals(null);
 
-        $this->expect(
-            []
-            |> p_last_key_or(null, static fn (int $x) => $x < 3)
-        )->toBe(null);
+        []
+        |> p_last_key_or(null, static fn (int $x) => $x < 3)
+        |> p_assert_equals(null);
 
-        $this->expect(
-            [1,2,3]
-            |> p_last_key_or(null)
-        )->toBe(2);
+        [1,2,3]
+        |> p_last_key_or(null)
+        |> p_assert_equals(2);
 
-        $this->expect(
-            [1,2,3]
-            |> p_last_key_or(null, static fn (int $x) => $x < 3)
-        )->toBe(1);
+        [1,2,3]
+        |> p_last_key_or(null, static fn (int $x) => $x < 3)
+        |> p_assert_equals(1);
 
-        $this->expect(
-            [1,2,3]
-            |> p_last_key_or(null, static fn (int $x) => $x > 3)
-        )->toBe(null);
+        [1,2,3]
+        |> p_last_key_or(null, static fn (int $x) => $x > 3)
+        |> p_assert_equals(null);
 
-        $this->expect(
-            ['a' => 1, 'aa' => 2, 'aaa' => 3]
-            |> p_last_key_or(null)
-        )->toBe('aaa');
+        ['a' => 1, 'aa' => 2, 'aaa' => 3]
+        |> p_last_key_or(null)
+        |> p_assert_equals('aaa');
 
-        $this->expect(
-            ['a' => 1, 'aa' => 2, 'aaa' => 3]
-            |> p_last_key_or(null, static fn (int $x, string $k) => strlen($k) < 3)
-        )->toBe('aa');
+        ['a' => 1, 'aa' => 2, 'aaa' => 3]
+        |> p_last_key_or(null, static fn (int $x, string $k) => strlen($k) < 3)
+        |> p_assert_equals('aa');
 
-        $this->expect(
-            ['a' => 1, 'aa' => 2, 'aaa' => 3]
-            |> p_last_key_or(null, static fn (int $x, string $k) => strlen($k) > 3)
-        )->toBe(null);
+        ['a' => 1, 'aa' => 2, 'aaa' => 3]
+        |> p_last_key_or(null, static fn (int $x, string $k) => strlen($k) > 3)
+        |> p_assert_equals(null);
     }
 
     public function test_p_last_key_or_with_iterables(): void
     {
-        $this->expect(
-            new ArrayIterator([])
-            |> p_last_key_or(null)
-        )->toBe(null);
+        new ArrayIterator([])
+        |> p_last_key_or(null)
+        |> p_assert_equals(null);
 
-        $this->expect(
-            new ArrayIterator([])
-            |> p_last_key_or(null, static fn (int $x) => $x < 3)
-        )->toBe(null);
+        new ArrayIterator([])
+        |> p_last_key_or(null, static fn (int $x) => $x < 3)
+        |> p_assert_equals(null);
 
-        $this->expect(
-            new ArrayIterator([1,2,3])
-            |> p_last_key_or(null)
-        )->toBe(2);
+        new ArrayIterator([1,2,3])
+        |> p_last_key_or(null)
+        |> p_assert_equals(2);
 
-        $this->expect(
-            new ArrayIterator([1,2,3])
-            |> p_last_key_or(null, static fn (int $x) => $x < 3)
-        )->toBe(1);
+        new ArrayIterator([1,2,3])
+        |> p_last_key_or(null, static fn (int $x) => $x < 3)
+        |> p_assert_equals(1);
 
-        $this->expect(
-            new ArrayIterator([1,2,3])
-            |> p_last_key_or(null, static fn (int $x) => $x > 3)
-        )->toBe(null);
+        new ArrayIterator([1,2,3])
+        |> p_last_key_or(null, static fn (int $x) => $x > 3)
+        |> p_assert_equals(null);
 
-        $this->expect(
-            new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
-            |> p_last_key_or(null)
-        )->toBe('aaa');
+        new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
+        |> p_last_key_or('null)
+        |> p_assert_equals(aaa');
 
-        $this->expect(
-            new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
-            |> p_last_key_or(null, static fn (int $x, string $k) => strlen($k) < 3)
-        )->toBe('aa');
+        new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
+        |> p_last_key_or(null, static fn (int $x, string $k) => strlen($k) < 3)
+        |> p_assert_equals('aa');
 
-        $this->expect(
-            new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
-            |> p_last_key_or(null, static fn (int $x, string $k) => strlen($k) > 3)
-        )->toBe(null);
+        new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
+        |> p_last_key_or(null, static fn (int $x, string $k) => strlen($k) > 3)
+        |> p_assert_equals(null);
     }
 }

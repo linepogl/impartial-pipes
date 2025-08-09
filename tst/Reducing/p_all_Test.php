@@ -8,6 +8,8 @@ use ArrayIterator;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_all;
+use function Tests\p_assert_equals;
+use function Tests\pipe;
 
 /**
  * @internal
@@ -16,67 +18,55 @@ final class p_all_Test extends UnitTestCase
 {
     public function test_p_all_with_arrays(): void
     {
-        $this
-            ->expect([])
-            ->pipe(p_all(static fn (int $x) => $x % 2 === 1))
-            ->toBe(true);
+        pipe([])
+        ->to(p_all(static fn (int $x) => $x % 2 === 1))
+        ->to(p_assert_equals(true));
 
-        $this
-            ->expect([])
-            ->pipe(p_all(static fn (int $x, string $k) => $k[0] === 'a'))
-            ->toBe(true);
+        pipe([])
+        ->to(p_all(static fn (int $x, string $k) => $k[0] === 'a'))
+        ->to(p_assert_equals(true));
 
-        $this
-            ->expect([1, 3, 5])
-            ->pipe(p_all(static fn (int $x) => $x % 2 === 1))
-            ->toBe(true);
+        pipe([1, 3, 5])
+        ->to(p_all(static fn (int $x) => $x % 2 === 1))
+        ->to(p_assert_equals(true));
 
-        $this
-            ->expect([1, 2, 5])
-            ->pipe(p_all(static fn (int $x) => $x % 2 === 1))
-            ->toBe(false);
+        pipe([1, 2, 5])
+        ->to(p_all(static fn (int $x) => $x % 2 === 1))
+        ->to(p_assert_equals(false));
 
-        $this
-            ->expect(['a' => 1, 'aa' => 2, 'aaa' => 3])
-            ->pipe(p_all(static fn (int $x, string $k) => $k[0] === 'a'))
-            ->toBe(true);
+        pipe(['a' => 1, 'aa' => 2, 'aaa' => 3])
+        ->to(p_all(static fn (int $x, string $k) => $k[0] === 'a'))
+        ->to(p_assert_equals(true));
 
-        $this
-            ->expect(['a' => 1, 'b' => 2, 'c' => 3])
-            ->pipe(p_all(static fn (int $x, string $k) => $k[0] === 'a'))
-            ->toBe(false);
+        pipe(['a' => 1, 'b' => 2, 'c' => 3])
+        ->to(p_all(static fn (int $x, string $k) => $k[0] === 'a'))
+        ->to(p_assert_equals(false));
     }
 
     public function test_p_all_with_iterators(): void
     {
-        $this
-            ->expect(new ArrayIterator([]))
-            ->pipe(p_all(static fn (int $x) => $x % 2 === 1))
-            ->toBe(true);
+        pipe(new ArrayIterator([]))
+        ->to(p_all(static fn (int $x) => $x % 2 === 1))
+        ->to(p_assert_equals(true));
 
-        $this
-            ->expect(new ArrayIterator([]))
-            ->pipe(p_all(static fn (int $x, string $k) => $k[0] === 'a'))
-            ->toBe(true);
+        pipe(new ArrayIterator([]))
+        ->to(p_all(static fn (int $x, string $k) => $k[0] === 'a'))
+        ->to(p_assert_equals(true));
 
-        $this
-            ->expect(new ArrayIterator([1, 3, 5]))
-            ->pipe(p_all(static fn (int $x) => $x % 2 === 1))
-            ->toBe(true);
+        pipe(new ArrayIterator([1, 3, 5]))
+        ->to(p_all(static fn (int $x) => $x % 2 === 1))
+        ->to(p_assert_equals(true));
 
-        $this
-            ->expect(new ArrayIterator([1, 2, 5]))
-            ->pipe(p_all(static fn (int $x) => $x % 2 === 1))
-            ->toBe(false);
+        pipe(new ArrayIterator([1, 2, 5]))
+        ->to(p_all(static fn (int $x) => $x % 2 === 1))
+        ->to(p_assert_equals(false));
 
-        $this
-            ->expect(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
-            ->pipe(p_all(static fn (int $x, string $k) => $k[0] === 'a'))
-            ->toBe(true);
+        pipe(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
+        ->to(p_all(static fn (int $x, string $k) => $k[0] === 'a'))
+        ->to(p_assert_equals(true));
 
-        $this
-            ->expect(new ArrayIterator(['a' => 1, 'b' => 2, 'c' => 3]))
-            ->pipe(p_all(static fn (int $x, string $k) => $k[0] === 'a'))
-            ->toBe(false);
+        pipe(new ArrayIterator(['a' => 1, 'b' => 2, 'c' => 3]))
+        ->to(p_all(static fn (int $x, string $k) => $k[0] === 'a'))
+        ->to(p_assert_equals(false));
     }
 }

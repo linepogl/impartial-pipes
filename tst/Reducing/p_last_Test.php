@@ -9,6 +9,9 @@ use OutOfBoundsException;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_last;
+use function Tests\p_assert_equals;
+use function Tests\p_assert_throws;
+use function Tests\pipe;
 
 /**
  * @internal
@@ -17,73 +20,71 @@ final class p_last_Test extends UnitTestCase
 {
     public function test_p_last_with_arrays(): void
     {
-        $this
-            ->expect([])
-            ->lazyPipe(p_last())
-            ->toThrow(OutOfBoundsException::class);
-        $this
-            ->expect([])
-            ->lazyPipe(p_last(static fn (int $x) => $x < 3))
-            ->toThrow(OutOfBoundsException::class);
-        $this
-            ->expect([1,2,3])
-            ->pipe(p_last())
-            ->toBe(3);
-        $this
-            ->expect([1,2,3])
-            ->pipe(p_last(static fn (int $x) => $x < 3))
-            ->toBe(2);
-        $this
-            ->expect([1,2,3])
-            ->lazyPipe(p_last(static fn (int $x) => $x > 3))
-            ->toThrow(OutOfBoundsException::class);
-        $this
-            ->expect(['a' => 1, 'aa' => 2, 'aaa' => 3])
-            ->pipe(p_last())
-            ->toBe(3);
-        $this
-            ->expect(['a' => 1, 'aa' => 2, 'aaa' => 3])
-            ->pipe(p_last(static fn (int $x, string $k) => strlen($k) < 3))
-            ->toBe(2);
-        $this
-            ->expect(['a' => 1, 'aa' => 2, 'aaa' => 3])
-            ->lazyPipe(p_last(static fn (int $x, string $k) => strlen($k) > 3))
-            ->toThrow(OutOfBoundsException::class);
+        pipe([])
+        ->toLazy(p_last())
+        ->to(p_assert_throws(OutOfBoundsException::class));
+
+        pipe([])
+        ->toLazy(p_last(static fn (int $x) => $x < 3))
+        ->to(p_assert_throws(OutOfBoundsException::class));
+
+        pipe([1,2,3])
+        ->to(p_last())
+        ->to(p_assert_equals(3));
+
+        pipe([1,2,3])
+        ->to(p_last(static fn (int $x) => $x < 3))
+        ->to(p_assert_equals(2));
+
+        pipe([1,2,3])
+        ->toLazy(p_last(static fn (int $x) => $x > 3))
+        ->to(p_assert_throws(OutOfBoundsException::class));
+
+        pipe(['a' => 1, 'aa' => 2, 'aaa' => 3])
+        ->to(p_last())
+        ->to(p_assert_equals(3));
+
+        pipe(['a' => 1, 'aa' => 2, 'aaa' => 3])
+        ->to(p_last(static fn (int $x, string $k) => strlen($k) < 3))
+        ->to(p_assert_equals(2));
+
+        pipe(['a' => 1, 'aa' => 2, 'aaa' => 3])
+        ->toLazy(p_last(static fn (int $x, string $k) => strlen($k) > 3))
+        ->to((p_assert_throws(OutOfBoundsException::class)));
     }
 
     public function test_p_last_with_iterables(): void
     {
-        $this
-            ->expect(new ArrayIterator([]))
-            ->lazyPipe(p_last())
-            ->toThrow(OutOfBoundsException::class);
-        $this
-            ->expect(new ArrayIterator([]))
-            ->lazyPipe(p_last(static fn (int $x) => $x < 3))
-            ->toThrow(OutOfBoundsException::class);
-        $this
-            ->expect(new ArrayIterator([1,2,3]))
-            ->pipe(p_last())
-            ->toBe(3);
-        $this
-            ->expect(new ArrayIterator([1,2,3]))
-            ->pipe(p_last(static fn (int $x) => $x < 3))
-            ->toBe(2);
-        $this
-            ->expect(new ArrayIterator([1,2,3]))
-            ->lazyPipe(p_last(static fn (int $x) => $x > 3))
-            ->toThrow(OutOfBoundsException::class);
-        $this
-            ->expect(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
-            ->pipe(p_last())
-            ->toBe(3);
-        $this
-            ->expect(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
-            ->pipe(p_last(static fn (int $x, string $k) => strlen($k) < 3))
-            ->toBe(2);
-        $this
-            ->expect(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
-            ->lazyPipe(p_last(static fn (int $x, string $k) => strlen($k) > 3))
-            ->toThrow(OutOfBoundsException::class);
+        pipe(new ArrayIterator([]))
+        ->toLazy(p_last())
+        ->to(p_assert_throws(OutOfBoundsException::class));
+
+        pipe(new ArrayIterator([]))
+        ->toLazy(p_last(static fn (int $x) => $x < 3))
+        ->to(p_assert_throws(OutOfBoundsException::class));
+
+        pipe(new ArrayIterator([1,2,3]))
+        ->to(p_last())
+        ->to(p_assert_equals(3));
+
+        pipe(new ArrayIterator([1,2,3]))
+        ->to(p_last(static fn (int $x) => $x < 3))
+        ->to(p_assert_equals(2));
+
+        pipe(new ArrayIterator([1,2,3]))
+        ->toLazy(p_last(static fn (int $x) => $x > 3))
+        ->to(p_assert_throws(OutOfBoundsException::class));
+
+        pipe(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
+        ->to(p_last())
+        ->to(p_assert_equals(3));
+
+        pipe(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
+        ->to(p_last(static fn (int $x, string $k) => strlen($k) < 3))
+        ->to(p_assert_equals(2));
+
+        pipe(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
+        ->toLazy(p_last(static fn (int $x, string $k) => strlen($k) > 3))
+        ->to((p_assert_throws(OutOfBoundsException::class)));
     }
 }

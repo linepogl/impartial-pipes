@@ -9,6 +9,7 @@ use Tests\UniterableArrayIterator;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_implode;
+use function Tests\p_assert_equals;
 
 /**
  * @internal
@@ -17,100 +18,82 @@ final class p_implode_Test extends UnitTestCase
 {
     public function test_p_implode_with_arrays(): void
     {
-        $this->expect(
-            []
-            |> p_implode()
-        )->toBe('');
+        []
+        |> p_implode()
+        |> p_assert_equals('');
 
-        $this->expect(
-            []
-            |> p_implode('-')
-        )->toBe('');
+        []
+        |> p_implode('-')
+        |> p_assert_equals('');
 
-        $this->expect(
-            [1, 2, 3]
-            |> p_implode()
-        )->toBe('123');
+        [1, 2, 3]
+        |> p_implode()
+        |> p_assert_equals('123');
 
-        $this->expect(
-            [1, 2, 3]
-            |> p_implode('-')
-        )->toBe('1-2-3');
+        [1, 2, 3]
+        |> p_implode('-')
+        |> p_assert_equals('1-2-3');
 
-        $this->expect(
-            [1, 'a', 3.3, null]
-            |> p_implode()
-        )->toBe('1a3.3');
+        [1, 'a', 3.3, null]
+        |> p_implode()
+        |> p_assert_equals('1a3.3');
 
-        $this->expect(
-            [1, 'a', 3.3, null]
-            |> p_implode('-')
-        )->toBe('1-a-3.3-');
+        [1, 'a', 3.3, null]
+        |> p_implode('-')
+        |> p_assert_equals('1-a-3.3-');
     }
 
     public function test_p_implode_with_array_iterators(): void
     {
-        $this->expect(
-            new UniterableArrayIterator([])
-            |> p_implode()
-        )->toBe('');
+        new UniterableArrayIterator([])
+        |> p_implode()
+        |> p_assert_equals('');
 
-        $this->expect(
-            new UniterableArrayIterator([])
-            |> p_implode('-')
-        )->toBe('');
+        new UniterableArrayIterator([])
+        |> p_implode('-')
+        |> p_assert_equals('');
 
-        $this->expect(
-            new UniterableArrayIterator([1, 2, 3])
-            |> p_implode()
-        )->toBe('123');
+        new UniterableArrayIterator([1, 2, 3])
+        |> p_implode()
+        |> p_assert_equals('123');
 
-        $this->expect(
-            new UniterableArrayIterator([1, 2, 3])
-            |> p_implode('-')
-        )->toBe('1-2-3');
+        new UniterableArrayIterator([1, 2, 3])
+        |> p_implode('-')
+        |> p_assert_equals('1-2-3');
 
-        $this->expect(
-            new UniterableArrayIterator([1, 'a', 3.3, null])
-            |> p_implode()
-        )->toBe('1a3.3');
+        new UniterableArrayIterator([1, 'a', 3.3, null])
+        |> p_implode()
+        |> p_assert_equals('1a3.3');
 
-        $this->expect(
-            new UniterableArrayIterator([1, 'a', 3.3, null])
-            |> p_implode('-')
-        )->toBe('1-a-3.3-');
+        new UniterableArrayIterator([1, 'a', 3.3, null])
+        |> p_implode('-')
+        |> p_assert_equals('1-a-3.3-');
     }
 
     public function test_p_implode_with_simple_iterators(): void
     {
-        $this->expect(
-            new SimpleIterator([])
-            |> p_implode()
-        )->toBe('');
+        new SimpleIterator([])
+        |> p_implode()
+        |> p_assert_equals('');
 
-        $this->expect(
-            new SimpleIterator([])
-            |> p_implode('-')
-        )->toBe('');
+        new SimpleIterator([])
+        |> p_implode('-')
+        |> p_assert_equals('');
 
-        $this->expect(
-            new SimpleIterator([1, 2, 3])
-            |> p_implode()
-        )->toBe('123');
+        new SimpleIterator([1, 2, 3])
+        |> p_implode()
+        |> p_assert_equals('123');
 
-        $this->expect(
-            new SimpleIterator([1, 2, 3])
-            |> p_implode('-')
-        )->toBe('1-2-3');
+        new SimpleIterator([1, 2, 3])
+        |> p_implode('-')
+        |> p_assert_equals('1-2-3');
 
-        $this->expect(
-            new SimpleIterator([1, 'a', 3.3, null])
-            |> p_implode()
-        )->toBe('1a3.3');
+        new SimpleIterator([1, 'a', 3.3, null])
+        |> p_implode()
+        |> p_assert_equals('1a3.3');
 
-        $this->expect(
-            new SimpleIterator([1, 'a', 3.3, null])
-            |> p_implode('-')
-        )->toBe('1-a-3.3-');
+        new SimpleIterator([1, 'a', 3.3, null])
+        |> p_implode('-')
+        |> p_assert_equals('1-a-3.3-');
     }
 }

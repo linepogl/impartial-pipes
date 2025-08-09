@@ -13,6 +13,8 @@ use Tests\UniterableArrayIterator;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_count;
+use function Tests\p_assert_equals;
+use function Tests\pipe;
 
 /**
  * @internal
@@ -21,91 +23,88 @@ final class p_count_Test extends UnitTestCase
 {
     public function test_p_count(): void
     {
-        $this
-            ->expect([])
-            ->pipe(p_count())
-            ->toBe(0);
-        $this
-            ->expect([1,2])
-            ->pipe(p_count())
-            ->toBe(2);
-        $this
-            ->expect(new SimpleIterator([1,2,3]))
-            ->pipe(p_count())
-            ->toBe(3);
-        $this
-            ->expect(new LazyRewindableIterator(fn () => new SimpleIterator([1,2,3,4])))
-            ->pipe(p_count())
-            ->toBe(4);
-        $this
-            ->expect(new UniterableArrayIterator([1,2,3,4,5]))
-            ->pipe(p_count())
-            ->toBe(5);
-        $this
-            ->expect(new LazyRewindableIterator(fn () => new UniterableArrayIterator([1,2,3,4,5,6])))
-            ->pipe(p_count())
-            ->toBe(6);
-        $this
-            ->expect(new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7])))
-            ->pipe(p_count())
-            ->toBe(7);
-        $this
-            ->expect(new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7,8]))))
-            ->pipe(p_count())
-            ->toBe(8);
-        $this
-            ->expect(new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9])))
-            ->pipe(p_count())
-            ->toBe(9);
-        $this
-            ->expect(new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9,10]))))
-            ->pipe(p_count())
-            ->toBe(10);
-        $this
-            ->expect(new SimpleIteratorAggregate(new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7,8,9,10,11]))))
-            ->pipe(p_count())
-            ->toBe(11);
-        $this
-            ->expect(new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7,8,9,10,11,12])))))
-            ->pipe(p_count())
-            ->toBe(12);
-        $this
-            ->expect(new SimpleIteratorAggregate(new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9,10,11,12,13]))))
-            ->pipe(p_count())
-            ->toBe(13);
-        $this
-            ->expect(new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9,10,11,12,13,14])))))
-            ->pipe(p_count())
-            ->toBe(14);
+        pipe([])
+        ->to(p_count())
+        ->to(p_assert_equals(0));
+
+        pipe([1,2])
+        ->to(p_count())
+        ->to(p_assert_equals(2));
+
+        pipe(new SimpleIterator([1,2,3]))
+        ->to(p_count())
+        ->to(p_assert_equals(3));
+
+        pipe(new LazyRewindableIterator(fn () => new SimpleIterator([1,2,3,4])))
+        ->to(p_count())
+        ->to(p_assert_equals(4));
+
+        pipe(new UniterableArrayIterator([1,2,3,4,5]))
+        ->to(p_count())
+        ->to(p_assert_equals(5));
+
+        pipe(new LazyRewindableIterator(fn () => new UniterableArrayIterator([1,2,3,4,5,6])))
+        ->to(p_count())
+        ->to(p_assert_equals(6));
+
+        pipe(new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7])))
+        ->to(p_count())
+        ->to(p_assert_equals(7));
+
+        pipe(new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7,8]))))
+        ->to(p_count())
+        ->to(p_assert_equals(8));
+
+        pipe(new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9])))
+        ->to(p_count())
+        ->to(p_assert_equals(9));
+
+        pipe(new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9,10]))))
+        ->to(p_count())
+        ->to(p_assert_equals(10));
+
+        pipe(new SimpleIteratorAggregate(new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7,8,9,10,11]))))
+        ->to(p_count())
+        ->to(p_assert_equals(11));
+
+        pipe(new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7,8,9,10,11,12])))))
+        ->to(p_count())
+        ->to(p_assert_equals(12));
+
+        pipe(new SimpleIteratorAggregate(new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9,10,11,12,13]))))
+        ->to(p_count())
+        ->to(p_assert_equals(13));
+
+        pipe(new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9,10,11,12,13,14])))))
+        ->to(p_count())
+        ->to(p_assert_equals(14));
     }
 
     public function test_p_count_with_countables(): void
     {
-        $this
-            ->expect(new class () implements Countable {
-                #[Override]
-                public function count(): int
-                {
-                    return 5;
-                }
-            })
-            ->pipe(p_count())
-            ->toBe(5);
+        pipe(new class () implements Countable {
+            #[Override]
+            public function count(): int
+            {
+                return 5;
+            }
+        })
+        ->to(p_count())
+        ->to(p_assert_equals(5));
     }
 
     public function test_p_count_with_a_predicate(): void
     {
-        $this
-            ->expect([])
-            ->pipe(p_count(fn (int $x) => $x % 2 === 0))
-            ->toBe(0);
-        $this
-            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
-            ->pipe(p_count(fn (int $x) => $x % 2 === 0))
-            ->toBe(2);
-        $this
-            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
-            ->pipe(p_count(fn (int $x, string $k) => $k === 'b'))
-            ->toBe(1);
+        pipe([])
+        ->to(p_count(fn (int $x) => $x % 2 === 0))
+        ->to(p_assert_equals(0));
+
+        pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+        ->to(p_count(fn (int $x) => $x % 2 === 0))
+        ->to(p_assert_equals(2));
+
+        pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+        ->to(p_count(fn (int $x, string $k) => $k === 'b'))
+        ->to(p_assert_equals(1));
     }
 }

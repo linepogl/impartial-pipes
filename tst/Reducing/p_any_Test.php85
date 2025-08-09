@@ -10,6 +10,7 @@ use Tests\UniterableArrayIterator;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_any;
+use function Tests\p_assert_equals;
 
 /**
  * @internal
@@ -18,100 +19,82 @@ final class p_any_Test extends UnitTestCase
 {
     public function test_p_any_with_arrays(): void
     {
-        $this->expect(
-            []
-            |> p_any(static fn (int $x) => $x % 2 === 1)
-        )->toBe(false);
+        []
+        |> p_any(static fn (int $x) => $x % 2 === 1)
+        |> p_assert_equals(false);
 
-        $this->expect(
-            []
-            |> p_any(static fn (int $x, string $k) => $k[0] === 'a')
-        )->toBe(false);
+        []
+        |> p_any(static fn (int $x, string $k) => $k[0] === 'a')
+        |> p_assert_equals(false);
 
-        $this->expect(
-            [2, 3, 4]
-            |> p_any(static fn (int $x) => $x % 2 === 1)
-        )->toBe(true);
+        [2, 3, 4]
+        |> p_any(static fn (int $x) => $x % 2 === 1)
+        |> p_assert_equals(true);
 
-        $this->expect(
-            [2, 4, 6]
-            |> p_any(static fn (int $x) => $x % 2 === 1)
-        )->toBe(false);
+        [2, 4, 6]
+        |> p_any(static fn (int $x) => $x % 2 === 1)
+        |> p_assert_equals(false);
 
-        $this->expect(
-            ['aa' => 1, 'bb' => 2, 'cc' => 3]
-            |> p_any(static fn (int $x, string $k) => $k[0] === 'b')
-        )->toBe(true);
+        ['aa' => 1, 'bb' => 2, 'cc' => 3]
+        |> p_any(static fn (int $x, string $k) => $k[0] === 'b')
+        |> p_assert_equals(true);
 
-        $this->expect(
-            ['aa' => 1, 'bb' => 2, 'cc' => 3]
-            |> p_any(static fn (int $x, string $k) => $k[0] === 'd')
-        )->toBe(false);
+        ['aa' => 1, 'bb' => 2, 'cc' => 3]
+        |> p_any(static fn (int $x, string $k) => $k[0] === 'd')
+        |> p_assert_equals(false);
     }
 
     public function test_p_any_with_iterators(): void
     {
-        $this->expect(
-            new ArrayIterator([])
-            |> p_any(static fn (int $x) => $x % 2 === 1)
-        )->toBe(false);
+        new ArrayIterator([])
+        |> p_any(static fn (int $x) => $x % 2 === 1)
+        |> p_assert_equals(false);
 
-        $this->expect(
-            new ArrayIterator([])
-            |> p_any(static fn (int $x, string $k) => $k[0] === 'a')
-        )->toBe(false);
+        new ArrayIterator([])
+        |> p_any(static fn (int $x, string $k) => $k[0] === 'a')
+        |> p_assert_equals(false);
 
-        $this->expect(
-            new ArrayIterator([2, 3, 4])
-            |> p_any(static fn (int $x) => $x % 2 === 1)
-        )->toBe(true);
+        new ArrayIterator([2, 3, 4])
+        |> p_any(static fn (int $x) => $x % 2 === 1)
+        |> p_assert_equals(true);
 
-        $this->expect(
-            new ArrayIterator([2, 4, 6])
-            |> p_any(static fn (int $x) => $x % 2 === 1)
-        )->toBe(false);
+        new ArrayIterator([2, 4, 6])
+        |> p_any(static fn (int $x) => $x % 2 === 1)
+        |> p_assert_equals(false);
 
-        $this->expect(
-            new ArrayIterator(['aa' => 1, 'bb' => 2, 'cc' => 3])
-            |> p_any(static fn (int $x, string $k) => $k[0] === 'b')
-        )->toBe(true);
+        new ArrayIterator(['aa' => 1, 'bb' => 2, 'cc' => 3])
+        |> p_any(static fn (int $x, string $k) => $k[0] === 'b')
+        |> p_assert_equals(true);
 
-        $this->expect(
-            new ArrayIterator(['aa' => 1, 'bb' => 2, 'cc' => 3])
-            |> p_any(static fn (int $x, string $k) => $k[0] === 'd')
-        )->toBe(false);
+        new ArrayIterator(['aa' => 1, 'bb' => 2, 'cc' => 3])
+        |> p_any(static fn (int $x, string $k) => $k[0] === 'd')
+        |> p_assert_equals(false);
     }
 
     public function test_p_any_without_a_predicate(): void
     {
-        $this->expect(
-            []
-            |> p_any()
-        )->toBe(false);
+        []
+        |> p_any()
+        |> p_assert_equals(false);
 
-        $this->expect(
-            [1, 2]
-            |> p_any()
-        )->toBe(true);
+        [1, 2]
+        |> p_any()
+        |> p_assert_equals(true);
 
-        $this->expect(
-            new UniterableArrayIterator([])
-            |> p_any()
-        )->toBe(false);
+        new UniterableArrayIterator([])
+        |> p_any()
+        |> p_assert_equals(false);
 
-        $this->expect(
-            new UniterableArrayIterator([1, 2])
-            |> p_any()
-        )->toBe(true);
+        new UniterableArrayIterator([1, 2])
+        |> p_any()
+        |> p_assert_equals(true);
 
-        $this->expect(
-            new SimpleIterator([])
-            |> p_any()
-        )->toBe(false);
+        new SimpleIterator([])
+        |> p_any()
+        |> p_assert_equals(false);
 
-        $this->expect(
-            new SimpleIterator([1, 2])
-            |> p_any()
-        )->toBe(true);
+        new SimpleIterator([1, 2])
+        |> p_any()
+        |> p_assert_equals(true);
     }
 }

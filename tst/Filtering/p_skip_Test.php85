@@ -7,6 +7,7 @@ namespace Tests\Filtering;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_skip;
+use function Tests\p_assert_iterates_like;
 
 /**
  * @internal
@@ -15,35 +16,29 @@ final class p_skip_Test extends UnitTestCase
 {
     public function test_p_skip(): void
     {
-        $this->expect(
-            []
-            |> p_skip(2)
-        )->toIterateLike([]);
+        []
+        |> p_skip(2)
+        |> p_assert_iterates_like([]);
 
-        $this->expect(
-            []
-            |> p_skip(2, preserveKeys: true)
-        )->toIterateLike([]);
+        []
+        |> p_skip(2, preserveKeys: true)
+        |> p_assert_iterates_like([]);
 
-        $this->expect(
+        ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
+        |> p_skip(2)
+        |> p_assert_iterates_like([3, 4]);
+
             ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-            |> p_skip(2)
-        )->toIterateLike([3, 4]);
+        |> p_skip(2, preserveKeys: true)
+        |> p_assert_iterates_like(['c' => 3, 'd' => 4]);
 
-        $this->expect(
             ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-            |> p_skip(2, preserveKeys: true)
-        )->toIterateLike(['c' => 3, 'd' => 4]);
+        |> p_skip(-2)
+        |> p_assert_iterates_like([1, 2, 3, 4]);
 
-        $this->expect(
             ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-            |> p_skip(-2)
-        )->toIterateLike([1, 2, 3, 4]);
-
-        $this->expect(
-            ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-            |> p_skip(-2, preserveKeys: true)
-        )->toIterateLike(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]);
+        |> p_skip(-2, preserveKeys: true)
+        |> p_assert_iterates_like(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]);
 
     }
 }

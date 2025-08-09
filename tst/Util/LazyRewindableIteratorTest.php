@@ -11,6 +11,9 @@ use Tests\SimpleIteratorAggregate;
 use Tests\UniterableArrayIterator;
 use Tests\UnitTestCase;
 
+use function Tests\p_assert_equals;
+use function Tests\pipe;
+
 /**
  * @internal
  */
@@ -20,33 +23,33 @@ final class LazyRewindableIteratorTest extends UnitTestCase
     {
         $it = new LazyRewindableIterator(static function () { yield from [1, 2]; });
 
-        $this->expect($it->valid())->toBe(true);
-        $this->expect($it->key())->toBe(0);
-        $this->expect($it->current())->toBe(1);
+        pipe($it->valid())->to(p_assert_equals(true));
+        pipe($it->key())->to(p_assert_equals(0));
+        pipe($it->current())->to(p_assert_equals(1));
         $it->next();
-        $this->expect($it->valid())->toBe(true);
-        $this->expect($it->key())->toBe(1);
-        $this->expect($it->current())->toBe(2);
+        pipe($it->valid())->to(p_assert_equals(true));
+        pipe($it->key())->to(p_assert_equals(1));
+        pipe($it->current())->to(p_assert_equals(2));
         $it->rewind();
-        $this->expect($it->valid())->toBe(true);
-        $this->expect($it->key())->toBe(0);
-        $this->expect($it->current())->toBe(1);
+        pipe($it->valid())->to(p_assert_equals(true));
+        pipe($it->key())->to(p_assert_equals(0));
+        pipe($it->current())->to(p_assert_equals(1));
         $it->rewind();
-        $this->expect($it->valid())->toBe(true);
-        $this->expect($it->key())->toBe(0);
-        $this->expect($it->current())->toBe(1);
+        pipe($it->valid())->to(p_assert_equals(true));
+        pipe($it->key())->to(p_assert_equals(0));
+        pipe($it->current())->to(p_assert_equals(1));
         $it->next();
-        $this->expect($it->valid())->toBe(true);
-        $this->expect($it->key())->toBe(1);
-        $this->expect($it->current())->toBe(2);
+        pipe($it->valid())->to(p_assert_equals(true));
+        pipe($it->key())->to(p_assert_equals(1));
+        pipe($it->current())->to(p_assert_equals(2));
         $it->next();
-        $this->expect($it->valid())->toBe(false);
-        $this->expect($it->key())->toBe(null);
-        $this->expect($it->current())->toBe(null);
+        pipe($it->valid())->to(p_assert_equals(false));
+        pipe($it->key())->to(p_assert_equals(null));
+        pipe($it->current())->to(p_assert_equals(null));
         $it->rewind();
-        $this->expect($it->valid())->toBe(true);
-        $this->expect($it->key())->toBe(0);
-        $this->expect($it->current())->toBe(1);
+        pipe($it->valid())->to(p_assert_equals(true));
+        pipe($it->key())->to(p_assert_equals(0));
+        pipe($it->current())->to(p_assert_equals(1));
     }
 
     public function test_rewinds(): void
@@ -54,17 +57,17 @@ final class LazyRewindableIteratorTest extends UnitTestCase
         $it = new LazyRewindableIterator(static fn () => [1,2,3]);
         iterator_to_array($it);
         iterator_to_array($it);
-        $this->expect(iterator_to_array($it))->toBe([1,2,3]);
+        pipe(iterator_to_array($it))->to(p_assert_equals([1,2,3]));
 
         $it = new LazyRewindableIterator(static fn () => new ArrayIterator([1,2,3]));
         iterator_to_array($it);
         iterator_to_array($it);
-        $this->expect(iterator_to_array($it))->toBe([1,2,3]);
+        pipe(iterator_to_array($it))->to(p_assert_equals([1,2,3]));
 
         $it = new LazyRewindableIterator(static function () { yield from [1, 2, 3]; });
         iterator_to_array($it);
         iterator_to_array($it);
-        $this->expect(iterator_to_array($it))->toBe([1,2,3]);
+        pipe(iterator_to_array($it))->to(p_assert_equals([1,2,3]));
     }
 
     public function test_init(): void
@@ -72,41 +75,41 @@ final class LazyRewindableIteratorTest extends UnitTestCase
         // test calling rewind() right away
         $it = new LazyRewindableIterator(static function () { yield from [1, 2]; });
         $it->rewind();
-        $this->expect($it->key())->toBe(0);
+        pipe($it->key())->to(p_assert_equals(0));
 
         // test calling next() right away
         $it = new LazyRewindableIterator(static function () { yield from [1, 2]; });
         $it->next();
-        $this->expect($it->key())->toBe(1);
+        pipe($it->key())->to(p_assert_equals(1));
 
         // test calling valid() right away
         $it = new LazyRewindableIterator(static function () { yield from [1, 2]; });
-        $this->expect($it->valid())->toBe(true);
+        pipe($it->valid())->to(p_assert_equals(true));
 
         // test calling key() right away
         $it = new LazyRewindableIterator(static function () { yield from [1, 2]; });
-        $this->expect($it->key())->toBe(0);
+        pipe($it->key())->to(p_assert_equals(0));
 
         // test calling current() right away
         $it = new LazyRewindableIterator(static function () { yield from [1, 2]; });
-        $this->expect($it->current())->toBe(1);
+        pipe($it->current())->to(p_assert_equals(1));
     }
 
     public function test_counting_with_countables(): void
     {
         $it = new LazyRewindableIterator(static fn () => [1,2,3]);
-        $this->expect($it->count())->toBe(3);
+        pipe($it->count())->to(p_assert_equals(3));
 
         $it = new LazyRewindableIterator(static fn () => new SimpleIterator([1]));
-        $this->expect($it->count())->toBe(1);
+        pipe($it->count())->to(p_assert_equals(1));
 
         $it = new LazyRewindableIterator(static fn () => new UniterableArrayIterator([1,2]));
-        $this->expect($it->count())->toBe(2);
+        pipe($it->count())->to(p_assert_equals(2));
 
         $it = new LazyRewindableIterator(static fn () => new SimpleIteratorAggregate(new SimpleIterator([1,2,3])));
-        $this->expect($it->count())->toBe(3);
+        pipe($it->count())->to(p_assert_equals(3));
 
         $it = new LazyRewindableIterator(static fn () => new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4])));
-        $this->expect($it->count())->toBe(4);
+        pipe($it->count())->to(p_assert_equals(4));
     }
 }

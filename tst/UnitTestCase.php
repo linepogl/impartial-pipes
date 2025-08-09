@@ -6,38 +6,104 @@ namespace Tests;
 
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Constraint\Constraint;
+use PHPUnit\Framework\Constraint\IsEqual;
+use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\TestCase;
 use Throwable;
+
+/** @return callable<A>(A):A */
+function p_assert_that(Constraint $constraint, string $message = ''): callable
+{
+    return static function (mixed $actual) use ($constraint, $message) {
+        Assert::assertThat($actual, $constraint, $message);
+        return $actual;
+    };
+}
+
+/** @return callable<A>(A):A */
+function p_assert_equals(mixed $expected, string $message = ''): callable
+{
+    return p_assert_that(new IsEqual($expected), $message);
+}
+
+/**
+ * @template E of object
+ * @param class-string<E> $expected
+ * @return callable(mixed):E
+ */
+function p_assert_instance_of(string $expected, string $message = ''): callable
+{
+    return p_assert_that(new IsInstanceOf($expected), $message); // @phpstan-ignore return.type (narrowing A to E)
+}
+
+
+/**
+ * @param iterable<mixed,mixed> $expected
+ * @return callable<A of iterable>(A):A
+ */
+function p_assert_iterates_like(iterable $expected, string $message = ''): callable
+{
+    return static function (iterable $actual) use ($expected, $message) {
+        $expectedArray = [];
+        foreach ($expected as $key => $value) {
+            $expectedArray[] = [$key, $value];
+        }
+
+        iterator_to_array($actual); // iterate once to see if it is rewindable
+        $actualArray = [];
+        foreach ($actual as $key => $value) {
+            $actualArray[] = [$key, $value];
+        }
+
+        p_assert_equals($expectedArray, $message)($actualArray);
+        return $actual;
+    };
+}
+
+/**
+ * @param class-string<Throwable>|Throwable $expected
+ * @return callable(callable):callable
+ */
+function p_assert_throws(string|Throwable $expected, string $message = ''): callable
+{
+    return function (callable $callable) use ($expected, $message) {
+        $class = is_string($expected) ? $expected : $expected::class;
+        try {
+            $callable();
+            Assert::fail('' !== $message ? $message : "Expected $class to be thrown, but nothing was.");
+        } catch (AssertionFailedError $ex) {
+            throw $ex;
+        } catch (Throwable $actual) {
+            Assert::assertInstanceOf($class, $actual);
+            if ($expected instanceof Throwable) {
+                Assert::assertEquals($expected->getMessage(), $actual->getMessage());
+                Assert::assertEquals($expected->getCode(), $actual->getCode());
+            }
+            return $callable;
+        }
+    };
+}
 
 /**
  * @internal
  */
 abstract class UnitTestCase extends TestCase
 {
-    /**
-     * @template K
-     * @template V
-     * @param iterable<K,V> $expected
-     * @param iterable<K,V> $actual
-     */
-    public static function assertIteratesLike(iterable $expected, iterable $actual): void
-    {
-        self::assertEquals(iterator_to_array($expected), iterator_to_array($actual));
-    }
+}
 
-    /**
-     * @template T
-     * @param T $value
-     * @return Expectation<T>
-     */
-    public static function expect(mixed $value): Expectation
-    {
-        return new Expectation($value);
-    }
+/**
+ * @template T
+ * @param T $value
+ * @return Pipe<T>
+ */
+function pipe(mixed $value): Pipe
+{
+    return new Pipe($value);
 }
 
 /** @template T */
-class Expectation
+class Pipe
 {
     /** @param T $value */
     public function __construct(public readonly mixed $value)
@@ -47,9 +113,9 @@ class Expectation
     /**
      * @template T2
      * @param callable(T):T2 $callable
-     * @return Expectation<T2>
+     * @return self<T2>
      */
-    public function pipe(callable $callable): self
+    public function to(callable $callable): self
     {
         return new self($callable($this->value));
     }
@@ -57,66 +123,10 @@ class Expectation
     /**
      * @template T2
      * @param callable(T):T2 $callable
-     * @return Expectation<callable():T2>
+     * @return self<callable():T2>
      */
-    public function lazyPipe(callable $callable): self
+    public function toLazy(callable $callable): self
     {
         return new self(fn () => $callable($this->value)); // @phpstan-ignore return.type (Closure and callable are the essentially same)
-    }
-
-    public function toBe(mixed $expected): void
-    {
-        Assert::assertEquals($expected, $this->value);
-    }
-
-    /**
-     * @param class-string $expected
-     */
-    public function toBeInstanceOf(string $expected): void
-    {
-        Assert::assertInstanceOf($expected, $this->value);
-    }
-
-    /**
-     * @param iterable<mixed> $expected
-     */
-    public function toIterateLike(iterable $expected): void
-    {
-        $expectedArray = [];
-        foreach ($expected as $key => $value) {
-            $expectedArray[] = [$key, $value];
-        }
-
-        /** @var iterable<mixed> $actual */
-        $actual = $this->value;
-        iterator_to_array($actual); // iterate once to see if it is rewindable
-        $actualArray = [];
-        foreach ($actual as $key => $value) {
-            $actualArray[] = [$key, $value];
-        }
-
-        Assert::assertEquals($expectedArray, $actualArray);
-    }
-
-    /**
-     * @param class-string<Throwable>|Throwable $expected
-     */
-    public function toThrow(string|Throwable $expected): void
-    {
-        /** @var callable $value */
-        $value = $this->value;
-        $class = is_string($expected) ? $expected : $expected::class;
-        try {
-            $value();
-            Assert::fail("Expected $class to be thrown, but nothing was.");
-        } catch (AssertionFailedError $ex) {
-            throw $ex;
-        } catch (Throwable $actual) {
-            Assert::assertInstanceOf($class, $actual);
-            if ($expected instanceof Throwable) {
-                Assert::assertEquals($expected->getMessage(), $actual->getMessage());
-                Assert::assertEquals($expected->getCode(), $actual->getCode());
-            }
-        }
     }
 }

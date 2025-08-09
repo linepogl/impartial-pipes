@@ -8,6 +8,8 @@ use ArrayIterator;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_first_or;
+use function Tests\p_assert_equals;
+use function Tests\pipe;
 
 /**
  * @internal
@@ -16,73 +18,71 @@ final class p_first_or_Test extends UnitTestCase
 {
     public function test_p_first_or_with_arrays(): void
     {
-        $this
-            ->expect([])
-            ->pipe(p_first_or(null))
-            ->toBe(null);
-        $this
-            ->expect([])
-            ->pipe(p_first_or(null, static fn (int $x) => $x > 1))
-            ->toBe(null);
-        $this
-            ->expect([1,2,3])
-            ->pipe(p_first_or(null))
-            ->toBe(1);
-        $this
-            ->expect([1,2,3])
-            ->pipe(p_first_or(null, static fn (int $x) => $x > 1))
-            ->toBe(2);
-        $this
-            ->expect([1,2,3])
-            ->pipe(p_first_or(null, static fn (int $x) => $x > 3))
-            ->toBe(null);
-        $this
-            ->expect(['a' => 1, 'aa' => 2, 'aaa' => 3])
-            ->pipe(p_first_or(null))
-            ->toBe(1);
-        $this
-            ->expect(['a' => 1, 'aa' => 2, 'aaa' => 3])
-            ->pipe(p_first_or(null, static fn (int $x, string $k) => strlen($k) > 1))
-            ->toBe(2);
-        $this
-            ->expect(['a' => 1, 'aa' => 2, 'aaa' => 3])
-            ->pipe(p_first_or(null, static fn (int $x, string $k) => strlen($k) > 3))
-            ->toBe(null);
+        pipe([])
+        ->to(p_first_or(null))
+        ->to(p_assert_equals(null));
+
+        pipe([])
+        ->to(p_first_or(null, static fn (int $x) => $x > 1))
+        ->to(p_assert_equals(null));
+
+        pipe([1,2,3])
+        ->to(p_first_or(null))
+        ->to(p_assert_equals(1));
+
+        pipe([1,2,3])
+        ->to(p_first_or(null, static fn (int $x) => $x > 1))
+        ->to(p_assert_equals(2));
+
+        pipe([1,2,3])
+        ->to(p_first_or(null, static fn (int $x) => $x > 3))
+        ->to(p_assert_equals(null));
+
+        pipe(['a' => 1, 'aa' => 2, 'aaa' => 3])
+        ->to(p_first_or(null))
+        ->to(p_assert_equals(1));
+
+        pipe(['a' => 1, 'aa' => 2, 'aaa' => 3])
+        ->to(p_first_or(null, static fn (int $x, string $k) => strlen($k) > 1))
+        ->to(p_assert_equals(2));
+
+        pipe(['a' => 1, 'aa' => 2, 'aaa' => 3])
+        ->to(p_first_or(null, static fn (int $x, string $k) => strlen($k) > 3))
+        ->to(p_assert_equals(null));
     }
 
     public function test_p_first_or_with_iterables(): void
     {
-        $this
-            ->expect(new ArrayIterator([]))
-            ->pipe(p_first_or(null))
-            ->toBe(null);
-        $this
-            ->expect(new ArrayIterator([]))
-            ->pipe(p_first_or(null, static fn (int $x) => $x > 1))
-            ->toBe(null);
-        $this
-            ->expect(new ArrayIterator([1,2,3]))
-            ->pipe(p_first_or(null))
-            ->toBe(1);
-        $this
-            ->expect(new ArrayIterator([1,2,3]))
-            ->pipe(p_first_or(null, static fn (int $x) => $x > 1))
-            ->toBe(2);
-        $this
-            ->expect(new ArrayIterator([1,2,3]))
-            ->pipe(p_first_or(null, static fn (int $x) => $x > 3))
-            ->toBe(null);
-        $this
-            ->expect(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
-            ->pipe(p_first_or(null))
-            ->toBe(1);
-        $this
-            ->expect(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
-            ->pipe(p_first_or(null, static fn (int $x, string $k) => strlen($k) > 1))
-            ->toBe(2);
-        $this
-            ->expect(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
-            ->pipe(p_first_or(null, static fn (int $x, string $k) => strlen($k) > 3))
-            ->toBe(null);
+        pipe(new ArrayIterator([]))
+        ->to(p_first_or(null))
+        ->to(p_assert_equals(null));
+
+        pipe(new ArrayIterator([]))
+        ->to(p_first_or(null, static fn (int $x) => $x > 1))
+        ->to(p_assert_equals(null));
+
+        pipe(new ArrayIterator([1,2,3]))
+        ->to(p_first_or(null))
+        ->to(p_assert_equals(1));
+
+        pipe(new ArrayIterator([1,2,3]))
+        ->to(p_first_or(null, static fn (int $x) => $x > 1))
+        ->to(p_assert_equals(2));
+
+        pipe(new ArrayIterator([1,2,3]))
+        ->to(p_first_or(null, static fn (int $x) => $x > 3))
+        ->to(p_assert_equals(null));
+
+        pipe(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
+        ->to(p_first_or(null))
+        ->to(p_assert_equals(1));
+
+        pipe(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
+        ->to(p_first_or(null, static fn (int $x, string $k) => strlen($k) > 1))
+        ->to(p_assert_equals(2));
+
+        pipe(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
+        ->to(p_first_or(null, static fn (int $x, string $k) => strlen($k) > 3))
+        ->to(p_assert_equals(null));
     }
 }

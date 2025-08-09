@@ -9,6 +9,7 @@ use Tests\UniterableArrayIterator;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_to_array;
+use function Tests\p_assert_equals;
 
 /**
  * @internal
@@ -17,24 +18,20 @@ final class p_to_array_Test extends UnitTestCase
 {
     public function test_p_to_array(): void
     {
-        $this->expect(
-            []
-            |> p_to_array()
-        )->toBe([]);
+        []
+        |> p_to_array()
+        |> p_assert_equals([]);
 
-        $this->expect(
-            [1,2]
-            |> p_to_array()
-        )->toBe([1,2]);
+        [1,2]
+        |> p_to_array()
+        |> p_assert_equals([1,2]);
 
-        $this->expect(
-            new SimpleIterator([1,2,3])
-            |> p_to_array()
-        )->toBe([1,2,3]);
+        new SimpleIterator([1,2,3])
+        |> p_to_array()
+        |> p_assert_equals([1,2,3]);
 
-        $this->expect(
-            new UniterableArrayIterator([1,2,3,4])
-            |> p_to_array()
-        )->toBe([1,2,3,4]);
+        new UniterableArrayIterator([1,2,3,4])
+        |> p_to_array()
+        |> p_assert_equals([1,2,3,4]);
     }
 }

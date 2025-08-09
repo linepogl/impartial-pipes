@@ -7,6 +7,7 @@ namespace Tests\Combining;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_merge;
+use function Tests\p_assert_iterates_like;
 
 /**
  * @internal
@@ -15,34 +16,28 @@ final class p_merge_Test extends UnitTestCase
 {
     public function test_p_merge(): void
     {
-        $this->expect(
-            []
-            |> p_merge([])
-        )->toIterateLike([]);
+        []
+        |> p_merge([])
+        |> p_assert_iterates_like([]);
 
-        $this->expect(
-            []
-            |> p_merge([], preserveKeys: true)
-        )->toIterateLike([]);
+        []
+        |> p_merge([], preserveKeys: true)
+        |> p_assert_iterates_like([]);
 
-        $this->expect(
-            [1,2]
-            |> p_merge([3,4])
-        )->toIterateLike([1,2,3,4]);
+        [1,2]
+        |> p_merge([3,4])
+        |> p_assert_iterates_like([1,2,3,4]);
 
-        $this->expect(
-            [1,2]
-            |> p_merge([3,4], preserveKeys: true)
-        )->toIterateLike([1,2]);
+        [1,2]
+        |> p_merge([3,4], preserveKeys: true)
+        |> p_assert_iterates_like([1,2]);
 
-        $this->expect(
             ['a' => 1,'b' => 2,'c' => 3]
-            |> p_merge(['b' => 22,'c' => 33,'d' => 4])
-        )->toIterateLike([1,2,3,22,33,4]);
+        |> p_merge(['b' => 22,'c' => 33,'d' => 4])
+        |> p_assert_iterates_like([1,2,3,22,33,4]);
 
-        $this->expect(
             ['a' => 1,'b' => 2,'c' => '3']
-            |> p_merge(['b' => 2,'c' => 3,'d' => 4], preserveKeys: true)
-        )->toIterateLike(['a' => 1,'b' => 2,'c' => 3,'d' => 4]);
+        |> p_merge(['b' => 2,'c' => 3,'d' => 4], preserveKeys: true)
+        |> p_assert_iterates_like(['a' => 1,'b' => 2,'c' => 3,'d' => 4]);
     }
 }

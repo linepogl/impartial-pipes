@@ -7,6 +7,8 @@ namespace Tests\Filtering;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_filter_out;
+use function Tests\p_assert_iterates_like;
+use function Tests\pipe;
 
 /**
  * @internal
@@ -15,34 +17,28 @@ final class p_filter_out_Test extends UnitTestCase
 {
     public function test_p_filter_out(): void
     {
-        $this
-            ->expect([])
-            ->pipe(p_filter_out(fn (int $x) => $x % 2 === 0))
-            ->toIterateLike([]);
+        pipe([])
+        ->to(p_filter_out(fn (int $x) => $x % 2 === 0))
+        ->to(p_assert_iterates_like([]));
 
-        $this
-            ->expect([])
-            ->pipe(p_filter_out(fn (int $x) => $x % 2 === 0, preserveKeys: true))
-            ->toIterateLike([]);
+        pipe([])
+        ->to(p_filter_out(fn (int $x) => $x % 2 === 0, preserveKeys: true))
+        ->to(p_assert_iterates_like([]));
 
-        $this
-            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
-            ->pipe(p_filter_out(fn (int $x) => $x % 2 === 0))
-            ->toIterateLike([1, 3]);
+        pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+        ->to(p_filter_out(fn (int $x) => $x % 2 === 0))
+        ->to(p_assert_iterates_like([1, 3]));
 
-        $this
-            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
-            ->pipe(p_filter_out(fn (int $x) => $x % 2 === 0, preserveKeys: true))
-            ->toIterateLike(['a' => 1, 'c' => 3]);
+        pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+        ->to(p_filter_out(fn (int $x) => $x % 2 === 0, preserveKeys: true))
+        ->to(p_assert_iterates_like(['a' => 1, 'c' => 3]));
 
-        $this
-            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
-            ->pipe(p_filter_out(fn (int $x, string $k) => $k === 'b'))
-            ->toIterateLike([1, 3, 4]);
+        pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+        ->to(p_filter_out(fn (int $x, string $k) => $k === 'b'))
+        ->to(p_assert_iterates_like([1, 3, 4]));
 
-        $this
-            ->expect(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
-            ->pipe(p_filter_out(fn (int $x, string $k) => $k === 'b', preserveKeys: true))
-            ->toIterateLike(['a' => 1, 'c' => 3, 'd' => 4]);
+        pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
+        ->to(p_filter_out(fn (int $x, string $k) => $k === 'b', preserveKeys: true))
+        ->to(p_assert_iterates_like(['a' => 1, 'c' => 3, 'd' => 4]));
     }
 }

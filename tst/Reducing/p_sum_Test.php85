@@ -9,6 +9,7 @@ use Tests\UniterableArrayIterator;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_sum;
+use function Tests\p_assert_equals;
 
 /**
  * @internal
@@ -17,53 +18,44 @@ final class p_sum_Test extends UnitTestCase
 {
     public function test_p_sum_with_arrays(): void
     {
-        $this->expect(
-            []
-            |> p_sum()
-        )->toBe(0);
+        []
+        |> p_sum()
+        |> p_assert_equals(0);
 
-        $this->expect(
-            [1,2,3]
-            |> p_sum()
-        )->toBe(6);
+        [1,2,3]
+        |> p_sum()
+        |> p_assert_equals(6);
 
-        $this->expect(
-            [1,-12.8,4.4]
-            |> p_sum()
-        )->toBe(-7.4);
+        [1,-12.8,4.4]
+        |> p_sum()
+        |> p_assert_equals(-7.4);
     }
     public function test_p_sum_with_array_iterators(): void
     {
-        $this->expect(
-            new UniterableArrayIterator([])
-            |> p_sum()
-        )->toBe(0);
+        new UniterableArrayIterator([])
+        |> p_sum()
+        |> p_assert_equals(0);
 
-        $this->expect(
-            new UniterableArrayIterator([1,2,3])
-            |> p_sum()
-        )->toBe(6);
+        new UniterableArrayIterator([1,2,3])
+        |> p_sum()
+        |> p_assert_equals(6);
 
-        $this->expect(
-            new UniterableArrayIterator([1,-12.8,4.4])
-            |> p_sum()
-        )->toBe(-7.4);
+        new UniterableArrayIterator([1,-12.8,4.4])
+        |> p_sum()
+        |> p_assert_equals(-7.4);
     }
     public function test_p_sum_with_simple_iterators(): void
     {
-        $this->expect(
-            new SimpleIterator([])
-            |> p_sum()
-        )->toBe(0);
+        new SimpleIterator([])
+        |> p_sum()
+        |> p_assert_equals(0);
 
-        $this->expect(
-            new SimpleIterator([1,2,3])
-            |> p_sum()
-        )->toBe(6);
+        new SimpleIterator([1,2,3])
+        |> p_sum()
+        |> p_assert_equals(6);
 
-        $this->expect(
-            new SimpleIterator([1,-12.8,4.4])
-            |> p_sum()
-        )->toBe(-7.4);
+        new SimpleIterator([1,-12.8,4.4])
+        |> p_sum()
+        |> p_assert_equals(-7.4);
     }
 }
