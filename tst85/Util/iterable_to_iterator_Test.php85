@@ -7,8 +7,8 @@ namespace Tests\Util;
 use ArrayIterator;
 use IteratorAggregate;
 use Override;
-use Tests\UniterableArrayIterator;
 use PHPUnit\Framework\TestCase;
+use Tests\UniterableArrayIterator;
 use Traversable;
 
 use function ImpartialPipes\iterable_to_iterator;

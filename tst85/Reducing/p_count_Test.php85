@@ -7,10 +7,10 @@ namespace Tests\Reducing;
 use Countable;
 use ImpartialPipes\LazyRewindableIterator;
 use Override;
+use PHPUnit\Framework\TestCase;
 use Tests\SimpleIterator;
 use Tests\SimpleIteratorAggregate;
 use Tests\UniterableArrayIterator;
-use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_count;
 use function Tests\p_assert_equals;

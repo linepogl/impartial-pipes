@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Reducing;
 
+use PHPUnit\Framework\TestCase;
 use Tests\SimpleIterator;
 use Tests\UniterableArrayIterator;
-use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_to_array;
 use function Tests\p_assert_equals;

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Tests\Util;
 
 use ImpartialPipes\LazyRewindableIterator;
+use PHPUnit\Framework\TestCase;
 use Tests\SimpleIterator;
 use Tests\SimpleIteratorAggregate;
 use Tests\UniterableArrayIterator;
-use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\iterable_count;
 use function Tests\p_assert_equals;
