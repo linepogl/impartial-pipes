@@ -16,6 +16,11 @@ final class pipe_Test extends TestCase
 {
     public function test_pipe(): void
     {
-        pipe(true)->to(p_assert_equals(true));
+        p_assert_equals(123)(pipe(123)->to(strval(...))->value);
+    }
+
+    public function test_pipe_invokable(): void
+    {
+        p_assert_equals(123)(pipe(123)(strval(...))());
     }
 }
