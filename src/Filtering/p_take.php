@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * Partial function to take the first n elements of an iterable.
+ * Returns a partial function that takes the first n elements of an iterable.
  *
  * ### Syntax
  * ```

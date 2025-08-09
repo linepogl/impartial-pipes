@@ -2,7 +2,7 @@
 
 ## p_map
 
-Partial function to map the values of an iterable using a projection.
+Returns a partial function that maps the values of an iterable using a projection.
 It always preserves the keys.
 
 ### Syntax

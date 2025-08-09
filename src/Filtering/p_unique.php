@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * Partial function to get the unique elements of an iterable, based on a optional hashing projection.
+ * Returns a partial function that gets the unique elements of an iterable, based on an optional hashing projection.
  * If no hashing projection is provided, an identity projection is used. In that case, the elements must be stringable.
  *
  * ### Syntax

@@ -7,7 +7,7 @@ namespace ImpartialPipes;
 use OutOfBoundsException;
 
 /**
- * Partial function to get the value of the first element that satisfies some optional predicate.
+ * Returns a partial function that gets the value of the first element that satisfies some optional predicate.
  * If no predicate is provided, the function returns the first value.
  *
  * If no element is found, an `OutOfBoundsException` is thrown.

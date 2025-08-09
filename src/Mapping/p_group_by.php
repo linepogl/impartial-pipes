@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * Partial function to map the an iterable into groups of iterables, using a projection.
+ * Returns a partial function that maps an iterable into groups of iterables, using a projection.
  *
  * ### Syntax
  *

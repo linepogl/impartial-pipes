@@ -2,7 +2,7 @@
 
 ## p_flat_map
 
-Partial function to map the values of an iterable using a projection to an iterable callable, flattening the result.
+Returns a partial function that gets the values of an iterable using a projection to an iterable callable, flattening the result.
 
 ### Syntax
 

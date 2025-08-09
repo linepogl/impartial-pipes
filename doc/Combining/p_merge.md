@@ -2,7 +2,7 @@
 
 ## p_merge
 
-Partial function to merge two iterables.
+Returns a partial function that merges two iterables.
  - If `$preserveKeys` is `false`, the result is a 0-indexed iteration.
  - If `$preserveKeys` is `true`, the keys of the two iterables are preserved. If the same key exists in both iterables, only the first occurrence is used.
 

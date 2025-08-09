@@ -2,7 +2,7 @@
 
 ## p_foreach
 
-Partial function to apply a function to all the elements of an iterable
+Returns a partial function that applies a function to all the elements of an iterable
 
 ### Syntax
 ```php

@@ -2,7 +2,7 @@
 
 ## p_values
 
-Partial function to map to the values of an iterable.
+Returns a partial function that maps to the values of an iterable.
 
 ### Syntax
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * Partial function to map to the key of an iterable.
+ * Returns a partial function that maps to the keys of an iterable.
  *
  * ### Syntax
  *

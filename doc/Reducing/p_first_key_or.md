@@ -2,7 +2,7 @@
 
 ## p_first_key_or
 
-Partial function to get the key of the first element that satisfies some optional predicate.
+Returns a partial function that gets the key of the first element that satisfies some optional predicate.
 If no predicate is provided, the function returns the first key.
 
 If no element is found, a predefined default is returned.

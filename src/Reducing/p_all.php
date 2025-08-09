@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * Partial function to check if all elements of the iterable satisfy some predicate.
+ * Returns a partial function that checks if all elements of an iterable satisfy some predicate.
  *
  * ### Syntax
  * ```

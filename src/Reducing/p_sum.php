@@ -7,7 +7,9 @@ namespace ImpartialPipes;
 use ArrayIterator;
 
 /**
- * Partial function to get sum of all the elements of an iterable, all of which must be ints or floats.
+ * Returns a partial function that sums all the elements of an iterable.
+ *
+ * The elements must be ints or floats.
  *
  * ### Syntax
  * ```

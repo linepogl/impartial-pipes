@@ -2,7 +2,7 @@
 
 ## p_reindex
 
-Partial function to map the keys of an iterable using a projection. It preserves the values.
+Returns a partial function that maps the keys of an iterable using a projection. It preserves the values.
 
 If the projection returns a key that already exists in the iterable, the value is skipped.
 

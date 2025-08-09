@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * Partial function to apply a function to all the elements of an iterable
+ * Returns a partial function that applies a function to all the elements of an iterable
  *
  * ### Syntax
  * ```

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * Partial function to skip the first n elements of an iterable.
+ * Returns a partial function that skips the first n elements of an iterable.
  *
  * ### Syntax
  * ```

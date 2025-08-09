@@ -7,7 +7,7 @@ namespace ImpartialPipes;
 use ArrayIterator;
 
 /**
- * Partial function to evaluate an iterable into an array.
+ * Returns a partial function that evaluates an iterable into an array.
  *
  * ### Syntax
  * ```

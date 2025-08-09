@@ -13,7 +13,14 @@ $users
 |> p_take(10)
 |> p_implode(';')
 ```
-### Instalation
+
+1. All the produced partial functions have exactly one argument, as the pipe operator expects.
+2. Type checking with phpstan and generics.
+3. Immutability and lazy evaluation.
+4. Iterating with rewindable generators without creating copies of the data. Fallback to array functions when no copies are involved.
+5. 100% test coverage.
+
+### Installation
 
 ```
 composer require linepogl/impartial-pipes
@@ -75,15 +82,6 @@ pipe($iterable)
 ->to(p_filter(static fn (int $x) => $x % 2 === 1))
 ->to(p_map(static fn (int $x) => $x * $x))
 ```
-
-### Features
-
-1. Consistent interface: always one argument expected to be passed by the pipe operator.
-2. Type checking with phpstan and generics.
-3. Immutability and lazy evaluation.
-4. Iterating with rewindable generators without creating copies of the data. Fallback to array functions when no copies are involved.
-5. 100% test coverage.
-
 
 # Full Reference
 

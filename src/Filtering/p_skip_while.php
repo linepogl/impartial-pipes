@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * Partial function to skip the elements of an iterable, while some predicate is true.
+ * Returns a partial function that skips the elements of an iterable, while some predicate is true.
  *
  * ### Syntax
  * ```

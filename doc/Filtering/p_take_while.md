@@ -2,7 +2,7 @@
 
 ## p_take_while
 
-Partial function to take the elements of an iterable, while some predicate is true.
+Returns a partial function that takes elements of an iterable, while some predicate is true.
 
 ### Syntax
 ```php

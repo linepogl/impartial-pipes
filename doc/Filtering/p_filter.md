@@ -2,7 +2,7 @@
 
 ## p_filter
 
-Partial function to filter elements of an iterable, using a predicate.
+Returns a partial function that filters the elements of an iterable, using a predicate.
 
 ### Syntax
 ```php

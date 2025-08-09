@@ -2,7 +2,7 @@
 
 ## p_to_array
 
-Partial function to evaluate an iterable into an array.
+Returns a partial function that evaluates an iterable into an array.
 
 ### Syntax
 ```php

@@ -2,7 +2,7 @@
 
 ## p_all
 
-Partial function to check if all elements of the iterable satisfy some predicate.
+Returns a partial function that checks if all elements of an iterable satisfy some predicate.
 
 ### Syntax
 ```php

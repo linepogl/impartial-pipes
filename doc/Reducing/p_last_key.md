@@ -2,7 +2,7 @@
 
 ## p_last_key
 
-Partial function to get the key of the last element that satisfies some optional predicate.
+Returns a partial function that gets the key of the last element that satisfies some optional predicate.
 If no predicate is provided, the function returns the last key.
 
 If no element is found, an `OutOfBoundsException` is thrown.

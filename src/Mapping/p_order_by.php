@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * Partial function to order an iterable using a projection for comparisons. The projection must return
+ * Returns a partial function that orders an iterable using a projection for comparisons. The projection must return
  * a comparable value, that is any value that can be compared with the `<=>` operator.
  *
  * ### Syntax

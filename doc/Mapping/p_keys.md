@@ -2,7 +2,7 @@
 
 ## p_keys
 
-Partial function to map to the key of an iterable.
+Returns a partial function that maps to the keys of an iterable.
 
 ### Syntax
 

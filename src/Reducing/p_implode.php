@@ -8,7 +8,9 @@ use ArrayIterator;
 use Stringable;
 
 /**
- * Partial function to get a concatenation string of all the elements, all of which must be stringable.
+ * Returns a partial function that concatenates all elements with some optional separator.
+ *
+ * The elements must be stringable.
  *
  * ### Syntax
  * ```

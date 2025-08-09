@@ -2,7 +2,7 @@
 
 ## p_filter_out_nulls
 
-Partial function to filter null values out of an iterable.
+Returns a partial function that filters null values out of an iterable.
 
 ### Syntax
 ```php
