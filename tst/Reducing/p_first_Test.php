@@ -20,15 +20,17 @@ final class p_first_Test extends TestCase
 {
     public function test_p_first_with_arrays(): void
     {
-        pipe(static fn () => (
+        p_assert_throws(OutOfBoundsException::class)(
+            static fn () =>
             pipe([])
             ->to(p_first())
-        ))->to(p_assert_throws(OutOfBoundsException::class));
+        );
 
-        pipe(static fn () => (
+        p_assert_throws(OutOfBoundsException::class)(
+            static fn () =>
             pipe([])
             ->to(p_first(static fn (int $x) => $x > 1))
-        ))->to(p_assert_throws(OutOfBoundsException::class));
+        );
 
         pipe([1,2,3])
         ->to(p_first())
@@ -38,10 +40,11 @@ final class p_first_Test extends TestCase
         ->to(p_first(static fn (int $x) => $x > 1))
         ->to(p_assert_equals(2));
 
-        pipe(static fn () => (
+        p_assert_throws(OutOfBoundsException::class)(
+            static fn () =>
             pipe([1,2,3])
             ->to(p_first(static fn (int $x) => $x > 3))
-        ))->to(p_assert_throws(OutOfBoundsException::class));
+        );
 
         pipe(['a' => 1, 'aa' => 2, 'aaa' => 3])
         ->to(p_first())
@@ -51,23 +54,26 @@ final class p_first_Test extends TestCase
         ->to(p_first(static fn (int $x, string $k) => strlen($k) > 1))
         ->to(p_assert_equals(2));
 
-        pipe(static fn () => (
+        p_assert_throws(OutOfBoundsException::class)(
+            static fn () =>
             pipe(['a' => 1, 'aa' => 2, 'aaa' => 3])
             ->to(p_first(static fn (int $x, string $k) => strlen($k) > 3))
-        ))->to(p_assert_throws(OutOfBoundsException::class));
+        );
     }
 
     public function test_p_first_with_iterables(): void
     {
-        pipe(static fn () => (
+        p_assert_throws(OutOfBoundsException::class)(
+            static fn () =>
             pipe(new ArrayIterator([]))
             ->to(p_first())
-        ))->to(p_assert_throws(OutOfBoundsException::class));
+        );
 
-        pipe(static fn () => (
+        p_assert_throws(OutOfBoundsException::class)(
+            static fn () =>
             pipe(new ArrayIterator([]))
             ->to(p_first(static fn (int $x) => $x > 1))
-        ))->to(p_assert_throws(OutOfBoundsException::class));
+        );
 
         pipe(new ArrayIterator([1,2,3]))
         ->to(p_first())
@@ -77,10 +83,11 @@ final class p_first_Test extends TestCase
         ->to(p_first(static fn (int $x) => $x > 1))
         ->to(p_assert_equals(2));
 
-        pipe(static fn () => (
+        p_assert_throws(OutOfBoundsException::class)(
+            static fn () =>
             pipe(new ArrayIterator([1,2,3]))
             ->to(p_first(static fn (int $x) => $x > 3))
-        ))->to(p_assert_throws(OutOfBoundsException::class));
+        );
 
         pipe(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
         ->to(p_first())
@@ -90,9 +97,10 @@ final class p_first_Test extends TestCase
         ->to(p_first(static fn (int $x, string $k) => strlen($k) > 1))
         ->to(p_assert_equals(2));
 
-        pipe(static fn () => (
+        p_assert_throws(OutOfBoundsException::class)(
+            static fn () =>
             pipe(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
             ->to(p_first(static fn (int $x, string $k) => strlen($k) > 3))
-        ))->to(p_assert_throws(OutOfBoundsException::class));
+        );
     }
 }
