@@ -9,7 +9,6 @@ use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Constraint\Constraint;
 use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\Constraint\IsInstanceOf;
-use PHPUnit\Framework\TestCase;
 use Throwable;
 
 /** @return callable<A>(A):A */
@@ -83,11 +82,4 @@ function p_assert_throws(string|Throwable $expected, string $message = ''): call
             return $callable;
         }
     };
-}
-
-/**
- * @internal
- */
-abstract class UnitTestCase extends TestCase
-{
 }

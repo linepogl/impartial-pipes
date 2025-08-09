@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Tests\Util;
 
 use ImpartialPipes\LazyRewindableIterator;
+use PHPUnit\Framework\TestCase;
 use Tests\SimpleIterator;
 use Tests\SimpleIteratorAggregate;
 use Tests\UniterableArrayIterator;
-use Tests\UnitTestCase;
 
 use function ImpartialPipes\iterable_count;
 use function ImpartialPipes\pipe;
@@ -17,7 +17,7 @@ use function Tests\p_assert_equals;
 /**
  * @internal
  */
-final class iterable_count_Test extends UnitTestCase
+final class iterable_count_Test extends TestCase
 {
     public function test_iterable_count(): void
     {

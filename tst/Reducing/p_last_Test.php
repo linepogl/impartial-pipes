@@ -6,7 +6,7 @@ namespace Tests\Reducing;
 
 use ArrayIterator;
 use OutOfBoundsException;
-use Tests\UnitTestCase;
+use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_last;
 use function ImpartialPipes\pipe;
@@ -16,7 +16,7 @@ use function Tests\p_assert_throws;
 /**
  * @internal
  */
-final class p_last_Test extends UnitTestCase
+final class p_last_Test extends TestCase
 {
     public function test_p_last_with_arrays(): void
     {

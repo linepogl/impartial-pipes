@@ -10,7 +10,7 @@ use Override;
 use Tests\SimpleIterator;
 use Tests\SimpleIteratorAggregate;
 use Tests\UniterableArrayIterator;
-use Tests\UnitTestCase;
+use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_count;
 use function Tests\p_assert_equals;
@@ -18,7 +18,7 @@ use function Tests\p_assert_equals;
 /**
  * @internal
  */
-final class p_count_Test extends UnitTestCase
+final class p_count_Test extends TestCase
 {
     public function test_p_count(): void
     {

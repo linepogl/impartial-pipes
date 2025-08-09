@@ -7,8 +7,8 @@ namespace Tests\Util;
 use ArrayIterator;
 use IteratorAggregate;
 use Override;
+use PHPUnit\Framework\TestCase;
 use Tests\UniterableArrayIterator;
-use Tests\UnitTestCase;
 use Traversable;
 
 use function ImpartialPipes\iterable_to_iterator;
@@ -18,7 +18,7 @@ use function Tests\p_assert_instance_of;
 /**
  * @internal
  */
-final class iterable_to_iterator_Test extends UnitTestCase
+final class iterable_to_iterator_Test extends TestCase
 {
     public function test_iterable_to_iterator(): void
     {

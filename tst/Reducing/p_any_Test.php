@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests\Reducing;
 
 use ArrayIterator;
+use PHPUnit\Framework\TestCase;
 use Tests\SimpleIterator;
 use Tests\UniterableArrayIterator;
-use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_any;
 use function ImpartialPipes\pipe;
@@ -16,7 +16,7 @@ use function Tests\p_assert_equals;
 /**
  * @internal
  */
-final class p_any_Test extends UnitTestCase
+final class p_any_Test extends TestCase
 {
     public function test_p_any_with_arrays(): void
     {

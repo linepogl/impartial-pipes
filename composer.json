@@ -24,7 +24,10 @@
   "autoload-dev": {
     "psr-4": {
       "Tests\\": "tst/"
-    }
+    },
+    "files": [
+      "tst/util.php"
+    ]
   },
   "require": {
     "php": "^8.4"

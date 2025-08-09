@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Filtering;
 
-use Tests\UnitTestCase;
+use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_skip;
 use function ImpartialPipes\pipe;
@@ -13,7 +13,7 @@ use function Tests\p_assert_iterates_like;
 /**
  * @internal
  */
-final class p_skip_Test extends UnitTestCase
+final class p_skip_Test extends TestCase
 {
     public function test_p_skip(): void
     {

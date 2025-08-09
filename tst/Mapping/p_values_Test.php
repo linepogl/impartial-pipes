@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Mapping;
 
-use Tests\UnitTestCase;
+use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_values;
 use function ImpartialPipes\pipe;
@@ -13,7 +13,7 @@ use function Tests\p_assert_iterates_like;
 /**
  * @internal
  */
-final class p_values_Test extends UnitTestCase
+final class p_values_Test extends TestCase
 {
     public function test_p_values(): void
     {

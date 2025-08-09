@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Reducing;
 
+use PHPUnit\Framework\TestCase;
 use Tests\SimpleIterator;
 use Tests\UniterableArrayIterator;
-use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_implode;
 use function ImpartialPipes\pipe;
@@ -15,7 +15,7 @@ use function Tests\p_assert_equals;
 /**
  * @internal
  */
-final class p_implode_Test extends UnitTestCase
+final class p_implode_Test extends TestCase
 {
     public function test_p_implode_with_arrays(): void
     {

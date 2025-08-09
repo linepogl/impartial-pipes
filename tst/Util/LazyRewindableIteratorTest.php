@@ -6,10 +6,10 @@ namespace Tests\Util;
 
 use ArrayIterator;
 use ImpartialPipes\LazyRewindableIterator;
+use PHPUnit\Framework\TestCase;
 use Tests\SimpleIterator;
 use Tests\SimpleIteratorAggregate;
 use Tests\UniterableArrayIterator;
-use Tests\UnitTestCase;
 
 use function ImpartialPipes\pipe;
 use function Tests\p_assert_equals;
@@ -17,7 +17,7 @@ use function Tests\p_assert_equals;
 /**
  * @internal
  */
-final class LazyRewindableIteratorTest extends UnitTestCase
+final class LazyRewindableIteratorTest extends TestCase
 {
     public function test_rewindable_iterator(): void
     {
