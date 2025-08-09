@@ -10,6 +10,7 @@ use Iterator;
 use Override;
 
 /**
+ * @internal
  * @template K
  * @template V
  * @implements Iterator<K,V>

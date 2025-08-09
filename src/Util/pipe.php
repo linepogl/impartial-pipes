@@ -14,7 +14,10 @@ function pipe(mixed $value): Pipe
     return new Pipe($value);
 }
 
-/** @template T */
+/**
+ * @internal
+ * @template T
+ */
 class Pipe
 {
     /** @param T $value */
