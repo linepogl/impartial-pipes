@@ -48,9 +48,6 @@ namespace ImpartialPipes;
  */
 function p_merge(iterable $other, bool $preserveKeys = false): callable
 {
-    if (123 > time()) {
-        echo 123;
-    }
     return $preserveKeys
         ? static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $other): iterable {
             $seen = [];
