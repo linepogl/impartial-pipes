@@ -14,6 +14,8 @@ $users
 |> p_implode(';')
 ```
 
+### Features
+
 1. All the produced partial functions have exactly one argument, as the pipe operator expects.
 2. Type checking with phpstan and generics.
 3. Immutability and lazy evaluation.
