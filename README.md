@@ -28,7 +28,7 @@ $users
 composer require linepogl/impartial-pipes
 ```
 
-### Why use it?
+## Why use it?
 
 The pipe operator of PHP is a great way to chain functions together. However, it is not perfect because it requires that the chained functions accept exactly one mandatory argument. When this is not the case, we have to resort to workarounds by wrapping the functions in a closure.
 
