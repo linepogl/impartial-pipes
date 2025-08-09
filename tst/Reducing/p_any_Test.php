@@ -10,8 +10,8 @@ use Tests\UniterableArrayIterator;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_any;
+use function ImpartialPipes\pipe;
 use function Tests\p_assert_equals;
-use function Tests\pipe;
 
 /**
  * @internal

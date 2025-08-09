@@ -8,8 +8,8 @@ use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_order_by;
 use function ImpartialPipes\p_then_by;
+use function ImpartialPipes\pipe;
 use function Tests\p_assert_iterates_like;
-use function Tests\pipe;
 
 /**
  * @internal
@@ -56,7 +56,7 @@ final class p_then_by_Test extends UnitTestCase
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3])
         ->to(p_order_by(fn (int $x) => abs($x), preserveKeys: true))
         ->to(p_then_by(fn (int $x, string $k) => $k, descending: true))
-        ->to((p_assert_iterates_like(['aa' => -1, 'a' => 1, 'bb' => -2, 'b' => 2, 'cc' => -3, 'c' => 3])));
+        ->to(p_assert_iterates_like(['aa' => -1, 'a' => 1, 'bb' => -2, 'b' => 2, 'cc' => -3, 'c' => 3]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3])
         ->to(p_order_by(fn (int $x, string $k) => $k[0]))
@@ -76,6 +76,6 @@ final class p_then_by_Test extends UnitTestCase
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3])
         ->to(p_order_by(fn (int $x, string $k) => $k[0], preserveKeys: true))
         ->to(p_then_by(fn (int $x) => $x, descending: true))
-        ->to((p_assert_iterates_like(['a' => 1, 'aa' => -1, 'b' => 2, 'bb' => -2, 'c' => 3, 'cc' => -3])));
+        ->to(p_assert_iterates_like(['a' => 1, 'aa' => -1, 'b' => 2, 'bb' => -2, 'c' => 3, 'cc' => -3]));
     }
 }

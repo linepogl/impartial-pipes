@@ -13,8 +13,8 @@ use Tests\UniterableArrayIterator;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_count;
+use function ImpartialPipes\pipe;
 use function Tests\p_assert_equals;
-use function Tests\pipe;
 
 /**
  * @internal
@@ -88,8 +88,7 @@ final class p_count_Test extends UnitTestCase
             {
                 return 5;
             }
-        })
-        ->to(p_count())
+        })->to(p_count())
         ->to(p_assert_equals(5));
     }
 

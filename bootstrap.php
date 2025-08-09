@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+require __DIR__ . '/src/Util/pipe.php';
 require __DIR__ . '/src/Util/iterable_count.php';
 require __DIR__ . '/src/Util/iterable_to_iterator.php';
 require __DIR__ . '/src/Util/LazyRewindableIterator.php';

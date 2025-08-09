@@ -7,8 +7,8 @@ namespace Tests\Mapping;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_order_by;
+use function ImpartialPipes\pipe;
 use function Tests\p_assert_iterates_like;
-use function Tests\pipe;
 
 /**
  * @internal
@@ -63,6 +63,6 @@ final class p_order_by_Test extends UnitTestCase
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3])
         ->to(p_order_by(fn (int $x, string $k) => $k[0], descending: true, preserveKeys: true))
-        ->to((p_assert_iterates_like(['c' => 3, 'cc' => -3, 'b' => 2, 'bb' => -2, 'a' => 1, 'aa' => -1])));
+        ->to(p_assert_iterates_like(['c' => 3, 'cc' => -3, 'b' => 2, 'bb' => -2, 'a' => 1, 'aa' => -1]));
     }
 }

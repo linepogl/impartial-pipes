@@ -7,8 +7,8 @@ namespace Tests\Reducing;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_foreach;
+use function ImpartialPipes\pipe;
 use function Tests\p_assert_equals;
-use function Tests\pipe;
 
 /**
  * @internal

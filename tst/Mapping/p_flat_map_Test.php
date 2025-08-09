@@ -7,8 +7,8 @@ namespace Tests\Mapping;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_flat_map;
+use function ImpartialPipes\pipe;
 use function Tests\p_assert_iterates_like;
-use function Tests\pipe;
 
 /**
  * @internal

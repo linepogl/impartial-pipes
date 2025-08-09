@@ -56,7 +56,7 @@ $iterable
 
 Yes, you can! 
 
-Even if the pipe operator is not available, partial functions can still be used. We still get a more consistent syntax, and we can use them with arrays and iterables.
+Even if the pipe operator is not available, partial functions can still be used. We still get a more consistent syntax, and we can use them with arrays and iterables. However, the order of the operations is reversed.
 
 ```php
 // PHP 8.4, with Impartial Pipes
@@ -65,6 +65,15 @@ p_filter(static fn (int $x) => $x % 2 === 1)(
     $iterable
   )
 )
+```
+
+Alternatively, you can use the `pipe` function as syntax sugar. In this case, the order of the operations is the same as in the pipe operator.
+
+```php
+// PHP 8.4, with Impartial Pipes
+pipe($iterable)
+->to(p_filter(static fn (int $x) => $x % 2 === 1))
+->to(p_map(static fn (int $x) => $x * $x))
 ```
 
 ### Features

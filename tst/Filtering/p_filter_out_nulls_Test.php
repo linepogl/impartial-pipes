@@ -7,8 +7,8 @@ namespace Tests\Filtering;
 use Tests\UnitTestCase;
 
 use function ImpartialPipes\p_filter_out_nulls;
+use function ImpartialPipes\pipe;
 use function Tests\p_assert_iterates_like;
-use function Tests\pipe;
 
 /**
  * @internal
