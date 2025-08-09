@@ -1,0 +1,21 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Tests\Util;
+
+use PHPUnit\Framework\TestCase;
+
+use function ImpartialPipes\pipe;
+use function Tests\p_assert_equals;
+
+/**
+ * @internal
+ */
+final class pipe_Test extends TestCase
+{
+    public function test_pipe(): void
+    {
+        pipe(true)->to(p_assert_equals(true));
+    }
+}
