@@ -10,7 +10,7 @@ use Tests\UniterableArrayIterator;
 
 use function ImpartialPipes\p_to_array;
 use function ImpartialPipes\pipe;
-use function Tests\p_assert_equals;
+use function Tests\shouldBe;
 
 /**
  * @internal
@@ -21,18 +21,18 @@ final class p_to_array_Test extends TestCase
     {
         pipe([])
         ->to(p_to_array())
-        ->to(p_assert_equals([]));
+        ->to(shouldBe([]));
 
         pipe([1,2])
         ->to(p_to_array())
-        ->to(p_assert_equals([1,2]));
+        ->to(shouldBe([1,2]));
 
         pipe(new SimpleIterator([1,2,3]))
         ->to(p_to_array())
-        ->to(p_assert_equals([1,2,3]));
+        ->to(shouldBe([1,2,3]));
 
         pipe(new UniterableArrayIterator([1,2,3,4]))
         ->to(p_to_array())
-        ->to(p_assert_equals([1,2,3,4]));
+        ->to(shouldBe([1,2,3,4]));
     }
 }

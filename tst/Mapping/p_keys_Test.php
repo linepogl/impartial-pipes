@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_keys;
 use function ImpartialPipes\pipe;
-use function Tests\p_assert_iterates_like;
+use function Tests\shouldIterateLike;
 
 /**
  * @internal
@@ -19,14 +19,14 @@ final class p_keys_Test extends TestCase
     {
         pipe([])
         ->to(p_keys())
-        ->to(p_assert_iterates_like([]));
+        ->to(shouldIterateLike([]));
 
         pipe([1, 2, 3])
         ->to(p_keys())
-        ->to(p_assert_iterates_like([0, 1, 2]));
+        ->to(shouldIterateLike([0, 1, 2]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_keys())
-        ->to(p_assert_iterates_like(['a', 'b', 'c', 'd']));
+        ->to(shouldIterateLike(['a', 'b', 'c', 'd']));
     }
 }

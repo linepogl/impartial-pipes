@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_flat_map;
 use function ImpartialPipes\pipe;
-use function Tests\p_assert_iterates_like;
+use function Tests\shouldIterateLike;
 
 /**
  * @internal
@@ -19,14 +19,14 @@ final class p_flat_map_Test extends TestCase
     {
         pipe([])
         ->to(p_flat_map(fn (int $x) => [$x, $x]))
-        ->to(p_assert_iterates_like([]));
+        ->to(shouldIterateLike([]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_flat_map(fn (int $x) => [$x, $x]))
-        ->to(p_assert_iterates_like([1, 1, 2, 2, 3, 3, 4, 4]));
+        ->to(shouldIterateLike([1, 1, 2, 2, 3, 3, 4, 4]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_flat_map(fn (int $x, string $k) => [$x, $k]))
-        ->to(p_assert_iterates_like([1, 'a', 2, 'b', 3, 'c', 4, 'd']));
+        ->to(shouldIterateLike([1, 'a', 2, 'b', 3, 'c', 4, 'd']));
     }
 }

@@ -7,7 +7,7 @@ namespace Tests\Reducing;
 use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_foreach;
-use function Tests\p_assert_equals;
+use function Tests\shouldBe;
 
 /**
  * @internal
@@ -18,27 +18,27 @@ final class p_foreach_Test extends TestCase
     {
         $sum = 0;
         [] |> p_foreach(function (int $x) use (&$sum) { $sum += $x; });
-        $sum |> p_assert_equals(0);
+        $sum |> shouldBe(0);
 
         $sum = 0;
         [0] |> p_foreach(function (int $x) use (&$sum) { $sum += $x; });
-        $sum |> p_assert_equals(0);
+        $sum |> shouldBe(0);
 
         $sum = 0;
         [1,2,3] |> p_foreach(function (int $x) use (&$sum) { $sum += $x; });
-        $sum |> p_assert_equals(6);
+        $sum |> shouldBe(6);
 
         $sum = '';
         [] |> p_foreach(function (int $x, int $key) use (&$sum) { $sum .= $key; });
-        $sum |> p_assert_equals('');
+        $sum |> shouldBe('');
 
         $sum = '';
         [0] |> p_foreach(function (int $x, int $key) use (&$sum) { $sum .= $key; });
-        $sum |> p_assert_equals('0');
+        $sum |> shouldBe('0');
 
         $sum = '';
         [1,2,3] |> p_foreach(function (int $x, int $key) use (&$sum) { $sum .= $key; });
-        $sum |> p_assert_equals('012');
+        $sum |> shouldBe('012');
     }
 
 }

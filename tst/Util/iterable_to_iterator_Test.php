@@ -13,7 +13,7 @@ use Traversable;
 
 use function ImpartialPipes\iterable_to_iterator;
 use function ImpartialPipes\pipe;
-use function Tests\p_assert_instance_of;
+use function Tests\shouldBeA;
 
 /**
  * @internal
@@ -23,10 +23,10 @@ final class iterable_to_iterator_Test extends TestCase
     public function test_iterable_to_iterator(): void
     {
         pipe(iterable_to_iterator([1, 2, 3]))
-        ->to(p_assert_instance_of(ArrayIterator::class));
+        ->to(shouldBeA(ArrayIterator::class));
 
         pipe(iterable_to_iterator(new UniterableArrayIterator([1, 2, 3])))
-        ->to(p_assert_instance_of(UniterableArrayIterator::class));
+        ->to(shouldBeA(UniterableArrayIterator::class));
 
         pipe(iterable_to_iterator(
             new class () implements IteratorAggregate {
@@ -36,6 +36,6 @@ final class iterable_to_iterator_Test extends TestCase
                     return new UniterableArrayIterator([1, 2, 3]);
                 }
             },
-        ))->to(p_assert_instance_of(UniterableArrayIterator::class));
+        ))->to(shouldBeA(UniterableArrayIterator::class));
     }
 }

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_reindex;
 use function ImpartialPipes\pipe;
-use function Tests\p_assert_iterates_like;
+use function Tests\shouldIterateLike;
 
 /**
  * @internal
@@ -19,22 +19,22 @@ final class p_reindex_Test extends TestCase
     {
         pipe([])
         ->to(p_reindex(fn (int $x) => $x * $x))
-        ->to(p_assert_iterates_like([]));
+        ->to(shouldIterateLike([]));
 
         pipe([1, 2, 3, 4])
         ->to(p_reindex(fn (int $x) => $x * $x))
-        ->to(p_assert_iterates_like([1 => 1, 4 => 2, 9 => 3, 16 => 4]));
+        ->to(shouldIterateLike([1 => 1, 4 => 2, 9 => 3, 16 => 4]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_reindex(fn (int $x) => $x * $x))
-        ->to(p_assert_iterates_like([1 => 1, 4 => 2, 9 => 3, 16 => 4]));
+        ->to(shouldIterateLike([1 => 1, 4 => 2, 9 => 3, 16 => 4]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_reindex(fn (int $x, string $k) => $x . $k))
-        ->to(p_assert_iterates_like(['1a' => 1, '2b' => 2, '3c' => 3, '4d' => 4]));
+        ->to(shouldIterateLike(['1a' => 1, '2b' => 2, '3c' => 3, '4d' => 4]));
 
         pipe(['a' => 1, 'b' => 1, 'c' => 2, 'd' => 2])
         ->to(p_reindex(fn (int $x) => $x * $x))
-        ->to(p_assert_iterates_like([1 => 1, 4 => 2]));
+        ->to(shouldIterateLike([1 => 1, 4 => 2]));
     }
 }

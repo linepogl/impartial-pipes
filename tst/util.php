@@ -21,7 +21,7 @@ function p_assert_that(Constraint $constraint, string $message = ''): callable
 }
 
 /** @return callable<A>(A):A */
-function p_assert_equals(mixed $expected, string $message = ''): callable
+function shouldBe(mixed $expected, string $message = ''): callable
 {
     return p_assert_that(new IsEqual($expected), $message);
 }
@@ -31,7 +31,7 @@ function p_assert_equals(mixed $expected, string $message = ''): callable
  * @param class-string<E> $expected
  * @return callable(mixed):E
  */
-function p_assert_instance_of(string $expected, string $message = ''): callable
+function shouldBeA(string $expected, string $message = ''): callable
 {
     return p_assert_that(new IsInstanceOf($expected), $message); // @phpstan-ignore return.type (narrowing A to E)
 }
@@ -41,7 +41,7 @@ function p_assert_instance_of(string $expected, string $message = ''): callable
  * @param iterable<mixed,mixed> $expected
  * @return callable<A of iterable>(A):A
  */
-function p_assert_iterates_like(iterable $expected, string $message = ''): callable
+function shouldIterateLike(iterable $expected, string $message = ''): callable
 {
     return static function (iterable $actual) use ($expected, $message) {
         $expectedArray = [];
@@ -55,7 +55,7 @@ function p_assert_iterates_like(iterable $expected, string $message = ''): calla
             $actualArray[] = [$key, $value];
         }
 
-        p_assert_equals($expectedArray, $message)($actualArray);
+        shouldBe($expectedArray, $message)($actualArray);
         return $actual;
     };
 }
@@ -64,7 +64,7 @@ function p_assert_iterates_like(iterable $expected, string $message = ''): calla
  * @param class-string<Throwable>|Throwable $expected
  * @return callable(callable):callable
  */
-function p_assert_throws(string|Throwable $expected, string $message = ''): callable
+function shouldThrow(string|Throwable $expected, string $message = ''): callable
 {
     return function (callable $callable) use ($expected, $message) {
         $class = is_string($expected) ? $expected : $expected::class;

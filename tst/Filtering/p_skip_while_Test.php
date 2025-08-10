@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_skip_while;
 use function ImpartialPipes\pipe;
-use function Tests\p_assert_iterates_like;
+use function Tests\shouldIterateLike;
 
 /**
  * @internal
@@ -19,26 +19,26 @@ final class p_skip_while_Test extends TestCase
     {
         pipe([])
         ->to(p_skip_while(fn (int $x) => $x % 2 === 1))
-        ->to(p_assert_iterates_like([]));
+        ->to(shouldIterateLike([]));
 
         pipe([])
         ->to(p_skip_while(fn (int $x) => $x % 2 === 1, preserveKeys: true))
-        ->to(p_assert_iterates_like([]));
+        ->to(shouldIterateLike([]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_skip_while(fn (int $x) => $x % 2 === 1))
-        ->to(p_assert_iterates_like([2, 3, 4]));
+        ->to(shouldIterateLike([2, 3, 4]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_skip_while(fn (int $x) => $x % 2 === 1, preserveKeys: true))
-        ->to(p_assert_iterates_like(['b' => 2, 'c' => 3, 'd' => 4]));
+        ->to(shouldIterateLike(['b' => 2, 'c' => 3, 'd' => 4]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_skip_while(fn (int $x, string $k) => $k === 'a'))
-        ->to(p_assert_iterates_like([2, 3, 4]));
+        ->to(shouldIterateLike([2, 3, 4]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_skip_while(fn (int $x, string $k) => $k === 'a', preserveKeys: true))
-        ->to(p_assert_iterates_like(['b' => 2, 'c' => 3, 'd' => 4]));
+        ->to(shouldIterateLike(['b' => 2, 'c' => 3, 'd' => 4]));
     }
 }

@@ -7,7 +7,7 @@ namespace Tests\Filtering;
 use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_skip;
-use function Tests\p_assert_iterates_like;
+use function Tests\shouldIterateLike;
 
 /**
  * @internal
@@ -18,27 +18,27 @@ final class p_skip_Test extends TestCase
     {
         []
         |> p_skip(2)
-        |> p_assert_iterates_like([]);
+        |> shouldIterateLike([]);
 
         []
         |> p_skip(2, preserveKeys: true)
-        |> p_assert_iterates_like([]);
+        |> shouldIterateLike([]);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_skip(2)
-        |> p_assert_iterates_like([3, 4]);
+        |> shouldIterateLike([3, 4]);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_skip(2, preserveKeys: true)
-        |> p_assert_iterates_like(['c' => 3, 'd' => 4]);
+        |> shouldIterateLike(['c' => 3, 'd' => 4]);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_skip(-2)
-        |> p_assert_iterates_like([1, 2, 3, 4]);
+        |> shouldIterateLike([1, 2, 3, 4]);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_skip(-2, preserveKeys: true)
-        |> p_assert_iterates_like(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]);
+        |> shouldIterateLike(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]);
 
     }
 }

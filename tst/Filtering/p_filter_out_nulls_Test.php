@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_filter_out_nulls;
 use function ImpartialPipes\pipe;
-use function Tests\p_assert_iterates_like;
+use function Tests\shouldIterateLike;
 
 /**
  * @internal
@@ -19,18 +19,18 @@ final class p_filter_out_nulls_Test extends TestCase
     {
         pipe([])
         ->to(p_filter_out_nulls())
-        ->to(p_assert_iterates_like([]));
+        ->to(shouldIterateLike([]));
 
         pipe([])
         ->to(p_filter_out_nulls(preserveKeys: true))
-        ->to(p_assert_iterates_like([]));
+        ->to(shouldIterateLike([]));
 
         pipe(['a' => 1, 'b' => null, 'c' => 3, 'd' => null])
         ->to(p_filter_out_nulls())
-        ->to(p_assert_iterates_like([1, 3]));
+        ->to(shouldIterateLike([1, 3]));
 
         pipe(['a' => 1, 'b' => null, 'c' => 3, 'd' => null])
         ->to(p_filter_out_nulls(preserveKeys: true))
-        ->to(p_assert_iterates_like(['a' => 1, 'c' => 3]));
+        ->to(shouldIterateLike(['a' => 1, 'c' => 3]));
     }
 }

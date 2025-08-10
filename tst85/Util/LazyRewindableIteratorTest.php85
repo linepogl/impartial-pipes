@@ -11,7 +11,7 @@ use Tests\SimpleIterator;
 use Tests\SimpleIteratorAggregate;
 use Tests\UniterableArrayIterator;
 
-use function Tests\p_assert_equals;
+use function Tests\shouldBe;
 
 /**
  * @internal
@@ -22,33 +22,33 @@ final class LazyRewindableIteratorTest extends TestCase
     {
         $it = new LazyRewindableIterator(static function () { yield from [1, 2]; });
 
-        $it->valid() |> p_assert_equals(true);
-        $it->key() |> p_assert_equals(0);
-        $it->current() |> p_assert_equals(1);
+        $it->valid() |> shouldBe(true);
+        $it->key() |> shouldBe(0);
+        $it->current() |> shouldBe(1);
         $it->next();
-        $it->valid() |> p_assert_equals(true);
-        $it->key() |> p_assert_equals(1);
-        $it->current() |> p_assert_equals(2);
+        $it->valid() |> shouldBe(true);
+        $it->key() |> shouldBe(1);
+        $it->current() |> shouldBe(2);
         $it->rewind();
-        $it->valid() |> p_assert_equals(true);
-        $it->key() |> p_assert_equals(0);
-        $it->current() |> p_assert_equals(1);
+        $it->valid() |> shouldBe(true);
+        $it->key() |> shouldBe(0);
+        $it->current() |> shouldBe(1);
         $it->rewind();
-        $it->valid() |> p_assert_equals(true);
-        $it->key() |> p_assert_equals(0);
-        $it->current() |> p_assert_equals(1);
+        $it->valid() |> shouldBe(true);
+        $it->key() |> shouldBe(0);
+        $it->current() |> shouldBe(1);
         $it->next();
-        $it->valid() |> p_assert_equals(true);
-        $it->key() |> p_assert_equals(1);
-        $it->current() |> p_assert_equals(2);
+        $it->valid() |> shouldBe(true);
+        $it->key() |> shouldBe(1);
+        $it->current() |> shouldBe(2);
         $it->next();
-        $it->valid() |> p_assert_equals(false);
-        $it->key() |> p_assert_equals(null);
-        $it->current() |> p_assert_equals(null);
+        $it->valid() |> shouldBe(false);
+        $it->key() |> shouldBe(null);
+        $it->current() |> shouldBe(null);
         $it->rewind();
-        $it->valid() |> p_assert_equals(true);
-        $it->key() |> p_assert_equals(0);
-        $it->current() |> p_assert_equals(1);
+        $it->valid() |> shouldBe(true);
+        $it->key() |> shouldBe(0);
+        $it->current() |> shouldBe(1);
     }
 
     public function test_rewinds(): void
@@ -56,17 +56,17 @@ final class LazyRewindableIteratorTest extends TestCase
         $it = new LazyRewindableIterator(static fn () => [1,2,3]);
         iterator_to_array($it);
         iterator_to_array($it);
-        iterator_to_array($it) |> p_assert_equals([1,2,3]);
+        iterator_to_array($it) |> shouldBe([1,2,3]);
 
         $it = new LazyRewindableIterator(static fn () => new ArrayIterator([1,2,3]));
         iterator_to_array($it);
         iterator_to_array($it);
-        iterator_to_array($it) |> p_assert_equals([1,2,3]);
+        iterator_to_array($it) |> shouldBe([1,2,3]);
 
         $it = new LazyRewindableIterator(static function () { yield from [1, 2, 3]; });
         iterator_to_array($it);
         iterator_to_array($it);
-        iterator_to_array($it) |> p_assert_equals([1,2,3]);
+        iterator_to_array($it) |> shouldBe([1,2,3]);
     }
 
     public function test_init(): void
@@ -74,41 +74,41 @@ final class LazyRewindableIteratorTest extends TestCase
         // test calling rewind() right away
         $it = new LazyRewindableIterator(static function () { yield from [1, 2]; });
         $it->rewind();
-        $it->key() |> p_assert_equals(0);
+        $it->key() |> shouldBe(0);
 
         // test calling next() right away
         $it = new LazyRewindableIterator(static function () { yield from [1, 2]; });
         $it->next();
-        $it->key() |> p_assert_equals(1);
+        $it->key() |> shouldBe(1);
 
         // test calling valid() right away
         $it = new LazyRewindableIterator(static function () { yield from [1, 2]; });
-        $it->valid() |> p_assert_equals(true);
+        $it->valid() |> shouldBe(true);
 
         // test calling key() right away
         $it = new LazyRewindableIterator(static function () { yield from [1, 2]; });
-        $it->key() |> p_assert_equals(0);
+        $it->key() |> shouldBe(0);
 
         // test calling current() right away
         $it = new LazyRewindableIterator(static function () { yield from [1, 2]; });
-        $it->current() |> p_assert_equals(1);
+        $it->current() |> shouldBe(1);
     }
 
     public function test_counting_with_countables(): void
     {
         $it = new LazyRewindableIterator(static fn () => [1,2,3]);
-        $it->count() |> p_assert_equals(3);
+        $it->count() |> shouldBe(3);
 
         $it = new LazyRewindableIterator(static fn () => new SimpleIterator([1]));
-        $it->count() |> p_assert_equals(1);
+        $it->count() |> shouldBe(1);
 
         $it = new LazyRewindableIterator(static fn () => new UniterableArrayIterator([1,2]));
-        $it->count() |> p_assert_equals(2);
+        $it->count() |> shouldBe(2);
 
         $it = new LazyRewindableIterator(static fn () => new SimpleIteratorAggregate(new SimpleIterator([1,2,3])));
-        $it->count() |> p_assert_equals(3);
+        $it->count() |> shouldBe(3);
 
         $it = new LazyRewindableIterator(static fn () => new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4])));
-        $it->count() |> p_assert_equals(4);
+        $it->count() |> shouldBe(4);
     }
 }

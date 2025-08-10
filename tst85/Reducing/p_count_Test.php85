@@ -13,7 +13,7 @@ use Tests\SimpleIteratorAggregate;
 use Tests\UniterableArrayIterator;
 
 use function ImpartialPipes\p_count;
-use function Tests\p_assert_equals;
+use function Tests\shouldBe;
 
 /**
  * @internal
@@ -24,59 +24,59 @@ final class p_count_Test extends TestCase
     {
         []
         |> p_count()
-        |> p_assert_equals(0);
+        |> shouldBe(0);
 
         [1,2]
         |> p_count()
-        |> p_assert_equals(2);
+        |> shouldBe(2);
 
         new SimpleIterator([1,2,3])
         |> p_count()
-        |> p_assert_equals(3);
+        |> shouldBe(3);
 
         new LazyRewindableIterator(fn () => new SimpleIterator([1,2,3,4]))
         |> p_count()
-        |> p_assert_equals(4);
+        |> shouldBe(4);
 
         new UniterableArrayIterator([1,2,3,4,5])
         |> p_count()
-        |> p_assert_equals(5);
+        |> shouldBe(5);
 
         new LazyRewindableIterator(fn () => new UniterableArrayIterator([1,2,3,4,5,6]))
         |> p_count()
-        |> p_assert_equals(6);
+        |> shouldBe(6);
 
         new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7]))
         |> p_count()
-        |> p_assert_equals(7);
+        |> shouldBe(7);
 
         new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7,8])))
         |> p_count()
-        |> p_assert_equals(8);
+        |> shouldBe(8);
 
         new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9]))
         |> p_count()
-        |> p_assert_equals(9);
+        |> shouldBe(9);
 
         new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9,10])))
         |> p_count()
-        |> p_assert_equals(10);
+        |> shouldBe(10);
 
         new SimpleIteratorAggregate(new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7,8,9,10,11])))
         |> p_count()
-        |> p_assert_equals(11);
+        |> shouldBe(11);
 
         new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7,8,9,10,11,12]))))
         |> p_count()
-        |> p_assert_equals(12);
+        |> shouldBe(12);
 
         new SimpleIteratorAggregate(new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9,10,11,12,13])))
         |> p_count()
-        |> p_assert_equals(13);
+        |> shouldBe(13);
 
         new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9,10,11,12,13,14]))))
         |> p_count()
-        |> p_assert_equals(14);
+        |> shouldBe(14);
     }
 
     public function test_p_count_with_countables(): void
@@ -88,21 +88,21 @@ final class p_count_Test extends TestCase
                 return 5;
             }
         } |> p_count()
-        |> p_assert_equals(5);
+        |> shouldBe(5);
     }
 
     public function test_p_count_with_a_predicate(): void
     {
         []
         |> p_count(fn (int $x) => $x % 2 === 0)
-        |> p_assert_equals(0);
+        |> shouldBe(0);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_count(fn (int $x) => $x % 2 === 0)
-        |> p_assert_equals(2);
+        |> shouldBe(2);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_count(fn (int $x, string $k) => $k === 'b')
-        |> p_assert_equals(1);
+        |> shouldBe(1);
     }
 }

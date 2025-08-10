@@ -11,7 +11,7 @@ use Tests\SimpleIteratorAggregate;
 use Tests\UniterableArrayIterator;
 
 use function ImpartialPipes\iterable_count;
-use function Tests\p_assert_equals;
+use function Tests\shouldBe;
 
 /**
  * @internal
@@ -21,45 +21,45 @@ final class iterable_count_Test extends TestCase
     public function test_iterable_count(): void
     {
         iterable_count([])
-        |> p_assert_equals(0);
+        |> shouldBe(0);
 
         iterable_count([1,2])
-        |> p_assert_equals(2);
+        |> shouldBe(2);
 
         iterable_count(new SimpleIterator([1,2,3]))
-        |> p_assert_equals(3);
+        |> shouldBe(3);
 
         iterable_count(new LazyRewindableIterator(fn () => new SimpleIterator([1,2,3,4])))
-        |> p_assert_equals(4);
+        |> shouldBe(4);
 
         iterable_count(new UniterableArrayIterator([1,2,3,4,5]))
-        |> p_assert_equals(5);
+        |> shouldBe(5);
 
         iterable_count(new LazyRewindableIterator(fn () => new UniterableArrayIterator([1,2,3,4,5,6])))
-        |> p_assert_equals(6);
+        |> shouldBe(6);
 
         iterable_count(new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7])))
-        |> p_assert_equals(7);
+        |> shouldBe(7);
 
         iterable_count(new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7,8]))))
-        |> p_assert_equals(8);
+        |> shouldBe(8);
 
         iterable_count(new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9])))
-        |> p_assert_equals(9);
+        |> shouldBe(9);
 
         iterable_count(new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9,10]))))
-        |> p_assert_equals(10);
+        |> shouldBe(10);
 
         iterable_count(new SimpleIteratorAggregate(new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7,8,9,10,11]))))
-        |> p_assert_equals(11);
+        |> shouldBe(11);
 
         iterable_count(new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7,8,9,10,11,12])))))
-        |> p_assert_equals(12);
+        |> shouldBe(12);
 
         iterable_count(new SimpleIteratorAggregate(new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9,10,11,12,13]))))
-        |> p_assert_equals(13);
+        |> shouldBe(13);
 
         iterable_count(new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9,10,11,12,13,14])))))
-        |> p_assert_equals(14);
+        |> shouldBe(14);
     }
 }

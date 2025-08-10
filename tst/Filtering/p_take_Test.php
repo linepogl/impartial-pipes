@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_take;
 use function ImpartialPipes\pipe;
-use function Tests\p_assert_iterates_like;
+use function Tests\shouldIterateLike;
 
 /**
  * @internal
@@ -19,26 +19,26 @@ final class p_take_Test extends TestCase
     {
         pipe([])
         ->to(p_take(2))
-        ->to(p_assert_iterates_like([]));
+        ->to(shouldIterateLike([]));
 
         pipe([])
         ->to(p_take(2, preserveKeys: true))
-        ->to(p_assert_iterates_like([]));
+        ->to(shouldIterateLike([]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_take(2))
-        ->to(p_assert_iterates_like([1, 2]));
+        ->to(shouldIterateLike([1, 2]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_take(2, preserveKeys: true))
-        ->to(p_assert_iterates_like(['a' => 1, 'b' => 2]));
+        ->to(shouldIterateLike(['a' => 1, 'b' => 2]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_take(-2))
-        ->to(p_assert_iterates_like([]));
+        ->to(shouldIterateLike([]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_take(-2, preserveKeys: true))
-        ->to(p_assert_iterates_like([]));
+        ->to(shouldIterateLike([]));
     }
 }

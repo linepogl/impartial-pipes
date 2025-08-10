@@ -8,7 +8,7 @@ use ArrayIterator;
 use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_last_or;
-use function Tests\p_assert_equals;
+use function Tests\shouldBe;
 
 /**
  * @internal
@@ -19,69 +19,69 @@ final class p_last_or_Test extends TestCase
     {
         []
         |> p_last_or(null)
-        |> p_assert_equals(null);
+        |> shouldBe(null);
 
         []
         |> p_last_or(null, static fn (int $x) => $x < 3)
-        |> p_assert_equals(null);
+        |> shouldBe(null);
 
         [1,2,3]
         |> p_last_or(null)
-        |> p_assert_equals(3);
+        |> shouldBe(3);
 
         [1,2,3]
         |> p_last_or(null, static fn (int $x) => $x < 3)
-        |> p_assert_equals(2);
+        |> shouldBe(2);
 
         [1,2,3]
         |> p_last_or(null, static fn (int $x) => $x > 3)
-        |> p_assert_equals(null);
+        |> shouldBe(null);
 
         ['a' => 1, 'aa' => 2, 'aaa' => 3]
         |> p_last_or(null)
-        |> p_assert_equals(3);
+        |> shouldBe(3);
 
         ['a' => 1, 'aa' => 2, 'aaa' => 3]
         |> p_last_or(null, static fn (int $x, string $k) => strlen($k) < 3)
-        |> p_assert_equals(2);
+        |> shouldBe(2);
 
         ['a' => 1, 'aa' => 2, 'aaa' => 3]
         |> p_last_or(null, static fn (int $x, string $k) => strlen($k) > 3)
-        |> p_assert_equals(null);
+        |> shouldBe(null);
     }
 
     public function test_p_last_or_with_iterables(): void
     {
         new ArrayIterator([])
         |> p_last_or(null)
-        |> p_assert_equals(null);
+        |> shouldBe(null);
 
         new ArrayIterator([])
         |> p_last_or(null, static fn (int $x) => $x < 3)
-        |> p_assert_equals(null);
+        |> shouldBe(null);
 
         new ArrayIterator([1,2,3])
         |> p_last_or(null)
-        |> p_assert_equals(3);
+        |> shouldBe(3);
 
         new ArrayIterator([1,2,3])
         |> p_last_or(null, static fn (int $x) => $x < 3)
-        |> p_assert_equals(2);
+        |> shouldBe(2);
 
         new ArrayIterator([1,2,3])
         |> p_last_or(null, static fn (int $x) => $x > 3)
-        |> p_assert_equals(null);
+        |> shouldBe(null);
 
         new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
         |> p_last_or(null)
-        |> p_assert_equals(3);
+        |> shouldBe(3);
 
         new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
         |> p_last_or(null, static fn (int $x, string $k) => strlen($k) < 3)
-        |> p_assert_equals(2);
+        |> shouldBe(2);
 
         new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
         |> p_last_or(null, static fn (int $x, string $k) => strlen($k) > 3)
-        |> p_assert_equals(null);
+        |> shouldBe(null);
     }
 }

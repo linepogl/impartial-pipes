@@ -9,7 +9,7 @@ use Tests\SimpleIterator;
 use Tests\UniterableArrayIterator;
 
 use function ImpartialPipes\p_implode;
-use function Tests\p_assert_equals;
+use function Tests\shouldBe;
 
 /**
  * @internal
@@ -20,80 +20,80 @@ final class p_implode_Test extends TestCase
     {
         []
         |> p_implode()
-        |> p_assert_equals('');
+        |> shouldBe('');
 
         []
         |> p_implode('-')
-        |> p_assert_equals('');
+        |> shouldBe('');
 
         [1, 2, 3]
         |> p_implode()
-        |> p_assert_equals('123');
+        |> shouldBe('123');
 
         [1, 2, 3]
         |> p_implode('-')
-        |> p_assert_equals('1-2-3');
+        |> shouldBe('1-2-3');
 
         [1, 'a', 3.3, null]
         |> p_implode()
-        |> p_assert_equals('1a3.3');
+        |> shouldBe('1a3.3');
 
         [1, 'a', 3.3, null]
         |> p_implode('-')
-        |> p_assert_equals('1-a-3.3-');
+        |> shouldBe('1-a-3.3-');
     }
 
     public function test_p_implode_with_array_iterators(): void
     {
         new UniterableArrayIterator([])
         |> p_implode()
-        |> p_assert_equals('');
+        |> shouldBe('');
 
         new UniterableArrayIterator([])
         |> p_implode('-')
-        |> p_assert_equals('');
+        |> shouldBe('');
 
         new UniterableArrayIterator([1, 2, 3])
         |> p_implode()
-        |> p_assert_equals('123');
+        |> shouldBe('123');
 
         new UniterableArrayIterator([1, 2, 3])
         |> p_implode('-')
-        |> p_assert_equals('1-2-3');
+        |> shouldBe('1-2-3');
 
         new UniterableArrayIterator([1, 'a', 3.3, null])
         |> p_implode()
-        |> p_assert_equals('1a3.3');
+        |> shouldBe('1a3.3');
 
         new UniterableArrayIterator([1, 'a', 3.3, null])
         |> p_implode('-')
-        |> p_assert_equals('1-a-3.3-');
+        |> shouldBe('1-a-3.3-');
     }
 
     public function test_p_implode_with_simple_iterators(): void
     {
         new SimpleIterator([])
         |> p_implode()
-        |> p_assert_equals('');
+        |> shouldBe('');
 
         new SimpleIterator([])
         |> p_implode('-')
-        |> p_assert_equals('');
+        |> shouldBe('');
 
         new SimpleIterator([1, 2, 3])
         |> p_implode()
-        |> p_assert_equals('123');
+        |> shouldBe('123');
 
         new SimpleIterator([1, 2, 3])
         |> p_implode('-')
-        |> p_assert_equals('1-2-3');
+        |> shouldBe('1-2-3');
 
         new SimpleIterator([1, 'a', 3.3, null])
         |> p_implode()
-        |> p_assert_equals('1a3.3');
+        |> shouldBe('1a3.3');
 
         new SimpleIterator([1, 'a', 3.3, null])
         |> p_implode('-')
-        |> p_assert_equals('1-a-3.3-');
+        |> shouldBe('1-a-3.3-');
     }
 }

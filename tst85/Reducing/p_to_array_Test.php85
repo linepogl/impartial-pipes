@@ -9,7 +9,7 @@ use Tests\SimpleIterator;
 use Tests\UniterableArrayIterator;
 
 use function ImpartialPipes\p_to_array;
-use function Tests\p_assert_equals;
+use function Tests\shouldBe;
 
 /**
  * @internal
@@ -20,18 +20,18 @@ final class p_to_array_Test extends TestCase
     {
         []
         |> p_to_array()
-        |> p_assert_equals([]);
+        |> shouldBe([]);
 
         [1,2]
         |> p_to_array()
-        |> p_assert_equals([1,2]);
+        |> shouldBe([1,2]);
 
         new SimpleIterator([1,2,3])
         |> p_to_array()
-        |> p_assert_equals([1,2,3]);
+        |> shouldBe([1,2,3]);
 
         new UniterableArrayIterator([1,2,3,4])
         |> p_to_array()
-        |> p_assert_equals([1,2,3,4]);
+        |> shouldBe([1,2,3,4]);
     }
 }

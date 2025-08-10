@@ -9,7 +9,7 @@ use Tests\SimpleIterator;
 use Tests\UniterableArrayIterator;
 
 use function ImpartialPipes\p_sum;
-use function Tests\p_assert_equals;
+use function Tests\shouldBe;
 
 /**
  * @internal
@@ -20,42 +20,42 @@ final class p_sum_Test extends TestCase
     {
         []
         |> p_sum()
-        |> p_assert_equals(0);
+        |> shouldBe(0);
 
         [1,2,3]
         |> p_sum()
-        |> p_assert_equals(6);
+        |> shouldBe(6);
 
         [1,-12.8,4.4]
         |> p_sum()
-        |> p_assert_equals(-7.4);
+        |> shouldBe(-7.4);
     }
     public function test_p_sum_with_array_iterators(): void
     {
         new UniterableArrayIterator([])
         |> p_sum()
-        |> p_assert_equals(0);
+        |> shouldBe(0);
 
         new UniterableArrayIterator([1,2,3])
         |> p_sum()
-        |> p_assert_equals(6);
+        |> shouldBe(6);
 
         new UniterableArrayIterator([1,-12.8,4.4])
         |> p_sum()
-        |> p_assert_equals(-7.4);
+        |> shouldBe(-7.4);
     }
     public function test_p_sum_with_simple_iterators(): void
     {
         new SimpleIterator([])
         |> p_sum()
-        |> p_assert_equals(0);
+        |> shouldBe(0);
 
         new SimpleIterator([1,2,3])
         |> p_sum()
-        |> p_assert_equals(6);
+        |> shouldBe(6);
 
         new SimpleIterator([1,-12.8,4.4])
         |> p_sum()
-        |> p_assert_equals(-7.4);
+        |> shouldBe(-7.4);
     }
 }

@@ -8,7 +8,7 @@ use ArrayIterator;
 use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_first_key_or;
-use function Tests\p_assert_equals;
+use function Tests\shouldBe;
 
 /**
  * @internal
@@ -19,69 +19,69 @@ final class p_first_key_or_Test extends TestCase
     {
         []
         |> p_first_key_or(null)
-        |> p_assert_equals(null);
+        |> shouldBe(null);
 
         []
         |> p_first_key_or(null, static fn (int $x) => $x > 1)
-        |> p_assert_equals(null);
+        |> shouldBe(null);
 
         [1,2,3]
         |> p_first_key_or(null)
-        |> p_assert_equals(0);
+        |> shouldBe(0);
 
         [1,2,3]
         |> p_first_key_or(null, static fn (int $x) => $x > 1)
-        |> p_assert_equals(1);
+        |> shouldBe(1);
 
         [1,2,3]
         |> p_first_key_or(null, static fn (int $x) => $x > 3)
-        |> p_assert_equals(null);
+        |> shouldBe(null);
 
         ['a' => 1, 'aa' => 2, 'aaa' => 3]
         |> p_first_key_or(null)
-        |> p_assert_equals('a');
+        |> shouldBe('a');
 
         ['a' => 1, 'aa' => 2, 'aaa' => 3]
         |> p_first_key_or(null, static fn (int $x, string $k) => strlen($k) > 1)
-        |> p_assert_equals('aa');
+        |> shouldBe('aa');
 
         ['a' => 1, 'aa' => 2, 'aaa' => 3]
         |> p_first_key_or(null, static fn (int $x, string $k) => strlen($k) > 3)
-        |> p_assert_equals(null);
+        |> shouldBe(null);
     }
 
     public function test_p_first_key_or_with_iterables(): void
     {
         new ArrayIterator([])
         |> p_first_key_or(null)
-        |> p_assert_equals(null);
+        |> shouldBe(null);
 
         new ArrayIterator([])
         |> p_first_key_or(null, static fn (int $x) => $x > 1)
-        |> p_assert_equals(null);
+        |> shouldBe(null);
 
         new ArrayIterator([1,2,3])
         |> p_first_key_or(null)
-        |> p_assert_equals(0);
+        |> shouldBe(0);
 
         new ArrayIterator([1,2,3])
         |> p_first_key_or(null, static fn (int $x) => $x > 1)
-        |> p_assert_equals(1);
+        |> shouldBe(1);
 
         new ArrayIterator([1,2,3])
         |> p_first_key_or(null, static fn (int $x) => $x > 3)
-        |> p_assert_equals(null);
+        |> shouldBe(null);
 
         new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
         |> p_first_key_or(null)
-        |> p_assert_equals('a');
+        |> shouldBe('a');
 
         new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
         |> p_first_key_or(null, static fn (int $x, string $k) => strlen($k) > 1)
-        |> p_assert_equals('aa');
+        |> shouldBe('aa');
 
         new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
         |> p_first_key_or(null, static fn (int $x, string $k) => strlen($k) > 3)
-        |> p_assert_equals(null);
+        |> shouldBe(null);
     }
 }

@@ -9,8 +9,8 @@ use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_last;
-use function Tests\p_assert_equals;
-use function Tests\p_assert_throws;
+use function Tests\shouldBe;
+use function Tests\shouldThrow;
 
 /**
  * @internal
@@ -19,13 +19,13 @@ final class p_last_Test extends TestCase
 {
     public function test_p_last_with_arrays(): void
     {
-        p_assert_throws(OutOfBoundsException::class)(
+        shouldThrow(OutOfBoundsException::class)(
             static fn () =>
             []
             |> p_last()
         );
 
-        p_assert_throws(OutOfBoundsException::class)(
+        shouldThrow(OutOfBoundsException::class)(
             static fn () =>
             []
             |> p_last(static fn (int $x) => $x < 3)
@@ -33,13 +33,13 @@ final class p_last_Test extends TestCase
 
         [1,2,3]
         |> p_last()
-        |> p_assert_equals(3);
+        |> shouldBe(3);
 
         [1,2,3]
         |> p_last(static fn (int $x) => $x < 3)
-        |> p_assert_equals(2);
+        |> shouldBe(2);
 
-        p_assert_throws(OutOfBoundsException::class)(
+        shouldThrow(OutOfBoundsException::class)(
             static fn () =>
             [1,2,3]
             |> p_last(static fn (int $x) => $x > 3)
@@ -47,13 +47,13 @@ final class p_last_Test extends TestCase
 
         ['a' => 1, 'aa' => 2, 'aaa' => 3]
         |> p_last()
-        |> p_assert_equals(3);
+        |> shouldBe(3);
 
         ['a' => 1, 'aa' => 2, 'aaa' => 3]
         |> p_last(static fn (int $x, string $k) => strlen($k) < 3)
-        |> p_assert_equals(2);
+        |> shouldBe(2);
 
-        p_assert_throws(OutOfBoundsException::class)(
+        shouldThrow(OutOfBoundsException::class)(
             static fn () =>
             ['a' => 1, 'aa' => 2, 'aaa' => 3]
             |> p_last(static fn (int $x, string $k) => strlen($k) > 3)
@@ -62,13 +62,13 @@ final class p_last_Test extends TestCase
 
     public function test_p_last_with_iterables(): void
     {
-        p_assert_throws(OutOfBoundsException::class)(
+        shouldThrow(OutOfBoundsException::class)(
             static fn () =>
             new ArrayIterator([])
             |> p_last()
         );
 
-        p_assert_throws(OutOfBoundsException::class)(
+        shouldThrow(OutOfBoundsException::class)(
             static fn () =>
             new ArrayIterator([])
             |> p_last(static fn (int $x) => $x < 3)
@@ -76,13 +76,13 @@ final class p_last_Test extends TestCase
 
         new ArrayIterator([1,2,3])
         |> p_last()
-        |> p_assert_equals(3);
+        |> shouldBe(3);
 
         new ArrayIterator([1,2,3])
         |> p_last(static fn (int $x) => $x < 3)
-        |> p_assert_equals(2);
+        |> shouldBe(2);
 
-        p_assert_throws(OutOfBoundsException::class)(
+        shouldThrow(OutOfBoundsException::class)(
             static fn () =>
             new ArrayIterator([1,2,3])
             |> p_last(static fn (int $x) => $x > 3)
@@ -90,13 +90,13 @@ final class p_last_Test extends TestCase
 
         new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
         |> p_last()
-        |> p_assert_equals(3);
+        |> shouldBe(3);
 
         new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
         |> p_last(static fn (int $x, string $k) => strlen($k) < 3)
-        |> p_assert_equals(2);
+        |> shouldBe(2);
 
-        p_assert_throws(OutOfBoundsException::class)(
+        shouldThrow(OutOfBoundsException::class)(
             static fn () =>
             new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
             |> p_last(static fn (int $x, string $k) => strlen($k) > 3)
