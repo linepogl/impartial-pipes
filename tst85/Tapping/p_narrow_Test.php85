@@ -10,8 +10,6 @@ use PHPUnit\Framework\TestCase;
 use TypeError;
 
 use function ImpartialPipes\p_narrow;
-use function ImpartialPipes\p_not_null;
-use function Should\shouldBe;
 use function Should\shouldBeIdenticalTo;
 use function Should\shouldThrow;
 
@@ -28,7 +26,7 @@ final class p_narrow_Test extends TestCase
         |> shouldBeIdenticalTo($test);
 
         shouldThrow(TypeError::class)(
-            fn() =>
+            fn () =>
             new DateTime()
             |> p_narrow(DateInterval::class)
         );

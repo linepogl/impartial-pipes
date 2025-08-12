@@ -2,3 +2,19 @@
 
 ## p_tap
 
+Returns a partial function applies a function to an input and returns the input.
+
+### Syntax:
+```php
+p_tap(
+    callable $callable
+)
+```
+
+### Examples:
+```php
+$user = ['name' => 'John', 'age' => 30];
+$user
+|> p_tap(fn($user) => print_r($user))
+//= ['name' => 'John', 'age' => 30]
+```
