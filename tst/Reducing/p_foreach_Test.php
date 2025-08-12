@@ -41,5 +41,4 @@ final class p_foreach_Test extends TestCase
         pipe([1,2,3])->to(p_foreach(function (int $x, int $key) use (&$sum) { $sum .= $key; }));
         pipe($sum)->to(shouldBe('012'));
     }
-
 }

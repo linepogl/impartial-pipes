@@ -18,7 +18,50 @@
   ],
   "autoload": {
     "files": [
-      "bootstrap.php"
+      "src/Util/pipe.php",
+      "src/Util/iterable_count.php",
+      "src/Util/iterable_to_iterator.php",
+      "src/Util/LazyRewindableIterator.php",
+
+      "src/Tapping/p_narrow.php",
+      "src/Tapping/p_not_null.php",
+      "src/Tapping/p_tap.php",
+
+      "src/Combining/p_merge.php",
+
+      "src/Filtering/p_filter.php",
+      "src/Filtering/p_filter_out.php",
+      "src/Filtering/p_filter_out_nulls.php",
+      "src/Filtering/p_skip.php",
+      "src/Filtering/p_skip_while.php",
+      "src/Filtering/p_take.php",
+      "src/Filtering/p_take_while.php",
+      "src/Filtering/p_unique.php",
+
+      "src/Mapping/p_flat_map.php",
+      "src/Mapping/p_group_by.php",
+      "src/Mapping/p_keys.php",
+      "src/Mapping/p_map.php",
+      "src/Mapping/p_order_by.php",
+      "src/Mapping/p_then_by.php",
+      "src/Mapping/p_reindex.php",
+      "src/Mapping/p_values.php",
+
+      "src/Reducing/p_any.php",
+      "src/Reducing/p_all.php",
+      "src/Reducing/p_count.php",
+      "src/Reducing/p_first.php",
+      "src/Reducing/p_first_key.php",
+      "src/Reducing/p_first_key_or.php",
+      "src/Reducing/p_first_or.php",
+      "src/Reducing/p_foreach.php",
+      "src/Reducing/p_implode.php",
+      "src/Reducing/p_last.php",
+      "src/Reducing/p_last_key.php",
+      "src/Reducing/p_last_key_or.php",
+      "src/Reducing/p_last_or.php",
+      "src/Reducing/p_sum.php",
+      "src/Reducing/p_to_array.php"
     ]
   },
   "autoload-dev": {

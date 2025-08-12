@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="compile" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/dev/compile.php85">
+    <CommandLine>
+      <PhpTestInterpreterSettings>
+        <option name="interpreterName" value="homebrew 8.5" />
+      </PhpTestInterpreterSettings>
+    </CommandLine>
+    <method v="2" />
+  </configuration>
+</component>

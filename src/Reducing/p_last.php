@@ -80,7 +80,6 @@ function p_last(?callable $predicate = null): callable
                 throw new OutOfBoundsException('Cannot get last element of an empty iterable');
             }
             return $last;
-
         }
     : static function (iterable $iterable) use ($predicate) {
         if (is_array($iterable)) {

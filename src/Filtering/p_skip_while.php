@@ -56,7 +56,6 @@ function p_skip_while(callable $predicate, bool $preserveKeys = false): callable
                         continue;
                     }
                     $skipping = false;
-
                 }
                 yield $key => $value;
             }
@@ -69,7 +68,6 @@ function p_skip_while(callable $predicate, bool $preserveKeys = false): callable
                         continue;
                     }
                     $skipping = false;
-
                 }
                 yield $value;
             }

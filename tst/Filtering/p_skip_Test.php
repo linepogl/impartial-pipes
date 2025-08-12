@@ -40,6 +40,5 @@ final class p_skip_Test extends TestCase
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_skip(-2, preserveKeys: true))
         ->to(shouldRepeatedlyIterateLike(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]));
-
     }
 }

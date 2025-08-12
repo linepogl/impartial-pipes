@@ -40,5 +40,4 @@ final class p_foreach_Test extends TestCase
         [1,2,3] |> p_foreach(function (int $x, int $key) use (&$sum) { $sum .= $key; });
         $sum |> shouldBe('012');
     }
-
 }

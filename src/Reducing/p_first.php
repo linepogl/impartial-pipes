@@ -74,7 +74,6 @@ function p_first(?callable $predicate = null): callable
                 return $value;
             }
             throw new OutOfBoundsException('Cannot get first element of an empty iterable');
-
         }
     : static function (iterable $iterable) use ($predicate) {
         foreach ($iterable as $key => $value) {

@@ -39,6 +39,5 @@ final class p_skip_Test extends TestCase
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_skip(-2, preserveKeys: true)
         |> shouldRepeatedlyIterateLike(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]);
-
     }
 }

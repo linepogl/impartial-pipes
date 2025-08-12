@@ -33,7 +33,6 @@ use ArrayIterator;
 function p_sum(): callable
 {
     return static function (iterable $iterable) {
-
         if (is_array($iterable)) {
             return array_sum($iterable);
         } elseif ($iterable instanceof ArrayIterator) {

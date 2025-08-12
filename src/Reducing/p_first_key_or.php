@@ -71,7 +71,6 @@ function p_first_key_or(mixed $default, ?callable $predicate = null): callable
                 return $key;
             }
             return null;
-
         }
     : static function (iterable $iterable) use ($predicate) {
         foreach ($iterable as $key => $value) {
