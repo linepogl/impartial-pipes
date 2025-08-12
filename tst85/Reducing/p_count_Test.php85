@@ -13,7 +13,7 @@ use Tests\SimpleIteratorAggregate;
 use Tests\UniterableArrayIterator;
 
 use function ImpartialPipes\p_count;
-use function Tests\shouldBe;
+use function Should\shouldBe;
 
 /**
  * @internal

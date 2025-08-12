@@ -7,7 +7,7 @@ namespace Tests\Filtering;
 use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_take_while;
-use function Tests\shouldIterateLike;
+use function Should\shouldRepeatedlyIterateLike;
 
 /**
  * @internal
@@ -18,26 +18,26 @@ final class p_take_while_Test extends TestCase
     {
         []
         |> p_take_while(fn (int $x) => $x % 2 === 1)
-        |> shouldIterateLike([]);
+        |> shouldRepeatedlyIterateLike([]);
 
         []
         |> p_take_while(fn (int $x) => $x % 2 === 1, preserveKeys: true)
-        |> shouldIterateLike([]);
+        |> shouldRepeatedlyIterateLike([]);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_take_while(fn (int $x) => $x % 2 === 1)
-        |> shouldIterateLike([1]);
+        |> shouldRepeatedlyIterateLike([1]);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_take_while(fn (int $x) => $x % 2 === 1, preserveKeys: true)
-        |> shouldIterateLike(['a' => 1]);
+        |> shouldRepeatedlyIterateLike(['a' => 1]);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_take_while(fn (int $x, string $k) => $k === 'a')
-        |> shouldIterateLike([1]);
+        |> shouldRepeatedlyIterateLike([1]);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_take_while(fn (int $x, string $k) => $k === 'a', preserveKeys: true)
-        |> shouldIterateLike(['a' => 1]);
+        |> shouldRepeatedlyIterateLike(['a' => 1]);
     }
 }

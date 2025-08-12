@@ -8,7 +8,7 @@ use ArrayIterator;
 use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_first_key_or;
-use function Tests\shouldBe;
+use function Should\shouldBe;
 
 /**
  * @internal

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_values;
 use function ImpartialPipes\pipe;
-use function Tests\shouldIterateLike;
+use function Should\shouldRepeatedlyIterateLike;
 
 /**
  * @internal
@@ -19,14 +19,14 @@ final class p_values_Test extends TestCase
     {
         pipe([])
         ->to(p_values())
-        ->to(shouldIterateLike([]));
+        ->to(shouldRepeatedlyIterateLike([]));
 
         pipe([1, 2, 3, 4])
         ->to(p_values())
-        ->to(shouldIterateLike([1, 2, 3, 4]));
+        ->to(shouldRepeatedlyIterateLike([1, 2, 3, 4]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_values())
-        ->to(shouldIterateLike([1, 2, 3, 4]));
+        ->to(shouldRepeatedlyIterateLike([1, 2, 3, 4]));
     }
 }

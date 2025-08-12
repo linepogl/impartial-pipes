@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_skip;
 use function ImpartialPipes\pipe;
-use function Tests\shouldIterateLike;
+use function Should\shouldRepeatedlyIterateLike;
 
 /**
  * @internal
@@ -19,27 +19,27 @@ final class p_skip_Test extends TestCase
     {
         pipe([])
         ->to(p_skip(2))
-        ->to(shouldIterateLike([]));
+        ->to(shouldRepeatedlyIterateLike([]));
 
         pipe([])
         ->to(p_skip(2, preserveKeys: true))
-        ->to(shouldIterateLike([]));
+        ->to(shouldRepeatedlyIterateLike([]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_skip(2))
-        ->to(shouldIterateLike([3, 4]));
+        ->to(shouldRepeatedlyIterateLike([3, 4]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_skip(2, preserveKeys: true))
-        ->to(shouldIterateLike(['c' => 3, 'd' => 4]));
+        ->to(shouldRepeatedlyIterateLike(['c' => 3, 'd' => 4]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_skip(-2))
-        ->to(shouldIterateLike([1, 2, 3, 4]));
+        ->to(shouldRepeatedlyIterateLike([1, 2, 3, 4]));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_skip(-2, preserveKeys: true))
-        ->to(shouldIterateLike(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]));
+        ->to(shouldRepeatedlyIterateLike(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]));
 
     }
 }

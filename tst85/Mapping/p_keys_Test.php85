@@ -7,7 +7,7 @@ namespace Tests\Mapping;
 use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_keys;
-use function Tests\shouldIterateLike;
+use function Should\shouldRepeatedlyIterateLike;
 
 /**
  * @internal
@@ -18,14 +18,14 @@ final class p_keys_Test extends TestCase
     {
         []
         |> p_keys()
-        |> shouldIterateLike([]);
+        |> shouldRepeatedlyIterateLike([]);
 
         [1, 2, 3]
         |> p_keys()
-        |> shouldIterateLike([0, 1, 2]);
+        |> shouldRepeatedlyIterateLike([0, 1, 2]);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_keys()
-        |> shouldIterateLike(['a', 'b', 'c', 'd']);
+        |> shouldRepeatedlyIterateLike(['a', 'b', 'c', 'd']);
     }
 }

@@ -7,7 +7,7 @@ namespace Tests\Util;
 use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\pipe;
-use function Tests\shouldBe;
+use function Should\shouldBe;
 
 /**
  * @internal

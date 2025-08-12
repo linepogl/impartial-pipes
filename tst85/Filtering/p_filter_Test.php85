@@ -7,7 +7,7 @@ namespace Tests\Filtering;
 use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_filter;
-use function Tests\shouldIterateLike;
+use function Should\shouldRepeatedlyIterateLike;
 
 /**
  * @internal
@@ -18,26 +18,26 @@ final class p_filter_Test extends TestCase
     {
         []
         |> p_filter(fn (int $x) => $x % 2 === 0)
-        |> shouldIterateLike([]);
+        |> shouldRepeatedlyIterateLike([]);
 
         []
         |> p_filter(fn (int $x) => $x % 2 === 0, preserveKeys: true)
-        |> shouldIterateLike([]);
+        |> shouldRepeatedlyIterateLike([]);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_filter(fn (int $x) => $x % 2 === 0)
-        |> shouldIterateLike([2, 4]);
+        |> shouldRepeatedlyIterateLike([2, 4]);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_filter(fn (int $x) => $x % 2 === 0, preserveKeys: true)
-        |> shouldIterateLike(['b' => 2, 'd' => 4]);
+        |> shouldRepeatedlyIterateLike(['b' => 2, 'd' => 4]);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_filter(fn (int $x, string $k) => $k === 'b')
-        |> shouldIterateLike([2]);
+        |> shouldRepeatedlyIterateLike([2]);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_filter(fn (int $x, string $k) => $k === 'b', preserveKeys: true)
-        |> shouldIterateLike(['b' => 2]);
+        |> shouldRepeatedlyIterateLike(['b' => 2]);
     }
 }

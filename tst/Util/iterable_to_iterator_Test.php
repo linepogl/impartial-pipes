@@ -13,7 +13,7 @@ use Traversable;
 
 use function ImpartialPipes\iterable_to_iterator;
 use function ImpartialPipes\pipe;
-use function Tests\shouldBeA;
+use function Should\shouldBeA;
 
 /**
  * @internal

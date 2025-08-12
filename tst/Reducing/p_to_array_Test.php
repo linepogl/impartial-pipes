@@ -10,7 +10,7 @@ use Tests\UniterableArrayIterator;
 
 use function ImpartialPipes\p_to_array;
 use function ImpartialPipes\pipe;
-use function Tests\shouldBe;
+use function Should\shouldBe;
 
 /**
  * @internal

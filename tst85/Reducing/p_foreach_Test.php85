@@ -7,7 +7,7 @@ namespace Tests\Reducing;
 use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_foreach;
-use function Tests\shouldBe;
+use function Should\shouldBe;
 
 /**
  * @internal

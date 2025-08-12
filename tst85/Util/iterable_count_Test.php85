@@ -11,7 +11,7 @@ use Tests\SimpleIteratorAggregate;
 use Tests\UniterableArrayIterator;
 
 use function ImpartialPipes\iterable_count;
-use function Tests\shouldBe;
+use function Should\shouldBe;
 
 /**
  * @internal

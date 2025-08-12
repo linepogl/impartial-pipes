@@ -12,7 +12,7 @@ use Tests\UniterableArrayIterator;
 use Traversable;
 
 use function ImpartialPipes\iterable_to_iterator;
-use function Tests\shouldBeA;
+use function Should\shouldBeA;
 
 /**
  * @internal

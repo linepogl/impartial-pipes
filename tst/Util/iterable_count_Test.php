@@ -12,7 +12,7 @@ use Tests\UniterableArrayIterator;
 
 use function ImpartialPipes\iterable_count;
 use function ImpartialPipes\pipe;
-use function Tests\shouldBe;
+use function Should\shouldBe;
 
 /**
  * @internal

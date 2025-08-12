@@ -11,7 +11,7 @@ use Tests\UniterableArrayIterator;
 
 use function ImpartialPipes\p_any;
 use function ImpartialPipes\pipe;
-use function Tests\shouldBe;
+use function Should\shouldBe;
 
 /**
  * @internal

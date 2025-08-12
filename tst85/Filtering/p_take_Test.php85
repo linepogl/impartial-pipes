@@ -7,7 +7,7 @@ namespace Tests\Filtering;
 use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_take;
-use function Tests\shouldIterateLike;
+use function Should\shouldRepeatedlyIterateLike;
 
 /**
  * @internal
@@ -18,26 +18,26 @@ final class p_take_Test extends TestCase
     {
         []
         |> p_take(2)
-        |> shouldIterateLike([]);
+        |> shouldRepeatedlyIterateLike([]);
 
         []
         |> p_take(2, preserveKeys: true)
-        |> shouldIterateLike([]);
+        |> shouldRepeatedlyIterateLike([]);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_take(2)
-        |> shouldIterateLike([1, 2]);
+        |> shouldRepeatedlyIterateLike([1, 2]);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_take(2, preserveKeys: true)
-        |> shouldIterateLike(['a' => 1, 'b' => 2]);
+        |> shouldRepeatedlyIterateLike(['a' => 1, 'b' => 2]);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_take(-2)
-        |> shouldIterateLike([]);
+        |> shouldRepeatedlyIterateLike([]);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_take(-2, preserveKeys: true)
-        |> shouldIterateLike([]);
+        |> shouldRepeatedlyIterateLike([]);
     }
 }

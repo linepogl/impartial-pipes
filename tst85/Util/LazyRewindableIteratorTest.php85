@@ -11,7 +11,7 @@ use Tests\SimpleIterator;
 use Tests\SimpleIteratorAggregate;
 use Tests\UniterableArrayIterator;
 
-use function Tests\shouldBe;
+use function Should\shouldBe;
 
 /**
  * @internal

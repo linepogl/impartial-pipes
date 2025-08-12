@@ -9,7 +9,7 @@ use Tests\SimpleIterator;
 use Tests\UniterableArrayIterator;
 
 use function ImpartialPipes\p_sum;
-use function Tests\shouldBe;
+use function Should\shouldBe;
 
 /**
  * @internal

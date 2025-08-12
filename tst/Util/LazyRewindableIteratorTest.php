@@ -12,7 +12,7 @@ use Tests\SimpleIteratorAggregate;
 use Tests\UniterableArrayIterator;
 
 use function ImpartialPipes\pipe;
-use function Tests\shouldBe;
+use function Should\shouldBe;
 
 /**
  * @internal

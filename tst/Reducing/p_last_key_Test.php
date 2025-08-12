@@ -10,8 +10,8 @@ use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_last_key;
 use function ImpartialPipes\pipe;
-use function Tests\shouldBe;
-use function Tests\shouldThrow;
+use function Should\shouldBe;
+use function Should\shouldThrow;
 
 /**
  * @internal

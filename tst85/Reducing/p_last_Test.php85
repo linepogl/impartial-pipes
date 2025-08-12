@@ -9,8 +9,8 @@ use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_last;
-use function Tests\shouldBe;
-use function Tests\shouldThrow;
+use function Should\shouldBe;
+use function Should\shouldThrow;
 
 /**
  * @internal
