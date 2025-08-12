@@ -23,10 +23,6 @@
       "src/Util/iterable_to_iterator.php",
       "src/Util/LazyRewindableIterator.php",
 
-      "src/Tapping/p_narrow.php",
-      "src/Tapping/p_not_null.php",
-      "src/Tapping/p_tap.php",
-
       "src/Combining/p_merge.php",
 
       "src/Filtering/p_filter.php",
@@ -54,14 +50,18 @@
       "src/Reducing/p_first_key.php",
       "src/Reducing/p_first_key_or.php",
       "src/Reducing/p_first_or.php",
-      "src/Reducing/p_foreach.php",
       "src/Reducing/p_implode.php",
       "src/Reducing/p_last.php",
       "src/Reducing/p_last_key.php",
       "src/Reducing/p_last_key_or.php",
       "src/Reducing/p_last_or.php",
       "src/Reducing/p_sum.php",
-      "src/Reducing/p_to_array.php"
+      "src/Reducing/p_to_array.php",
+
+      "src/Tapping/p_narrow.php",
+      "src/Tapping/p_not_null.php",
+      "src/Tapping/p_tap.php",
+      "src/Tapping/p_foreach.php"
     ]
   },
   "autoload-dev": {

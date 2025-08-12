@@ -130,3 +130,9 @@ pipe($iterable)
 - [p_implode](doc/Reducing/p_implode.md)
 - [p_foreach](doc/Reducing/p_foreach.md)
 - [p_to_array](doc/Reducing/p_to_array.md)
+
+### Tapping partial functions
+
+- [p_tap](doc/Tapping/p_tap.md)
+- [p_narrow](doc/Tapping/p_narrow.md)
+- [p_not_null](doc/Tapping/p_not_null.md)

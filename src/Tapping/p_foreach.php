@@ -19,6 +19,7 @@ namespace ImpartialPipes;
  * ```
  * [1, 2, 3]
  * |> p_foreach(function (int $value) { echo $value . PHP_EOL; }
+ * //= [1, 2, 3]
  * // 1
  * // 2
  * // 3
@@ -27,19 +28,21 @@ namespace ImpartialPipes;
  * ```
  * ['a' => 1, 'b' => 2, 'c' => 3]
  * |> p_foreach(function (int $value, string $key) { echo $key . ': ' . $value . PHP_EOL; }
+ * //= ['a' => 1, 'b' => 2, 'c' => 3]
  * // a: 1
  * // b: 2
  * // c: 3
  * ```
  *
  * @param callable<V,K>(V, K):mixed $callable
- * @return callable<V,K>(iterable<K, V>):void
+ * @return callable<V,K>(iterable<K, V>):iterable<K, V>
  */
 function p_foreach(callable $callable): callable
 {
-    return static function (iterable $iterable) use ($callable): void {
+    return static function (iterable $iterable) use ($callable) {
         foreach ($iterable as $key => $value) {
             $callable($value, $key);
         }
+        return $iterable;
     };
 }

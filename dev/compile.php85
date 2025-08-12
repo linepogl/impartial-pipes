@@ -19,7 +19,7 @@ get_defined_functions()['user']
         $name = $function->getShortName();
         $dir = substr(dirname(realpath($function->getFileName())), strlen(realpath(__DIR__.'/../src')));
 
-        $doc = explode("\n", $function->getDocComment())
+        $doc = explode("\n", $function->getDocComment() ?: '')
             |> p_map(fn($line) => substr($line, 3))
             |> p_take_while(fn($line) => !str_starts_with($line, '@'))
             |> p_map(function($line)use(&$toggle) {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ImpartialPipes;
 
-/**s
+/**
  * Returns a partial function applies a function to an input and returns the input.
  *
  * ### Syntax:
