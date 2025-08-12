@@ -16,11 +16,11 @@ final class pipe_Test extends TestCase
 {
     public function test_pipe(): void
     {
-        shouldBe(123)(pipe(123)->to(strval(...))->value);
+        shouldBe('123')(pipe(123)->to(strval(...))->value);
     }
 
     public function test_pipe_invokable(): void
     {
-        shouldBe(123)(pipe(123)(strval(...))());
+        shouldBe('123')(pipe(123)(strval(...))());
     }
 }
