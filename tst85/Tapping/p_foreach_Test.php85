@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Tapping;
 
 use PHPUnit\Framework\TestCase;
+
 use function ImpartialPipes\p_foreach;
 use function Should\shouldBe;
 
