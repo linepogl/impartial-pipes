@@ -7,7 +7,7 @@ use function ImpartialPipes\p_filter_out;
 use function ImpartialPipes\p_foreach;
 use function ImpartialPipes\p_implode;
 use function ImpartialPipes\p_map;
-use function ImpartialPipes\p_take_while;
+use function ImpartialPipes\p_while;
 
 require __DIR__.'/../vendor/autoload.php';
 
@@ -21,7 +21,7 @@ get_defined_functions()['user']
 
         $doc = explode("\n", $function->getDocComment() ?: '')
             |> p_map(fn($line) => substr($line, 3))
-            |> p_take_while(fn($line) => !str_starts_with($line, '@'))
+            |> p_while(fn($line) => !str_starts_with($line, '@'))
             |> p_map(function($line)use(&$toggle) {
                 if ('```' === $line && ($toggle = !$toggle)) $line = '```php';
                 return $line;

@@ -9,7 +9,7 @@ namespace ImpartialPipes;
  *
  * ### Syntax
  * ```
- * p_take_while(
+ * p_while(
  *   callable(TValue[, TKey]): bool,
  *   [preserveKeys: bool = false,]
  * )
@@ -19,23 +19,23 @@ namespace ImpartialPipes;
  * Take elements with a value predicate
  * ```
  * [1, 2, 3, 4]
- * |> p_take_while(static fn (int $x) => $x < 3)
+ * |> p_while(static fn (int $x) => $x < 3)
  * //= [1, 2]
  * ```
  * ```
  * [1, 2, 3, 4]
- * |> p_take_while(static fn (int $x) => $x < 3, preserveKeys: true)
+ * |> p_while(static fn (int $x) => $x < 3, preserveKeys: true)
  * //= [1, 2]
  * ```
- * Skip elements with a value and key predicate
+ * Take elements with a value and key predicate
  * ```
  * ['a' => 1, 'bb' => 2, 'ccc' => 3, 'd' => 4]
- * |> p_take_while(static fn (int $x, string $k) => strlen($k) < 3)
+ * |> p_while(static fn (int $x, string $k) => strlen($k) < 3)
  * //= [1, 2]
  * ```
  * ```
  * ['a' => 1, 'bb' => 2, 'ccc' => 3, 'd' => 4]
- * |> p_take_while(static fn (int $x, string $k) => strlen($k) < 3, preserveKeys: true)
+ * |> p_while(static fn (int $x, string $k) => strlen($k) < 3, preserveKeys: true)
  * //= ['a' => 3, 'bb' => 4]
  * ```
  *
@@ -45,7 +45,7 @@ namespace ImpartialPipes;
  * @param bool $preserveKeys
  * @return ($preserveKeys is true ? callable(iterable<K,V>):iterable<K,V> : callable(iterable<K,V>):iterable<int,V>)
  */
-function p_take_while(callable $predicate, bool $preserveKeys = false): callable
+function p_while(callable $predicate, bool $preserveKeys = false): callable
 {
     return $preserveKeys
         ? static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $predicate): iterable {

@@ -31,8 +31,9 @@
       "src/Filtering/p_skip.php",
       "src/Filtering/p_skip_while.php",
       "src/Filtering/p_take.php",
-      "src/Filtering/p_take_while.php",
       "src/Filtering/p_unique.php",
+      "src/Filtering/p_while.php",
+      "src/Filtering/p_while_not_null.php",
 
       "src/Mapping/p_flat_map.php",
       "src/Mapping/p_group_by.php",
@@ -61,7 +62,8 @@
       "src/Tapping/p_narrow.php",
       "src/Tapping/p_not_null.php",
       "src/Tapping/p_tap.php",
-      "src/Tapping/p_foreach.php"
+      "src/Tapping/p_foreach.php",
+      "src/Tapping/p_unfold.php"
     ]
   },
   "autoload-dev": {
