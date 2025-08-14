@@ -39,6 +39,6 @@ final class p_merge_Test extends TestCase
 
         pipe(['a' => 1,'b' => 2,'c' => '3'])
         ->to(p_merge(['b' => 2,'c' => 3,'d' => 4], preserveKeys: true))
-        ->to(shouldRepeatedlyIterateLike(['a' => 1,'b' => 2,'c' => 3,'d' => 4]));
+        ->to(shouldRepeatedlyIterateLike(['a' => 1,'b' => 2,'c' => '3','d' => 4]));
     }
 }

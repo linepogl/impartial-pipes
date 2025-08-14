@@ -38,6 +38,6 @@ final class p_merge_Test extends TestCase
 
         ['a' => 1,'b' => 2,'c' => '3']
         |> p_merge(['b' => 2,'c' => 3,'d' => 4], preserveKeys: true)
-        |> shouldRepeatedlyIterateLike(['a' => 1,'b' => 2,'c' => 3,'d' => 4]);
+        |> shouldRepeatedlyIterateLike(['a' => 1,'b' => 2,'c' => '3','d' => 4]);
     }
 }
