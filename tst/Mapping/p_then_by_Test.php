@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use function ImpartialPipes\p_order_by;
 use function ImpartialPipes\p_then_by;
 use function ImpartialPipes\pipe;
-use function Should\shouldRepeatedlyIterateLike;
+use function Should\shouldIterateLike;
 
 /**
  * @internal
@@ -21,61 +21,61 @@ final class p_then_by_Test extends TestCase
         pipe([])
         ->to(p_order_by(fn (int $x) => abs($x)))
         ->to(p_then_by(fn (int $x, string $k) => $k))
-        ->to(shouldRepeatedlyIterateLike([]));
+        ->to(shouldIterateLike([], repeatedly: true));
 
         pipe([])
         ->to(p_order_by(fn (int $x) => abs($x), descending: true))
         ->to(p_then_by(fn (int $x, string $k) => $k, descending: true))
-        ->to(shouldRepeatedlyIterateLike([]));
+        ->to(shouldIterateLike([], repeatedly: true));
 
         pipe([])
         ->to(p_order_by(fn (int $x, string $k) => $k[0]))
         ->to(p_then_by(fn (int $x) => $x))
-        ->to(shouldRepeatedlyIterateLike([]));
+        ->to(shouldIterateLike([], repeatedly: true));
 
         pipe([])
         ->to(p_order_by(fn (int $x, string $k) => $k[0], descending: true))
         ->to(p_then_by(fn (int $x) => $x, descending: true))
-        ->to(shouldRepeatedlyIterateLike([]));
+        ->to(shouldIterateLike([], repeatedly: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3])
         ->to(p_order_by(fn (int $x) => abs($x)))
         ->to(p_then_by(fn (int $x, string $k) => $k))
-        ->to(shouldRepeatedlyIterateLike([1, -1, 2, -2, 3, -3]));
+        ->to(shouldIterateLike([1, -1, 2, -2, 3, -3], repeatedly: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3])
         ->to(p_order_by(fn (int $x) => abs($x)))
         ->to(p_then_by(fn (int $x, string $k) => $k, descending: true))
-        ->to(shouldRepeatedlyIterateLike([-1, 1, -2, 2, -3, 3]));
+        ->to(shouldIterateLike([-1, 1, -2, 2, -3, 3], repeatedly: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3])
         ->to(p_order_by(fn (int $x) => abs($x), preserveKeys: true))
         ->to(p_then_by(fn (int $x, string $k) => $k))
-        ->to(shouldRepeatedlyIterateLike(['a' => 1, 'aa' => -1, 'b' => 2, 'bb' => -2, 'c' => 3, 'cc' => -3]));
+        ->to(shouldIterateLike(['a' => 1, 'aa' => -1, 'b' => 2, 'bb' => -2, 'c' => 3, 'cc' => -3], repeatedly: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3])
         ->to(p_order_by(fn (int $x) => abs($x), preserveKeys: true))
         ->to(p_then_by(fn (int $x, string $k) => $k, descending: true))
-        ->to(shouldRepeatedlyIterateLike(['aa' => -1, 'a' => 1, 'bb' => -2, 'b' => 2, 'cc' => -3, 'c' => 3]));
+        ->to(shouldIterateLike(['aa' => -1, 'a' => 1, 'bb' => -2, 'b' => 2, 'cc' => -3, 'c' => 3], repeatedly: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3])
         ->to(p_order_by(fn (int $x, string $k) => $k[0]))
         ->to(p_then_by(fn (int $x) => $x))
-        ->to(shouldRepeatedlyIterateLike([-1, 1, -2, 2, -3, 3]));
+        ->to(shouldIterateLike([-1, 1, -2, 2, -3, 3], repeatedly: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3])
         ->to(p_order_by(fn (int $x, string $k) => $k[0]))
         ->to(p_then_by(fn (int $x) => $x, descending: true))
-        ->to(shouldRepeatedlyIterateLike([1, -1, 2, -2, 3, -3]));
+        ->to(shouldIterateLike([1, -1, 2, -2, 3, -3], repeatedly: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3])
         ->to(p_order_by(fn (int $x, string $k) => $k[0], preserveKeys: true))
         ->to(p_then_by(fn (int $x) => $x))
-        ->to(shouldRepeatedlyIterateLike(['aa' => -1, 'a' => 1, 'bb' => -2, 'b' => 2, 'cc' => -3, 'c' => 3]));
+        ->to(shouldIterateLike(['aa' => -1, 'a' => 1, 'bb' => -2, 'b' => 2, 'cc' => -3, 'c' => 3], repeatedly: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3])
         ->to(p_order_by(fn (int $x, string $k) => $k[0], preserveKeys: true))
         ->to(p_then_by(fn (int $x) => $x, descending: true))
-        ->to(shouldRepeatedlyIterateLike(['a' => 1, 'aa' => -1, 'b' => 2, 'bb' => -2, 'c' => 3, 'cc' => -3]));
+        ->to(shouldIterateLike(['a' => 1, 'aa' => -1, 'b' => 2, 'bb' => -2, 'c' => 3, 'cc' => -3], repeatedly: true));
     }
 }

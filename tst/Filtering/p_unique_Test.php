@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_unique;
 use function ImpartialPipes\pipe;
-use function Should\shouldRepeatedlyIterateLike;
+use function Should\shouldIterateLike;
 
 /**
  * @internal
@@ -19,34 +19,34 @@ final class p_unique_Test extends TestCase
     {
         pipe([])
         ->to(p_unique())
-        ->to(shouldRepeatedlyIterateLike([]));
+        ->to(shouldIterateLike([], repeatedly: true));
 
         pipe([])
         ->to(p_unique(preserveKeys: true))
-        ->to(shouldRepeatedlyIterateLike([]));
+        ->to(shouldIterateLike([], repeatedly: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 1, 'd' => 4])
         ->to(p_unique())
-        ->to(shouldRepeatedlyIterateLike([1, 2, 4]));
+        ->to(shouldIterateLike([1, 2, 4], repeatedly: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 1, 'd' => 4])
         ->to(p_unique(preserveKeys: true))
-        ->to(shouldRepeatedlyIterateLike(['a' => 1, 'b' => 2, 'd' => 4]));
+        ->to(shouldIterateLike(['a' => 1, 'b' => 2, 'd' => 4], repeatedly: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_unique(static fn (int $x) => $x % 2))
-        ->to(shouldRepeatedlyIterateLike([1, 2]));
+        ->to(shouldIterateLike([1, 2], repeatedly: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_unique(static fn (int $x) => $x % 2, preserveKeys: true))
-        ->to(shouldRepeatedlyIterateLike(['a' => 1, 'b' => 2]));
+        ->to(shouldIterateLike(['a' => 1, 'b' => 2], repeatedly: true));
 
         pipe(['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4])
         ->to(p_unique(static fn (int $x, string $k) => $k[0]))
-        ->to(shouldRepeatedlyIterateLike([1, 3]));
+        ->to(shouldIterateLike([1, 3], repeatedly: true));
 
         pipe(['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4])
         ->to(p_unique(static fn (int $x, string $k) => $k[0], preserveKeys: true))
-        ->to(shouldRepeatedlyIterateLike(['a' => 1, 'b' => 3]));
+        ->to(shouldIterateLike(['a' => 1, 'b' => 3], repeatedly: true));
     }
 }

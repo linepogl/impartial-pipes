@@ -7,7 +7,7 @@ namespace Tests\Combining;
 use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_merge;
-use function Should\shouldRepeatedlyIterateLike;
+use function Should\shouldIterateLike;
 
 /**
  * @internal
@@ -18,26 +18,26 @@ final class p_merge_Test extends TestCase
     {
         []
         |> p_merge([])
-        |> shouldRepeatedlyIterateLike([]);
+        |> shouldIterateLike([], repeatedly: true);
 
         []
         |> p_merge([], preserveKeys: true)
-        |> shouldRepeatedlyIterateLike([]);
+        |> shouldIterateLike([], repeatedly: true);
 
         [1,2]
         |> p_merge([3,4])
-        |> shouldRepeatedlyIterateLike([1,2,3,4]);
+        |> shouldIterateLike([1,2,3,4], repeatedly: true);
 
         [1,2]
         |> p_merge([3,4], preserveKeys: true)
-        |> shouldRepeatedlyIterateLike([1,2]);
+        |> shouldIterateLike([1,2], repeatedly: true);
 
         ['a' => 1,'b' => 2,'c' => 3]
         |> p_merge(['b' => 22,'c' => 33,'d' => 4])
-        |> shouldRepeatedlyIterateLike([1,2,3,22,33,4]);
+        |> shouldIterateLike([1,2,3,22,33,4], repeatedly: true);
 
         ['a' => 1,'b' => 2,'c' => '3']
         |> p_merge(['b' => 2,'c' => 3,'d' => 4], preserveKeys: true)
-        |> shouldRepeatedlyIterateLike(['a' => 1,'b' => 2,'c' => '3','d' => 4]);
+        |> shouldIterateLike(['a' => 1,'b' => 2,'c' => '3','d' => 4], repeatedly: true);
     }
 }

@@ -7,7 +7,7 @@ namespace Tests\Filtering;
 use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_while_not_null;
-use function Should\shouldRepeatedlyIterateLike;
+use function Should\shouldIterateLike;
 
 /**
  * @internal
@@ -18,18 +18,18 @@ final class p_while_not_null_Test extends TestCase
     {
         []
         |> p_while_not_null()
-        |> shouldRepeatedlyIterateLike([]);
+        |> shouldIterateLike([], repeatedly: true);
 
         []
         |> p_while_not_null(preserveKeys: true)
-        |> shouldRepeatedlyIterateLike([]);
+        |> shouldIterateLike([], repeatedly: true);
 
         ['a' => 1, 'b' => 2, 'c' => null, 'd' => 4]
         |> p_while_not_null()
-        |> shouldRepeatedlyIterateLike([1, 2]);
+        |> shouldIterateLike([1, 2], repeatedly: true);
 
         ['a' => 1, 'b' => 2, 'c' => null, 'd' => 4]
         |> p_while_not_null(preserveKeys: true)
-        |> shouldRepeatedlyIterateLike(['a' => 1, 'b' => 2]);
+        |> shouldIterateLike(['a' => 1, 'b' => 2], repeatedly: true);
     }
 }

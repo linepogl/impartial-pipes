@@ -7,7 +7,7 @@ namespace Tests\Mapping;
 use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_flat_map;
-use function Should\shouldRepeatedlyIterateLike;
+use function Should\shouldIterateLike;
 
 /**
  * @internal
@@ -18,14 +18,14 @@ final class p_flat_map_Test extends TestCase
     {
         []
         |> p_flat_map(fn (int $x) => [$x, $x])
-        |> shouldRepeatedlyIterateLike([]);
+        |> shouldIterateLike([], repeatedly: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_flat_map(fn (int $x) => [$x, $x])
-        |> shouldRepeatedlyIterateLike([1, 1, 2, 2, 3, 3, 4, 4]);
+        |> shouldIterateLike([1, 1, 2, 2, 3, 3, 4, 4], repeatedly: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_flat_map(fn (int $x, string $k) => [$x, $k])
-        |> shouldRepeatedlyIterateLike([1, 'a', 2, 'b', 3, 'c', 4, 'd']);
+        |> shouldIterateLike([1, 'a', 2, 'b', 3, 'c', 4, 'd'], repeatedly: true);
     }
 }

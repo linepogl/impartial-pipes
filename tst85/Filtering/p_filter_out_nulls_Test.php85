@@ -7,7 +7,7 @@ namespace Tests\Filtering;
 use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_filter_out_nulls;
-use function Should\shouldRepeatedlyIterateLike;
+use function Should\shouldIterateLike;
 
 /**
  * @internal
@@ -18,18 +18,18 @@ final class p_filter_out_nulls_Test extends TestCase
     {
         []
         |> p_filter_out_nulls()
-        |> shouldRepeatedlyIterateLike([]);
+        |> shouldIterateLike([], repeatedly: true);
 
         []
         |> p_filter_out_nulls(preserveKeys: true)
-        |> shouldRepeatedlyIterateLike([]);
+        |> shouldIterateLike([], repeatedly: true);
 
         ['a' => 1, 'b' => null, 'c' => 3, 'd' => null]
         |> p_filter_out_nulls()
-        |> shouldRepeatedlyIterateLike([1, 3]);
+        |> shouldIterateLike([1, 3], repeatedly: true);
 
         ['a' => 1, 'b' => null, 'c' => 3, 'd' => null]
         |> p_filter_out_nulls(preserveKeys: true)
-        |> shouldRepeatedlyIterateLike(['a' => 1, 'c' => 3]);
+        |> shouldIterateLike(['a' => 1, 'c' => 3], repeatedly: true);
     }
 }

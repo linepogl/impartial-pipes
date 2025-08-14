@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_order_by;
 use function ImpartialPipes\p_then_by;
-use function Should\shouldRepeatedlyIterateLike;
+use function Should\shouldIterateLike;
 
 /**
  * @internal
@@ -20,61 +20,61 @@ final class p_then_by_Test extends TestCase
         []
         |> p_order_by(fn (int $x) => abs($x))
         |> p_then_by(fn (int $x, string $k) => $k)
-        |> shouldRepeatedlyIterateLike([]);
+        |> shouldIterateLike([], repeatedly: true);
 
         []
         |> p_order_by(fn (int $x) => abs($x), descending: true)
         |> p_then_by(fn (int $x, string $k) => $k, descending: true)
-        |> shouldRepeatedlyIterateLike([]);
+        |> shouldIterateLike([], repeatedly: true);
 
         []
         |> p_order_by(fn (int $x, string $k) => $k[0])
         |> p_then_by(fn (int $x) => $x)
-        |> shouldRepeatedlyIterateLike([]);
+        |> shouldIterateLike([], repeatedly: true);
 
         []
         |> p_order_by(fn (int $x, string $k) => $k[0], descending: true)
         |> p_then_by(fn (int $x) => $x, descending: true)
-        |> shouldRepeatedlyIterateLike([]);
+        |> shouldIterateLike([], repeatedly: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3]
         |> p_order_by(fn (int $x) => abs($x))
         |> p_then_by(fn (int $x, string $k) => $k)
-        |> shouldRepeatedlyIterateLike([1, -1, 2, -2, 3, -3]);
+        |> shouldIterateLike([1, -1, 2, -2, 3, -3], repeatedly: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3]
         |> p_order_by(fn (int $x) => abs($x))
         |> p_then_by(fn (int $x, string $k) => $k, descending: true)
-        |> shouldRepeatedlyIterateLike([-1, 1, -2, 2, -3, 3]);
+        |> shouldIterateLike([-1, 1, -2, 2, -3, 3], repeatedly: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3]
         |> p_order_by(fn (int $x) => abs($x), preserveKeys: true)
         |> p_then_by(fn (int $x, string $k) => $k)
-        |> shouldRepeatedlyIterateLike(['a' => 1, 'aa' => -1, 'b' => 2, 'bb' => -2, 'c' => 3, 'cc' => -3]);
+        |> shouldIterateLike(['a' => 1, 'aa' => -1, 'b' => 2, 'bb' => -2, 'c' => 3, 'cc' => -3], repeatedly: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3]
         |> p_order_by(fn (int $x) => abs($x), preserveKeys: true)
         |> p_then_by(fn (int $x, string $k) => $k, descending: true)
-        |> shouldRepeatedlyIterateLike(['aa' => -1, 'a' => 1, 'bb' => -2, 'b' => 2, 'cc' => -3, 'c' => 3]);
+        |> shouldIterateLike(['aa' => -1, 'a' => 1, 'bb' => -2, 'b' => 2, 'cc' => -3, 'c' => 3], repeatedly: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3]
         |> p_order_by(fn (int $x, string $k) => $k[0])
         |> p_then_by(fn (int $x) => $x)
-        |> shouldRepeatedlyIterateLike([-1, 1, -2, 2, -3, 3]);
+        |> shouldIterateLike([-1, 1, -2, 2, -3, 3], repeatedly: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3]
         |> p_order_by(fn (int $x, string $k) => $k[0])
         |> p_then_by(fn (int $x) => $x, descending: true)
-        |> shouldRepeatedlyIterateLike([1, -1, 2, -2, 3, -3]);
+        |> shouldIterateLike([1, -1, 2, -2, 3, -3], repeatedly: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3]
         |> p_order_by(fn (int $x, string $k) => $k[0], preserveKeys: true)
         |> p_then_by(fn (int $x) => $x)
-        |> shouldRepeatedlyIterateLike(['aa' => -1, 'a' => 1, 'bb' => -2, 'b' => 2, 'cc' => -3, 'c' => 3]);
+        |> shouldIterateLike(['aa' => -1, 'a' => 1, 'bb' => -2, 'b' => 2, 'cc' => -3, 'c' => 3], repeatedly: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3]
         |> p_order_by(fn (int $x, string $k) => $k[0], preserveKeys: true)
         |> p_then_by(fn (int $x) => $x, descending: true)
-        |> shouldRepeatedlyIterateLike(['a' => 1, 'aa' => -1, 'b' => 2, 'bb' => -2, 'c' => 3, 'cc' => -3]);
+        |> shouldIterateLike(['a' => 1, 'aa' => -1, 'b' => 2, 'bb' => -2, 'c' => 3, 'cc' => -3], repeatedly: true);
     }
 }

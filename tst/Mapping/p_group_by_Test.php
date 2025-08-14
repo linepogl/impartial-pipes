@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_group_by;
 use function ImpartialPipes\pipe;
-use function Should\shouldRepeatedlyIterateLike;
+use function Should\shouldIterateLike;
 
 /**
  * @internal
@@ -19,26 +19,26 @@ final class p_group_by_Test extends TestCase
     {
         pipe([])
         ->to(p_group_by(fn (int $x) => $x % 2))
-        ->to(shouldRepeatedlyIterateLike([]));
+        ->to(shouldIterateLike([], repeatedly: true));
 
         pipe([])
         ->to(p_group_by(fn (int $x) => $x % 2, preserveKeys: true))
-        ->to(shouldRepeatedlyIterateLike([]));
+        ->to(shouldIterateLike([], repeatedly: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_group_by(fn (int $x) => $x % 2))
-        ->to(shouldRepeatedlyIterateLike([1 => [1, 3], 0 => [2, 4]]));
+        ->to(shouldIterateLike([1 => [1, 3], 0 => [2, 4]], repeatedly: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_group_by(fn (int $x) => $x % 2, preserveKeys: true))
-        ->to(shouldRepeatedlyIterateLike([1 => ['a' => 1, 'c' => 3], 0 => ['b' => 2, 'd' => 4]]));
+        ->to(shouldIterateLike([1 => ['a' => 1, 'c' => 3], 0 => ['b' => 2, 'd' => 4]], repeatedly: true));
 
         pipe(['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4])
         ->to(p_group_by(fn (int $x, string $k) => $k[0]))
-        ->to(shouldRepeatedlyIterateLike(['a' => [1, 2], 'b' => [3, 4]]));
+        ->to(shouldIterateLike(['a' => [1, 2], 'b' => [3, 4]], repeatedly: true));
 
         pipe(['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4])
         ->to(p_group_by(fn (int $x, string $k) => $k[0], preserveKeys: true))
-        ->to(shouldRepeatedlyIterateLike(['a' => ['a' => 1, 'aa' => 2], 'b' => ['b' => 3, 'bb' => 4]]));
+        ->to(shouldIterateLike(['a' => ['a' => 1, 'aa' => 2], 'b' => ['b' => 3, 'bb' => 4]], repeatedly: true));
     }
 }

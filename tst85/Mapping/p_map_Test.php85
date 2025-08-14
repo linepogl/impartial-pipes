@@ -7,7 +7,7 @@ namespace Tests\Mapping;
 use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_map;
-use function Should\shouldRepeatedlyIterateLike;
+use function Should\shouldIterateLike;
 
 /**
  * @internal
@@ -18,18 +18,18 @@ final class p_map_Test extends TestCase
     {
         []
         |> p_map(fn (int $x) => $x * $x)
-        |> shouldRepeatedlyIterateLike([]);
+        |> shouldIterateLike([], repeatedly: true);
 
         [1, 2, 3, 4]
         |> p_map(fn (int $x) => $x * $x)
-        |> shouldRepeatedlyIterateLike([1, 4, 9, 16]);
+        |> shouldIterateLike([1, 4, 9, 16], repeatedly: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_map(fn (int $x) => $x * $x)
-        |> shouldRepeatedlyIterateLike(['a' => 1, 'b' => 4, 'c' => 9, 'd' => 16]);
+        |> shouldIterateLike(['a' => 1, 'b' => 4, 'c' => 9, 'd' => 16], repeatedly: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_map(fn (int $x, string $k) => $x . $k)
-        |> shouldRepeatedlyIterateLike(['a' => '1a', 'b' => '2b', 'c' => '3c', 'd' => '4d']);
+        |> shouldIterateLike(['a' => '1a', 'b' => '2b', 'c' => '3c', 'd' => '4d'], repeatedly: true);
     }
 }

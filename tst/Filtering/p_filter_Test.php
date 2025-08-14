@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 use function ImpartialPipes\p_filter;
 use function ImpartialPipes\pipe;
-use function Should\shouldRepeatedlyIterateLike;
+use function Should\shouldIterateLike;
 
 /**
  * @internal
@@ -19,26 +19,26 @@ final class p_filter_Test extends TestCase
     {
         pipe([])
         ->to(p_filter(fn (int $x) => $x % 2 === 0))
-        ->to(shouldRepeatedlyIterateLike([]));
+        ->to(shouldIterateLike([], repeatedly: true));
 
         pipe([])
         ->to(p_filter(fn (int $x) => $x % 2 === 0, preserveKeys: true))
-        ->to(shouldRepeatedlyIterateLike([]));
+        ->to(shouldIterateLike([], repeatedly: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_filter(fn (int $x) => $x % 2 === 0))
-        ->to(shouldRepeatedlyIterateLike([2, 4]));
+        ->to(shouldIterateLike([2, 4], repeatedly: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_filter(fn (int $x) => $x % 2 === 0, preserveKeys: true))
-        ->to(shouldRepeatedlyIterateLike(['b' => 2, 'd' => 4]));
+        ->to(shouldIterateLike(['b' => 2, 'd' => 4], repeatedly: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_filter(fn (int $x, string $k) => $k === 'b'))
-        ->to(shouldRepeatedlyIterateLike([2]));
+        ->to(shouldIterateLike([2], repeatedly: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_filter(fn (int $x, string $k) => $k === 'b', preserveKeys: true))
-        ->to(shouldRepeatedlyIterateLike(['b' => 2]));
+        ->to(shouldIterateLike(['b' => 2], repeatedly: true));
     }
 }
