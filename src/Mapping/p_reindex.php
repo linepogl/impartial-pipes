@@ -27,7 +27,7 @@ namespace ImpartialPipes;
  * ```
  * ['a' => 1, 'b' => 2, 'c' => 2]
  * |> p_reindex(static fn (int $value) => $value * $value)
- * //= [1 => 1, 4 => 2], the key 4 is skipped the second time
+ * //= [1 => 1, 4 => 2, 4 => 4], the key 4 is repeated, use u_unique_keys to eliminate it
  * ```
  * ReIndex by value and key projection
  * ```
@@ -38,26 +38,20 @@ namespace ImpartialPipes;
  * ```
  * ['a' => 1, 'bb' => 2, 'cc' => 3]
  * |> p_reindex(static fn (int $value, string $key) => strlen($key))
- * //= [1 => 1, 2 => 2], the key 2 is skipped the second time
+ * //= [1 => 1, 2 => 2, 2 => 3], the key 2 is repeated, use u_unique_keys to eliminate it
  * ```
  *
  * @template K
  * @template V
- * @template K2 of array-key
+ * @template K2
  * @param callable(V,K):K2 $keyProjection
  * @return callable(iterable<K,V>):iterable<K2,V>
  */
 function p_reindex(callable $keyProjection): callable
 {
     return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $keyProjection): iterable {
-        $seen = [];
         foreach ($iterable as $key => $value) {
-            $newKey = $keyProjection($value, $key);
-            if (array_key_exists($newKey, $seen)) {
-                continue;
-            }
-            $seen[$newKey] = true;
-            yield $newKey => $value;
+            yield $keyProjection($value, $key) => $value;
         }
     });
 }

@@ -24,7 +24,7 @@ Reindex by value projection
 ```php
 ['a' => 1, 'b' => 2, 'c' => 2]
 |> p_reindex(static fn (int $value) => $value * $value)
-//= [1 => 1, 4 => 2], the key 4 is skipped the second time
+//= [1 => 1, 4 => 2, 4 => 4], the key 4 is repeated, use u_unique_keys to eliminate it
 ```
 ReIndex by value and key projection
 ```php
@@ -35,5 +35,5 @@ ReIndex by value and key projection
 ```php
 ['a' => 1, 'bb' => 2, 'cc' => 3]
 |> p_reindex(static fn (int $value, string $key) => strlen($key))
-//= [1 => 1, 2 => 2], the key 2 is skipped the second time
+//= [1 => 1, 2 => 2, 2 => 3], the key 2 is repeated, use u_unique_keys to eliminate it
 ```

@@ -35,6 +35,6 @@ final class p_reindex_Test extends TestCase
 
         pipe(['a' => 1, 'b' => 1, 'c' => 2, 'd' => 2])
         ->to(p_reindex(fn (int $x) => $x * $x))
-        ->to(shouldIterateLike([1 => 1, 4 => 2], repeatedly: true));
+        ->to(shouldIterateLike((static function () { yield 1 => 1; yield 1 => 1; yield 4 => 2; yield 4 => 2; })(), repeatedly: true));
     }
 }

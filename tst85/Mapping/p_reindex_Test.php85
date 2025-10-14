@@ -34,6 +34,6 @@ final class p_reindex_Test extends TestCase
 
         ['a' => 1, 'b' => 1, 'c' => 2, 'd' => 2]
         |> p_reindex(fn (int $x) => $x * $x)
-        |> shouldIterateLike([1 => 1, 4 => 2], repeatedly: true);
+        |> shouldIterateLike((static function () { yield 1 => 1; yield 1 => 1; yield 4 => 2; yield 4 => 2; })(), repeatedly: true);
     }
 }

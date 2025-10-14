@@ -32,6 +32,7 @@
       "src/Filtering/p_skip_while.php",
       "src/Filtering/p_take.php",
       "src/Filtering/p_unique.php",
+      "src/Filtering/p_unique_keys.php",
       "src/Filtering/p_while.php",
       "src/Filtering/p_while_not_null.php",
 
