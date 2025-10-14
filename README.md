@@ -89,7 +89,7 @@ pipe($iterable)
 
 ### Combining partial functions
 
-- [p_merge](doc/Combining/p_merge.md)
+- [p_concat](doc/Combining/p_concat.md)
 
 ### Mapping partial functions
 
