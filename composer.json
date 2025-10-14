@@ -23,7 +23,7 @@
       "src/Util/iterable_to_iterator.php",
       "src/Util/LazyRewindableIterator.php",
 
-      "src/Combining/p_merge.php",
+      "src/Combining/p_concat.php",
 
       "src/Filtering/p_filter.php",
       "src/Filtering/p_filter_out.php",

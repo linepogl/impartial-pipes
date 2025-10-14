@@ -7,13 +7,13 @@ namespace ImpartialPipes;
 /**
  * Returns a partial function that maps the keys of an iterable using a projection. It preserves the values.
  *
- * If the projection returns a key that already exists in the iterable, the value is skipped.
+ * Attention: it is possible to have repeated keys in the result, use u_unique_keys to eliminate them.
  *
  * ### Syntax
  *
  * ```
  * p_reindex(
- *   callable(TValue[, TKey]): TNewKey of array-key,
+ *   callable(TValue[, TKey]): TNewKey
  * )
  * ```
  *
@@ -29,7 +29,7 @@ namespace ImpartialPipes;
  * |> p_reindex(static fn (int $value) => $value * $value)
  * //= [1 => 1, 4 => 2, 4 => 4], the key 4 is repeated, use u_unique_keys to eliminate it
  * ```
- * ReIndex by value and key projection
+ * Reindex by value and key projection
  * ```
  * ['a' => 1, 'bb' => 2, 'ccc' => 3]
  * |> p_reindex(static fn (int $value, string $key) => strlen($key))

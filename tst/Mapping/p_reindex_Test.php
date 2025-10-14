@@ -8,6 +8,7 @@ use ImpartialPipes\LazyRewindableIterator;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 
+use Tests\ConcatIterator;
 use function ImpartialPipes\p_reindex;
 use function ImpartialPipes\pipe;
 
@@ -38,23 +39,6 @@ final class p_reindex_Test extends TestCase
 
         pipe(['a' => 1, 'b' => 1, 'c' => 2, 'd' => 2])
         ->to(p_reindex(fn (int $x) => $x * $x))
-        ->to(self::iteratesLike(self::arrays_to_iterable([1 => 1], [1 => 1], [4 => 2], [4 => 2]), rewind: true));
-    }
-
-    /**
-     * @template K
-     * @template V
-     * @param array<K, V> ...$arrays
-     * @return iterable<K, V>
-     */
-    private static function arrays_to_iterable(array ...$arrays): iterable
-    {
-        return new LazyRewindableIterator(static function () use ($arrays) {
-            foreach ($arrays as $array) {
-                foreach ($array as $key => $value) {
-                    yield $key => $value;
-                }
-            }
-        });
+        ->to(self::iteratesLike(new ConcatIterator([1 => 1], [1 => 1], [4 => 2], [4 => 2]), rewind: true));
     }
 }
