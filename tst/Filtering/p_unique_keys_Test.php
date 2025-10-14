@@ -26,11 +26,21 @@ final class p_unique_keys_Test extends TestCase
         ->to(p_unique_keys(preserveKeys: true))
         ->to(shouldIterateLike([], repeatedly: true));
 
-        pipe(new LazyRewindableIterator(static function() { yield 'a' => 1; yield 'a' => 2; yield 'b' => 3; yield 'b' => 4; }))
+        pipe(new LazyRewindableIterator(static function () {
+            yield 'a' => 1;
+            yield 'a' => 2;
+            yield 'b' => 3;
+            yield 'b' => 4;
+        }))
         ->to(p_unique_keys())
         ->to(shouldIterateLike([1, 3], repeatedly: true));
 
-        pipe(new LazyRewindableIterator(static function() { yield 'a' => 1; yield 'a' => 2; yield 'b' => 3; yield 'b' => 4; }))
+        pipe(new LazyRewindableIterator(static function () {
+            yield 'a' => 1;
+            yield 'a' => 2;
+            yield 'b' => 3;
+            yield 'b' => 4;
+        }))
         ->to(p_unique_keys(preserveKeys: true))
         ->to(shouldIterateLike(['a' => 1, 'b' => 3], repeatedly: true));
 
