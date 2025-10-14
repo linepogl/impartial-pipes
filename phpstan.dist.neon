@@ -8,7 +8,6 @@ parameters:
   level: 10
   paths:
     - src
-    - dev
     - tst
   excludePaths:
     - **/*Php85*.php
