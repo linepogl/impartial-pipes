@@ -76,10 +76,10 @@
     "php": "^8.4"
   },
   "require-dev": {
-    "phpunit/phpunit": "^12.3",
+    "phpunit/phpunit": "^12.4",
     "phpstan/phpstan": "^2.1",
-    "friendsofphp/php-cs-fixer": "^3.85",
-    "linepogl/should": "dev-main"
+    "friendsofphp/php-cs-fixer": "^3.88",
+    "linepogl/phpunit-meta-constraints": "^0.3"
   },
   "scripts": {
     "phpunit": "vendor/bin/phpunit --testsuite=unit",
@@ -93,7 +93,7 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "git@github.com:linepogl/should.git"
+      "url": "git@github.com:linepogl/phpunit-meta-constraints.git"
     }
   ]
 }

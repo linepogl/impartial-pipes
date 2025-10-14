@@ -5,28 +5,30 @@ declare(strict_types=1);
 namespace Tests\Mapping;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_flat_map;
 use function ImpartialPipes\pipe;
-use function Should\shouldIterateLike;
 
 /**
  * @internal
  */
 final class p_flat_map_Test extends TestCase
 {
+    use PhpunitMetaConstraintsTrait;
+
     public function test_p_flat_map(): void
     {
         pipe([])
         ->to(p_flat_map(fn (int $x) => [$x, $x]))
-        ->to(shouldIterateLike([], repeatedly: true));
+        ->to(self::iteratesLike([], rewind: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_flat_map(fn (int $x) => [$x, $x]))
-        ->to(shouldIterateLike([1, 1, 2, 2, 3, 3, 4, 4], repeatedly: true));
+        ->to(self::iteratesLike([1, 1, 2, 2, 3, 3, 4, 4], rewind: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_flat_map(fn (int $x, string $k) => [$x, $k]))
-        ->to(shouldIterateLike([1, 'a', 2, 'b', 3, 'c', 4, 'd'], repeatedly: true));
+        ->to(self::iteratesLike([1, 'a', 2, 'b', 3, 'c', 4, 'd'], rewind: true));
     }
 }

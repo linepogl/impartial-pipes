@@ -4,40 +4,60 @@ declare(strict_types=1);
 
 namespace Tests\Combining;
 
+use ImpartialPipes\LazyRewindableIterator;
 use PHPUnit\Framework\TestCase;
+use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_merge;
-use function Should\shouldIterateLike;
 
 /**
  * @internal
  */
 final class p_merge_Test extends TestCase
 {
+    use PhpunitMetaConstraintsTrait;
+
     public function test_p_merge(): void
     {
         []
         |> p_merge([])
-        |> shouldIterateLike([], repeatedly: true);
+        |> self::iteratesLike([], rewind: true);
 
         []
         |> p_merge([], preserveKeys: true)
-        |> shouldIterateLike([], repeatedly: true);
+        |> self::iteratesLike([], rewind: true);
 
         [1,2]
         |> p_merge([3,4])
-        |> shouldIterateLike([1,2,3,4], repeatedly: true);
+        |> self::iteratesLike([1,2,3,4], rewind: true);
 
         [1,2]
         |> p_merge([3,4], preserveKeys: true)
-        |> shouldIterateLike([1,2], repeatedly: true);
+        |> self::iteratesLike(self::arrays_to_iterable([0 => 1], [1 => 2], [0 => 3], [1 => 4]), rewind: true);
 
         ['a' => 1,'b' => 2,'c' => 3]
         |> p_merge(['b' => 22,'c' => 33,'d' => 4])
-        |> shouldIterateLike([1,2,3,22,33,4], repeatedly: true);
+        |> self::iteratesLike([1,2,3,22,33,4], rewind: true);
 
         ['a' => 1,'b' => 2,'c' => '3']
         |> p_merge(['b' => 2,'c' => 3,'d' => 4], preserveKeys: true)
-        |> shouldIterateLike(['a' => 1,'b' => 2,'c' => '3','d' => 4], repeatedly: true);
+        |> self::iteratesLike(self::arrays_to_iterable(['a' => 1,'b' => 2,'c' => '3'], ['b' => 2,'c' => 3,'d' => 4]), rewind: true);
+    }
+
+    /**
+     * @template K
+     * @template V
+     * @param array<K, V> ...$arrays
+     * @return iterable<K, V>
+     */
+    private static function arrays_to_iterable(array ...$arrays): iterable
+    {
+        return new LazyRewindableIterator(static function () use ($arrays) {
+            foreach ($arrays as $array) {
+                foreach ($array as $key => $value) {
+                    yield $key => $value;
+                }
+            }
+        });
     }
 }

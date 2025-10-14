@@ -26,14 +26,14 @@ Merging two iterables
 |> p_merge(['b' => 22,'c' => 3])
 //= [1, 2, 22, 3]
 ```
-Merging two iterables, preserving keys, keeping only the first occurrence of each key
+Merging two iterables, preserving keys. Keys might be duplicated in the result.
 ```php
 [1, 2]
 |> p_merge([3, 4], preserveKeys: true)
-//= [1, 2], because it returns only one occurence of the keys 0 and 1
+//= [0 => 1, 1 => 2, 0 => 3, 1 => 4]
 ```
 ```php
 ['a' => 1,'b' => 2]
 |> p_merge(['b' => 22,'c' => 3], preserveKeys: true)
-//= ['a' => 1,'b' => 2,'c' => 3]
+//= ['a' => 1,'b' => 2,'b' => 22,'c' => 3]
 ```

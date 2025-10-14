@@ -5,27 +5,29 @@ declare(strict_types=1);
 namespace Tests\Mapping;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_keys;
-use function Should\shouldIterateLike;
 
 /**
  * @internal
  */
 final class p_keys_Test extends TestCase
 {
+    use PhpunitMetaConstraintsTrait;
+
     public function test_p_keys(): void
     {
         []
         |> p_keys()
-        |> shouldIterateLike([], repeatedly: true);
+        |> self::iteratesLike([], rewind: true);
 
         [1, 2, 3]
         |> p_keys()
-        |> shouldIterateLike([0, 1, 2], repeatedly: true);
+        |> self::iteratesLike([0, 1, 2], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_keys()
-        |> shouldIterateLike(['a', 'b', 'c', 'd'], repeatedly: true);
+        |> self::iteratesLike(['a', 'b', 'c', 'd'], rewind: true);
     }
 }

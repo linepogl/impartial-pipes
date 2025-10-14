@@ -93,7 +93,8 @@
       <path value="$PROJECT_DIR$/vendor/symfony/stopwatch" />
       <path value="$PROJECT_DIR$/vendor/symfony/string" />
       <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
-      <path value="$PROJECT_DIR$/vendor/linepogl/should" />
+      <path value="$PROJECT_DIR$/vendor/linepogl/phpunit-meta-constraints" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php84" />
     </include_path>
   </component>
   <component name="PhpInterpreters">
@@ -103,7 +104,7 @@
           <configuration_option name="memory_limit" value="-1" />
         </configuration_options>
       </interpreter>
-      <interpreter id="4cccaac7-7025-4159-913f-1a38af34ee29" name="homebrew 8.5" home="/opt/homebrew/Cellar/php@8.5/8.5.0_3/bin/php" auto="false" debugger_id="php.debugger.XDebug">
+      <interpreter id="4cccaac7-7025-4159-913f-1a38af34ee29" name="homebrew 8.5" home="/opt/homebrew/Cellar/php@8.5/8.5.0_4/bin/php" auto="false" debugger_id="php.debugger.XDebug">
         <configuration_options>
           <configuration_option name="memory_limit" value="-1" />
           <configuration_option name="xdebug.mode" value="off" />
@@ -114,11 +115,11 @@
   <component name="PhpInterpretersPhpInfoCache">
     <phpInfoCache>
       <interpreter name="homebrew 8.4">
-        <phpinfo binary_type="PHP" php_cgi="/opt/homebrew/Cellar/php/8.4.8/bin/php-cgi" php_cli="/opt/homebrew/Cellar/php/8.4.8/bin/php" path_separator=":" version="8.4.8">
-          <additional_php_ini>/opt/homebrew/etc/php/8.4/conf.d/20-amqp.ini, /opt/homebrew/etc/php/8.4/conf.d/20-apcu.ini, /opt/homebrew/etc/php/8.4/conf.d/20-igbinary.ini, /opt/homebrew/etc/php/8.4/conf.d/20-imagick.ini, /opt/homebrew/etc/php/8.4/conf.d/20-mongodb.ini, /opt/homebrew/etc/php/8.4/conf.d/20-msgpack.ini, /opt/homebrew/etc/php/8.4/conf.d/20-opentelemetry.ini, /opt/homebrew/etc/php/8.4/conf.d/20-redis.ini, /opt/homebrew/etc/php/8.4/conf.d/20-xdebug.ini, /opt/homebrew/etc/php/8.4/conf.d/20-yaml.ini, /opt/homebrew/etc/php/8.4/conf.d/30-ds.ini, /opt/homebrew/etc/php/8.4/conf.d/ext-opcache.ini</additional_php_ini>
+        <phpinfo binary_type="PHP" php_cgi="/opt/homebrew/Cellar/php/8.4.13/bin/php-cgi" php_cli="/opt/homebrew/Cellar/php/8.4.13/bin/php" path_separator=":" version="8.4.13">
+          <additional_php_ini>/opt/homebrew/etc/php/8.4/conf.d/20-amqp.ini, /opt/homebrew/etc/php/8.4/conf.d/20-apcu.ini, /opt/homebrew/etc/php/8.4/conf.d/20-igbinary.ini, /opt/homebrew/etc/php/8.4/conf.d/20-imagick.ini, /opt/homebrew/etc/php/8.4/conf.d/20-mongodb.ini, /opt/homebrew/etc/php/8.4/conf.d/20-msgpack.ini, /opt/homebrew/etc/php/8.4/conf.d/20-opentelemetry.ini, /opt/homebrew/etc/php/8.4/conf.d/20-redis.ini, /opt/homebrew/etc/php/8.4/conf.d/20-xdebug.ini, /opt/homebrew/etc/php/8.4/conf.d/20-yaml.ini, /opt/homebrew/etc/php/8.4/conf.d/30-ds.ini, /opt/homebrew/etc/php/8.4/conf.d/ext-intl.ini, /opt/homebrew/etc/php/8.4/conf.d/ext-opcache.ini</additional_php_ini>
           <configuration_file>/opt/homebrew/etc/php/8.4/php.ini</configuration_file>
           <configuration_options>
-            <configuration_option name="include_path" value=".:/opt/homebrew/Cellar/php/8.4.8/share/php/pear" />
+            <configuration_option name="include_path" value=".:/opt/homebrew/Cellar/php/8.4.13/share/php/pear" />
           </configuration_options>
           <debuggers>
             <debugger_info debugger="xdebug" debugger_version="3.4.0">
@@ -206,17 +207,13 @@
         </phpinfo>
       </interpreter>
       <interpreter name="homebrew 8.5">
-        <phpinfo binary_type="PHP" php_cgi="/opt/homebrew/Cellar/php@8.5/8.5.0_3/bin/php-cgi" php_cli="/opt/homebrew/Cellar/php@8.5/8.5.0_3/bin/php" path_separator=":" version="8.5.0-dev">
+        <phpinfo binary_type="PHP" php_cgi="/opt/homebrew/Cellar/php@8.5/8.5.0_4/bin/php-cgi" php_cli="/opt/homebrew/Cellar/php@8.5/8.5.0_4/bin/php" path_separator=":" version="8.5.0-dev">
           <additional_php_ini>/opt/homebrew/etc/php/8.5/conf.d/20-xdebug.ini</additional_php_ini>
           <configuration_file>/opt/homebrew/etc/php/8.5/php.ini</configuration_file>
           <configuration_options>
-            <configuration_option name="include_path" value=".:/opt/homebrew/Cellar/php@8.5/8.5.0_3/share/php@8.5/pear" />
+            <configuration_option name="include_path" value=".:/opt/homebrew/Cellar/php@8.5/8.5.0_4/share/php@8.5/pear" />
           </configuration_options>
-          <debuggers>
-            <debugger_info debugger="xdebug" debugger_version="3.5.0-dev">
-              <debug_extensions />
-            </debugger_info>
-          </debuggers>
+          <debuggers />
           <loaded_extensions>
             <extension name="Core" />
             <extension name="FFI" />
@@ -277,7 +274,6 @@
             <extension name="tidy" />
             <extension name="tokenizer" />
             <extension name="uri" />
-            <extension name="xdebug" />
             <extension name="xml" />
             <extension name="xmlreader" />
             <extension name="xmlwriter" />

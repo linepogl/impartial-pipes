@@ -8,75 +8,77 @@ use Countable;
 use ImpartialPipes\LazyRewindableIterator;
 use Override;
 use PHPUnit\Framework\TestCase;
+use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 use Tests\SimpleIterator;
 use Tests\SimpleIteratorAggregate;
 use Tests\UniterableArrayIterator;
 
 use function ImpartialPipes\p_count;
-use function Should\shouldBe;
 
 /**
  * @internal
  */
 final class p_count_Test extends TestCase
 {
+    use PhpunitMetaConstraintsTrait;
+
     public function test_p_count(): void
     {
         []
         |> p_count()
-        |> shouldBe(0);
+        |> self::is(0);
 
         [1,2]
         |> p_count()
-        |> shouldBe(2);
+        |> self::is(2);
 
         new SimpleIterator([1,2,3])
         |> p_count()
-        |> shouldBe(3);
+        |> self::is(3);
 
         new LazyRewindableIterator(fn () => new SimpleIterator([1,2,3,4]))
         |> p_count()
-        |> shouldBe(4);
+        |> self::is(4);
 
         new UniterableArrayIterator([1,2,3,4,5])
         |> p_count()
-        |> shouldBe(5);
+        |> self::is(5);
 
         new LazyRewindableIterator(fn () => new UniterableArrayIterator([1,2,3,4,5,6]))
         |> p_count()
-        |> shouldBe(6);
+        |> self::is(6);
 
         new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7]))
         |> p_count()
-        |> shouldBe(7);
+        |> self::is(7);
 
         new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7,8])))
         |> p_count()
-        |> shouldBe(8);
+        |> self::is(8);
 
         new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9]))
         |> p_count()
-        |> shouldBe(9);
+        |> self::is(9);
 
         new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9,10])))
         |> p_count()
-        |> shouldBe(10);
+        |> self::is(10);
 
         new SimpleIteratorAggregate(new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7,8,9,10,11])))
         |> p_count()
-        |> shouldBe(11);
+        |> self::is(11);
 
         new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new SimpleIteratorAggregate(new SimpleIterator([1,2,3,4,5,6,7,8,9,10,11,12]))))
         |> p_count()
-        |> shouldBe(12);
+        |> self::is(12);
 
         new SimpleIteratorAggregate(new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9,10,11,12,13])))
         |> p_count()
-        |> shouldBe(13);
+        |> self::is(13);
 
         new LazyRewindableIterator(fn () => new SimpleIteratorAggregate(new SimpleIteratorAggregate(new UniterableArrayIterator([1,2,3,4,5,6,7,8,9,10,11,12,13,14]))))
         |> p_count()
-        |> shouldBe(14);
+        |> self::is(14);
     }
 
     public function test_p_count_with_countables(): void
@@ -88,21 +90,21 @@ final class p_count_Test extends TestCase
                 return 5;
             }
         } |> p_count()
-        |> shouldBe(5);
+        |> self::is(5);
     }
 
     public function test_p_count_with_a_predicate(): void
     {
         []
         |> p_count(fn (int $x) => $x % 2 === 0)
-        |> shouldBe(0);
+        |> self::is(0);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_count(fn (int $x) => $x % 2 === 0)
-        |> shouldBe(2);
+        |> self::is(2);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_count(fn (int $x, string $k) => $k === 'b')
-        |> shouldBe(1);
+        |> self::is(1);
     }
 }

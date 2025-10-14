@@ -8,25 +8,27 @@ use ArrayIterator;
 use IteratorAggregate;
 use Override;
 use PHPUnit\Framework\TestCase;
+use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 use Tests\UniterableArrayIterator;
 use Traversable;
 
 use function ImpartialPipes\iterable_to_iterator;
 use function ImpartialPipes\pipe;
-use function Should\shouldBeA;
 
 /**
  * @internal
  */
 final class iterable_to_iterator_Test extends TestCase
 {
+    use PhpunitMetaConstraintsTrait;
+
     public function test_iterable_to_iterator(): void
     {
         pipe(iterable_to_iterator([1, 2, 3]))
-        ->to(shouldBeA(ArrayIterator::class));
+        ->to($this->isInstanceOf(ArrayIterator::class));
 
         pipe(iterable_to_iterator(new UniterableArrayIterator([1, 2, 3])))
-        ->to(shouldBeA(UniterableArrayIterator::class));
+        ->to($this->isInstanceOf(UniterableArrayIterator::class));
 
         pipe(iterable_to_iterator(
             new class () implements IteratorAggregate {
@@ -36,6 +38,6 @@ final class iterable_to_iterator_Test extends TestCase
                     return new UniterableArrayIterator([1, 2, 3]);
                 }
             },
-        ))->to(shouldBeA(UniterableArrayIterator::class));
+        ))->to($this->isInstanceOf(UniterableArrayIterator::class));
     }
 }

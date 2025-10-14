@@ -6,82 +6,84 @@ namespace Tests\Reducing;
 
 use ArrayIterator;
 use PHPUnit\Framework\TestCase;
+use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_last_or;
-use function Should\shouldBe;
 
 /**
  * @internal
  */
 final class p_last_or_Test extends TestCase
 {
+    use PhpunitMetaConstraintsTrait;
+
     public function test_p_last_or_with_arrays(): void
     {
         []
         |> p_last_or(null)
-        |> shouldBe(null);
+        |> self::is(null);
 
         []
         |> p_last_or(null, static fn (int $x) => $x < 3)
-        |> shouldBe(null);
+        |> self::is(null);
 
         [1,2,3]
         |> p_last_or(null)
-        |> shouldBe(3);
+        |> self::is(3);
 
         [1,2,3]
         |> p_last_or(null, static fn (int $x) => $x < 3)
-        |> shouldBe(2);
+        |> self::is(2);
 
         [1,2,3]
         |> p_last_or(null, static fn (int $x) => $x > 3)
-        |> shouldBe(null);
+        |> self::is(null);
 
         ['a' => 1, 'aa' => 2, 'aaa' => 3]
         |> p_last_or(null)
-        |> shouldBe(3);
+        |> self::is(3);
 
         ['a' => 1, 'aa' => 2, 'aaa' => 3]
         |> p_last_or(null, static fn (int $x, string $k) => strlen($k) < 3)
-        |> shouldBe(2);
+        |> self::is(2);
 
         ['a' => 1, 'aa' => 2, 'aaa' => 3]
         |> p_last_or(null, static fn (int $x, string $k) => strlen($k) > 3)
-        |> shouldBe(null);
+        |> self::is(null);
     }
 
     public function test_p_last_or_with_iterables(): void
     {
         new ArrayIterator([])
         |> p_last_or(null)
-        |> shouldBe(null);
+        |> self::is(null);
 
         new ArrayIterator([])
         |> p_last_or(null, static fn (int $x) => $x < 3)
-        |> shouldBe(null);
+        |> self::is(null);
 
         new ArrayIterator([1,2,3])
         |> p_last_or(null)
-        |> shouldBe(3);
+        |> self::is(3);
 
         new ArrayIterator([1,2,3])
         |> p_last_or(null, static fn (int $x) => $x < 3)
-        |> shouldBe(2);
+        |> self::is(2);
 
         new ArrayIterator([1,2,3])
         |> p_last_or(null, static fn (int $x) => $x > 3)
-        |> shouldBe(null);
+        |> self::is(null);
 
         new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
         |> p_last_or(null)
-        |> shouldBe(3);
+        |> self::is(3);
 
         new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
         |> p_last_or(null, static fn (int $x, string $k) => strlen($k) < 3)
-        |> shouldBe(2);
+        |> self::is(2);
 
         new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
         |> p_last_or(null, static fn (int $x, string $k) => strlen($k) > 3)
-        |> shouldBe(null);
+        |> self::is(null);
     }
 }

@@ -5,28 +5,30 @@ declare(strict_types=1);
 namespace Tests\Mapping;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_values;
 use function ImpartialPipes\pipe;
-use function Should\shouldIterateLike;
 
 /**
  * @internal
  */
 final class p_values_Test extends TestCase
 {
+    use PhpunitMetaConstraintsTrait;
+
     public function test_p_values(): void
     {
         pipe([])
         ->to(p_values())
-        ->to(shouldIterateLike([], repeatedly: true));
+        ->to(self::iteratesLike([], rewind: true));
 
         pipe([1, 2, 3, 4])
         ->to(p_values())
-        ->to(shouldIterateLike([1, 2, 3, 4], repeatedly: true));
+        ->to(self::iteratesLike([1, 2, 3, 4], rewind: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_values())
-        ->to(shouldIterateLike([1, 2, 3, 4], repeatedly: true));
+        ->to(self::iteratesLike([1, 2, 3, 4], rewind: true));
     }
 }

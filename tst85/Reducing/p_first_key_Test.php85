@@ -7,25 +7,27 @@ namespace Tests\Reducing;
 use ArrayIterator;
 use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
+use PHPUnitMetaConstraints\Throws;
+use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_first_key;
-use function Should\shouldBe;
-use function Should\shouldThrow;
 
 /**
  * @internal
  */
 final class p_first_key_Test extends TestCase
 {
+    use PhpunitMetaConstraintsTrait;
+
     public function test_p_first_key_with_arrays(): void
     {
-        shouldThrow(OutOfBoundsException::class)(
+        new Throws(OutOfBoundsException::class)(
             static fn () =>
             []
             |> p_first_key()
         );
 
-        shouldThrow(OutOfBoundsException::class)(
+        new Throws(OutOfBoundsException::class)(
             static fn () =>
             []
             |> p_first_key(static fn (int $x) => $x > 1)
@@ -33,13 +35,13 @@ final class p_first_key_Test extends TestCase
 
         [1,2,3]
         |> p_first_key()
-        |> shouldBe(0);
+        |> self::is(0);
 
         [1,2,3]
         |> p_first_key(static fn (int $x) => $x > 1)
-        |> shouldBe(1);
+        |> self::is(1);
 
-        shouldThrow(OutOfBoundsException::class)(
+        new Throws(OutOfBoundsException::class)(
             static fn () =>
             [1,2,3]
             |> p_first_key(static fn (int $x) => $x > 3)
@@ -47,13 +49,13 @@ final class p_first_key_Test extends TestCase
 
         ['a' => 1, 'aa' => 2, 'aaa' => 3]
         |> p_first_key()
-        |> shouldBe('a');
+        |> self::is('a');
 
         ['a' => 1, 'aa' => 2, 'aaa' => 3]
         |> p_first_key(static fn (int $x, string $k) => strlen($k) > 1)
-        |> shouldBe('aa');
+        |> self::is('aa');
 
-        shouldThrow(OutOfBoundsException::class)(
+        new Throws(OutOfBoundsException::class)(
             static fn () =>
             ['a' => 1, 'aa' => 2, 'aaa' => 3]
             |> p_first_key(static fn (int $x, string $k) => strlen($k) > 3)
@@ -62,13 +64,13 @@ final class p_first_key_Test extends TestCase
 
     public function test_p_first_key_with_iterables(): void
     {
-        shouldThrow(OutOfBoundsException::class)(
+        new Throws(OutOfBoundsException::class)(
             static fn () =>
             new ArrayIterator([])
             |> p_first_key()
         );
 
-        shouldThrow(OutOfBoundsException::class)(
+        new Throws(OutOfBoundsException::class)(
             static fn () =>
             new ArrayIterator([])
             |> p_first_key(static fn (int $x) => $x > 1)
@@ -76,13 +78,13 @@ final class p_first_key_Test extends TestCase
 
         new ArrayIterator([1,2,3])
         |> p_first_key()
-        |> shouldBe(0);
+        |> self::is(0);
 
         new ArrayIterator([1,2,3])
         |> p_first_key(static fn (int $x) => $x > 1)
-        |> shouldBe(1);
+        |> self::is(1);
 
-        shouldThrow(OutOfBoundsException::class)(
+        new Throws(OutOfBoundsException::class)(
             static fn () =>
             new ArrayIterator([1,2,3])
             |> p_first_key(static fn (int $x) => $x > 3)
@@ -90,13 +92,13 @@ final class p_first_key_Test extends TestCase
 
         new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
         |> p_first_key()
-        |> shouldBe('a');
+        |> self::is('a');
 
         new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
         |> p_first_key(static fn (int $x, string $k) => strlen($k) > 1)
-        |> shouldBe('aa');
+        |> self::is('aa');
 
-        shouldThrow(OutOfBoundsException::class)(
+        new Throws(OutOfBoundsException::class)(
             static fn () =>
             new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
             |> p_first_key(static fn (int $x, string $k) => strlen($k) > 3)

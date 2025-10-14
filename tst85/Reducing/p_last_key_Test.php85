@@ -7,25 +7,27 @@ namespace Tests\Reducing;
 use ArrayIterator;
 use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
+use PHPUnitMetaConstraints\Throws;
+use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_last_key;
-use function Should\shouldBe;
-use function Should\shouldThrow;
 
 /**
  * @internal
  */
 final class p_last_key_Test extends TestCase
 {
+    use PhpunitMetaConstraintsTrait;
+
     public function test_p_last_key_with_arrays(): void
     {
-        shouldThrow(OutOfBoundsException::class)(
+        new Throws(OutOfBoundsException::class)(
             static fn () =>
             []
             |> p_last_key()
         );
 
-        shouldThrow(OutOfBoundsException::class)(
+        new Throws(OutOfBoundsException::class)(
             static fn () =>
             []
             |> p_last_key(static fn (int $x) => $x < 3)
@@ -33,13 +35,13 @@ final class p_last_key_Test extends TestCase
 
         [1,2,3]
         |> p_last_key()
-        |> shouldBe(2);
+        |> self::is(2);
 
         [1,2,3]
         |> p_last_key(static fn (int $x) => $x < 3)
-        |> shouldBe(1);
+        |> self::is(1);
 
-        shouldThrow(OutOfBoundsException::class)(
+        new Throws(OutOfBoundsException::class)(
             static fn () =>
             [1,2,3]
             |> p_last_key(static fn (int $x) => $x > 3)
@@ -47,13 +49,13 @@ final class p_last_key_Test extends TestCase
 
         ['a' => 1, 'aa' => 2, 'aaa' => 3]
         |> p_last_key()
-        |> shouldBe('aaa');
+        |> self::is('aaa');
 
         ['a' => 1, 'aa' => 2, 'aaa' => 3]
         |> p_last_key(static fn (int $x, string $k) => strlen($k) < 3)
-        |> shouldBe('aa');
+        |> self::is('aa');
 
-        shouldThrow(OutOfBoundsException::class)(
+        new Throws(OutOfBoundsException::class)(
             static fn () =>
             ['a' => 1, 'aa' => 2, 'aaa' => 3]
             |> p_last_key(static fn (int $x, string $k) => strlen($k) > 3)
@@ -62,13 +64,13 @@ final class p_last_key_Test extends TestCase
 
     public function test_p_last_key_with_iterables(): void
     {
-        shouldThrow(OutOfBoundsException::class)(
+        new Throws(OutOfBoundsException::class)(
             static fn () =>
             new ArrayIterator([])
             |> p_last_key()
         );
 
-        shouldThrow(OutOfBoundsException::class)(
+        new Throws(OutOfBoundsException::class)(
             static fn () =>
             new ArrayIterator([])
             |> p_last_key(static fn (int $x) => $x < 3)
@@ -76,13 +78,13 @@ final class p_last_key_Test extends TestCase
 
         new ArrayIterator([1,2,3])
         |> p_last_key()
-        |> shouldBe(2);
+        |> self::is(2);
 
         new ArrayIterator([1,2,3])
         |> p_last_key(static fn (int $x) => $x < 3)
-        |> shouldBe(1);
+        |> self::is(1);
 
-        shouldThrow(OutOfBoundsException::class)(
+        new Throws(OutOfBoundsException::class)(
             static fn () =>
             new ArrayIterator([1,2,3])
             |> p_last_key(static fn (int $x) => $x > 3)
@@ -90,13 +92,13 @@ final class p_last_key_Test extends TestCase
 
         new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
         |> p_last_key()
-        |> shouldBe('aaa');
+        |> self::is('aaa');
 
         new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
         |> p_last_key(static fn (int $x, string $k) => strlen($k) < 3)
-        |> shouldBe('aa');
+        |> self::is('aa');
 
-        shouldThrow(OutOfBoundsException::class)(
+        new Throws(OutOfBoundsException::class)(
             static fn () =>
             new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
             |> p_last_key(static fn (int $x, string $k) => strlen($k) > 3)

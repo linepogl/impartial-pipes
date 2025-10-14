@@ -5,31 +5,33 @@ declare(strict_types=1);
 namespace Tests\Mapping;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_map;
-use function Should\shouldIterateLike;
 
 /**
  * @internal
  */
 final class p_map_Test extends TestCase
 {
+    use PhpunitMetaConstraintsTrait;
+
     public function test_p_map(): void
     {
         []
         |> p_map(fn (int $x) => $x * $x)
-        |> shouldIterateLike([], repeatedly: true);
+        |> self::iteratesLike([], rewind: true);
 
         [1, 2, 3, 4]
         |> p_map(fn (int $x) => $x * $x)
-        |> shouldIterateLike([1, 4, 9, 16], repeatedly: true);
+        |> self::iteratesLike([1, 4, 9, 16], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_map(fn (int $x) => $x * $x)
-        |> shouldIterateLike(['a' => 1, 'b' => 4, 'c' => 9, 'd' => 16], repeatedly: true);
+        |> self::iteratesLike(['a' => 1, 'b' => 4, 'c' => 9, 'd' => 16], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_map(fn (int $x, string $k) => $x . $k)
-        |> shouldIterateLike(['a' => '1a', 'b' => '2b', 'c' => '3c', 'd' => '4d'], repeatedly: true);
+        |> self::iteratesLike(['a' => '1a', 'b' => '2b', 'c' => '3c', 'd' => '4d'], rewind: true);
     }
 }

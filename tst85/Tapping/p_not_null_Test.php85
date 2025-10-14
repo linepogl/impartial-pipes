@@ -6,25 +6,27 @@ namespace Tests\Tapping;
 
 use DateTime;
 use PHPUnit\Framework\TestCase;
+use PHPUnitMetaConstraints\Throws;
+use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 use TypeError;
 
 use function ImpartialPipes\p_not_null;
-use function Should\shouldBeIdenticalTo;
-use function Should\shouldThrow;
 
 /**
  * @internal
  */
 final class p_not_null_Test extends TestCase
 {
+    use PhpunitMetaConstraintsTrait;
+
     public function test_p_not_null(): void
     {
         $test = new DateTime();
         $test
         |> p_not_null()
-        |> shouldBeIdenticalTo($test);
+        |> $this->identicalTo($test);
 
-        shouldThrow(TypeError::class)(
+        new Throws(TypeError::class)(
             fn () =>
             null
             |> p_not_null()

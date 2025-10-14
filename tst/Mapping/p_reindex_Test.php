@@ -4,42 +4,57 @@ declare(strict_types=1);
 
 namespace Tests\Mapping;
 
+use ImpartialPipes\LazyRewindableIterator;
 use PHPUnit\Framework\TestCase;
+use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_reindex;
 use function ImpartialPipes\pipe;
-use function Should\shouldIterateLike;
 
 /**
  * @internal
  */
 final class p_reindex_Test extends TestCase
 {
+    use PhpunitMetaConstraintsTrait;
+
     public function test_p_reindex(): void
     {
         pipe([])
         ->to(p_reindex(fn (int $x) => $x * $x))
-        ->to(shouldIterateLike([], repeatedly: true));
+        ->to(self::iteratesLike([], rewind: true));
 
         pipe([1, 2, 3, 4])
         ->to(p_reindex(fn (int $x) => $x * $x))
-        ->to(shouldIterateLike([1 => 1, 4 => 2, 9 => 3, 16 => 4], repeatedly: true));
+        ->to(self::iteratesLike([1 => 1, 4 => 2, 9 => 3, 16 => 4], rewind: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_reindex(fn (int $x) => $x * $x))
-        ->to(shouldIterateLike([1 => 1, 4 => 2, 9 => 3, 16 => 4], repeatedly: true));
+        ->to(self::iteratesLike([1 => 1, 4 => 2, 9 => 3, 16 => 4], rewind: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_reindex(fn (int $x, string $k) => $x . $k))
-        ->to(shouldIterateLike(['1a' => 1, '2b' => 2, '3c' => 3, '4d' => 4], repeatedly: true));
+        ->to(self::iteratesLike(['1a' => 1, '2b' => 2, '3c' => 3, '4d' => 4], rewind: true));
 
         pipe(['a' => 1, 'b' => 1, 'c' => 2, 'd' => 2])
         ->to(p_reindex(fn (int $x) => $x * $x))
-        ->to(shouldIterateLike((static function () {
-            yield 1 => 1;
-            yield 1 => 1;
-            yield 4 => 2;
-            yield 4 => 2;
-        })(), repeatedly: true));
+        ->to(self::iteratesLike(self::arrays_to_iterable([1 => 1], [1 => 1], [4 => 2], [4 => 2]), rewind: true));
+    }
+
+    /**
+     * @template K
+     * @template V
+     * @param array<K, V> ...$arrays
+     * @return iterable<K, V>
+     */
+    private static function arrays_to_iterable(array ...$arrays): iterable
+    {
+        return new LazyRewindableIterator(static function () use ($arrays) {
+            foreach ($arrays as $array) {
+                foreach ($array as $key => $value) {
+                    yield $key => $value;
+                }
+            }
+        });
     }
 }

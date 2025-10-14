@@ -5,39 +5,41 @@ declare(strict_types=1);
 namespace Tests\Filtering;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_skip;
-use function Should\shouldIterateLike;
 
 /**
  * @internal
  */
 final class p_skip_Test extends TestCase
 {
+    use PhpunitMetaConstraintsTrait;
+
     public function test_p_skip(): void
     {
         []
         |> p_skip(2)
-        |> shouldIterateLike([], repeatedly: true);
+        |> self::iteratesLike([], rewind: true);
 
         []
         |> p_skip(2, preserveKeys: true)
-        |> shouldIterateLike([], repeatedly: true);
+        |> self::iteratesLike([], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_skip(2)
-        |> shouldIterateLike([3, 4], repeatedly: true);
+        |> self::iteratesLike([3, 4], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_skip(2, preserveKeys: true)
-        |> shouldIterateLike(['c' => 3, 'd' => 4], repeatedly: true);
+        |> self::iteratesLike(['c' => 3, 'd' => 4], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_skip(-2)
-        |> shouldIterateLike([1, 2, 3, 4], repeatedly: true);
+        |> self::iteratesLike([1, 2, 3, 4], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_skip(-2, preserveKeys: true)
-        |> shouldIterateLike(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4], repeatedly: true);
+        |> self::iteratesLike(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4], rewind: true);
     }
 }

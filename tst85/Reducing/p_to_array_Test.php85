@@ -5,33 +5,35 @@ declare(strict_types=1);
 namespace Tests\Reducing;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 use Tests\SimpleIterator;
 use Tests\UniterableArrayIterator;
 
 use function ImpartialPipes\p_to_array;
-use function Should\shouldBe;
 
 /**
  * @internal
  */
 final class p_to_array_Test extends TestCase
 {
+    use PhpunitMetaConstraintsTrait;
+
     public function test_p_to_array(): void
     {
         []
         |> p_to_array()
-        |> shouldBe([]);
+        |> self::is([]);
 
         [1,2]
         |> p_to_array()
-        |> shouldBe([1,2]);
+        |> self::is([1,2]);
 
         new SimpleIterator([1,2,3])
         |> p_to_array()
-        |> shouldBe([1,2,3]);
+        |> self::is([1,2,3]);
 
         new UniterableArrayIterator([1,2,3,4])
         |> p_to_array()
-        |> shouldBe([1,2,3,4]);
+        |> self::is([1,2,3,4]);
     }
 }

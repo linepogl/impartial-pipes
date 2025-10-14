@@ -5,21 +5,23 @@ declare(strict_types=1);
 namespace Tests\Tapping;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_tap;
-use function Should\shouldBe;
 
 /**
  * @internal
  */
 final class p_tap_Test extends TestCase
 {
+    use PhpunitMetaConstraintsTrait;
+
     public function test_p_tap(): void
     {
         $test = '';
         'test'
         |> p_tap(static function (string $x) use (&$test) { $test = $x; })
-        |> shouldBe('test');
-        $test |> shouldBe('test');
+        |> self::is('test');
+        $test |> self::is('test');
     }
 }

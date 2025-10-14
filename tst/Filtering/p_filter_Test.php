@@ -5,40 +5,42 @@ declare(strict_types=1);
 namespace Tests\Filtering;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_filter;
 use function ImpartialPipes\pipe;
-use function Should\shouldIterateLike;
 
 /**
  * @internal
  */
 final class p_filter_Test extends TestCase
 {
+    use PhpunitMetaConstraintsTrait;
+
     public function test_p_filter(): void
     {
         pipe([])
         ->to(p_filter(fn (int $x) => $x % 2 === 0))
-        ->to(shouldIterateLike([], repeatedly: true));
+        ->to(self::iteratesLike([], rewind: true));
 
         pipe([])
         ->to(p_filter(fn (int $x) => $x % 2 === 0, preserveKeys: true))
-        ->to(shouldIterateLike([], repeatedly: true));
+        ->to(self::iteratesLike([], rewind: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_filter(fn (int $x) => $x % 2 === 0))
-        ->to(shouldIterateLike([2, 4], repeatedly: true));
+        ->to(self::iteratesLike([2, 4], rewind: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_filter(fn (int $x) => $x % 2 === 0, preserveKeys: true))
-        ->to(shouldIterateLike(['b' => 2, 'd' => 4], repeatedly: true));
+        ->to(self::iteratesLike(['b' => 2, 'd' => 4], rewind: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_filter(fn (int $x, string $k) => $k === 'b'))
-        ->to(shouldIterateLike([2], repeatedly: true));
+        ->to(self::iteratesLike([2], rewind: true));
 
         pipe(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4])
         ->to(p_filter(fn (int $x, string $k) => $k === 'b', preserveKeys: true))
-        ->to(shouldIterateLike(['b' => 2], repeatedly: true));
+        ->to(self::iteratesLike(['b' => 2], rewind: true));
     }
 }
