@@ -37,6 +37,5 @@ jobs:
       - name: Unit tests
         run: composer run-script phpunit:coverage
 
-# some bug in php 8.5 results in this failing with "heap corrupted"
-#      - name: Unit tests PHP 8.5
-#        run: composer run-script phpunit:php85:coverage
+      - name: Unit tests PHP 8.5
+        run: composer run-script phpunit:php85:coverage
