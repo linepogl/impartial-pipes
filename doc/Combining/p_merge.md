@@ -8,7 +8,7 @@ Returns a partial function that merges two iterables.
 
 ### Syntax
 ```php
-p_megre(
+p_merge(
   iterable<TOtherKey, TOtherValue>,
   [preserveKeys: bool = false,]
 )
