@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use ImpartialPipes\LazyRewindableIterator;
-use Iterator;
 use IteratorAggregate;
-use OutOfBoundsException;
 use Override;
 use Traversable;
 
@@ -34,7 +32,7 @@ final class ConcatIterator implements IteratorAggregate
     #[Override]
     public function getIterator(): Traversable
     {
-        return new LazyRewindableIterator(function (){
+        return new LazyRewindableIterator(function () {
             foreach ($this->iterables as $iterable) {
                 foreach ($iterable as $key => $value) {
                     yield $key => $value;

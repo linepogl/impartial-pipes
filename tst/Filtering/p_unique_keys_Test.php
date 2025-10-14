@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Filtering;
 
-use ImpartialPipes\LazyRewindableIterator;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
-
 use Tests\ConcatIterator;
+
 use function ImpartialPipes\p_unique_keys;
 use function ImpartialPipes\pipe;
 

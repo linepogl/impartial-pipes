@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Combining;
 
-use ImpartialPipes\LazyRewindableIterator;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
-
 use Tests\ConcatIterator;
+
 use function ImpartialPipes\p_concat;
 use function ImpartialPipes\pipe;
 
