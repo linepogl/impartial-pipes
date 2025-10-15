@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Filtering;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
+use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_skip_while;
 use function ImpartialPipes\pipe;
@@ -15,7 +15,7 @@ use function ImpartialPipes\pipe;
  */
 final class p_skip_while_Test extends TestCase
 {
-    use PhpunitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
 
     public function test_p_skip_while(): void
     {

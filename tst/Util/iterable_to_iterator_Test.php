@@ -8,7 +8,7 @@ use ArrayIterator;
 use IteratorAggregate;
 use Override;
 use PHPUnit\Framework\TestCase;
-use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
+use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 use Tests\UniterableArrayIterator;
 use Traversable;
 
@@ -20,7 +20,7 @@ use function ImpartialPipes\pipe;
  */
 final class iterable_to_iterator_Test extends TestCase
 {
-    use PhpunitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
 
     public function test_iterable_to_iterator(): void
     {

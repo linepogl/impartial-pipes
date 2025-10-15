@@ -6,7 +6,7 @@ namespace Tests\Reducing;
 
 use ArrayIterator;
 use PHPUnit\Framework\TestCase;
-use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
+use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_first_or;
 use function ImpartialPipes\pipe;
@@ -16,7 +16,7 @@ use function ImpartialPipes\pipe;
  */
 final class p_first_or_Test extends TestCase
 {
-    use PhpunitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
 
     public function test_p_first_or_with_arrays(): void
     {

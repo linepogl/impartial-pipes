@@ -6,7 +6,7 @@ namespace Tests\Util;
 
 use ImpartialPipes\LazyRewindableIterator;
 use PHPUnit\Framework\TestCase;
-use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
+use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 use Tests\SimpleIterator;
 use Tests\SimpleIteratorAggregate;
 use Tests\UniterableArrayIterator;
@@ -19,7 +19,7 @@ use function ImpartialPipes\pipe;
  */
 final class iterable_count_Test extends TestCase
 {
-    use PhpunitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
 
     public function test_iterable_count(): void
     {

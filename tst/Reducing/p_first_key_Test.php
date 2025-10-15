@@ -8,7 +8,7 @@ use ArrayIterator;
 use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Throws;
-use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
+use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_first_key;
 use function ImpartialPipes\pipe;
@@ -18,7 +18,7 @@ use function ImpartialPipes\pipe;
  */
 final class p_first_key_Test extends TestCase
 {
-    use PhpunitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
 
     public function test_p_first_key_with_arrays(): void
     {

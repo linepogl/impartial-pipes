@@ -7,7 +7,7 @@ namespace Tests\Util;
 use ArrayIterator;
 use ImpartialPipes\LazyRewindableIterator;
 use PHPUnit\Framework\TestCase;
-use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
+use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 use Tests\SimpleIterator;
 use Tests\SimpleIteratorAggregate;
 use Tests\UniterableArrayIterator;
@@ -19,7 +19,7 @@ use function ImpartialPipes\pipe;
  */
 final class LazyRewindableIteratorTest extends TestCase
 {
-    use PhpunitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
 
     public function test_rewindable_iterator(): void
     {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Util;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
+use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\pipe;
 
@@ -14,7 +14,7 @@ use function ImpartialPipes\pipe;
  */
 final class pipe_Test extends TestCase
 {
-    use PhpunitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
 
     public function test_pipe(): void
     {

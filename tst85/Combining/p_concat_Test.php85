@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Combining;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
+use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 use Tests\ConcatIterator;
 
 use function ImpartialPipes\p_concat;
@@ -15,7 +15,7 @@ use function ImpartialPipes\p_concat;
  */
 final class p_concat_Test extends TestCase
 {
-    use PhpunitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
 
     public function test_p_concat(): void
     {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Tapping;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
+use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_tap;
 use function ImpartialPipes\pipe;
@@ -15,7 +15,7 @@ use function ImpartialPipes\pipe;
  */
 final class p_tap_Test extends TestCase
 {
-    use PhpunitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
 
     public function test_p_tap(): void
     {

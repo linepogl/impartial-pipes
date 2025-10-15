@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Reducing;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
+use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 use Tests\SimpleIterator;
 use Tests\UniterableArrayIterator;
 
@@ -16,7 +16,7 @@ use function ImpartialPipes\p_to_array;
  */
 final class p_to_array_Test extends TestCase
 {
-    use PhpunitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
 
     public function test_p_to_array(): void
     {

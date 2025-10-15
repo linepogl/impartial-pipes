@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Filtering;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
+use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 use Tests\ConcatIterator;
 
 use function ImpartialPipes\p_unique_keys;
@@ -16,7 +16,7 @@ use function ImpartialPipes\pipe;
  */
 final class p_unique_keys_Test extends TestCase
 {
-    use PhpunitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
 
     public function test_p_unique_keys(): void
     {

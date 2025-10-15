@@ -8,7 +8,7 @@ use DateInterval;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Throws;
-use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
+use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 use TypeError;
 
 use function ImpartialPipes\p_narrow;
@@ -19,7 +19,7 @@ use function ImpartialPipes\pipe;
  */
 final class p_narrow_Test extends TestCase
 {
-    use PhpunitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
 
     public function test_p_narrow(): void
     {

@@ -7,7 +7,7 @@ namespace Tests\Tapping;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Throws;
-use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
+use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 use TypeError;
 
 use function ImpartialPipes\p_not_null;
@@ -18,7 +18,7 @@ use function ImpartialPipes\pipe;
  */
 final class p_not_null_Test extends TestCase
 {
-    use PhpunitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
 
     public function test_p_not_null(): void
     {

@@ -79,7 +79,7 @@
     "phpunit/phpunit": "^12.4",
     "phpstan/phpstan": "^2.1",
     "friendsofphp/php-cs-fixer": "^3.88",
-    "linepogl/phpunit-meta-constraints": "^0.3"
+    "linepogl/phpunit-meta-constraints": "^0.4"
   },
   "scripts": {
     "phpunit": "vendor/bin/phpunit --testsuite=unit",
