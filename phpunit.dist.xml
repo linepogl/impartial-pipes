@@ -20,10 +20,10 @@
 
     <testsuites>
         <testsuite name="unit">
-            <directory>tst</directory>
+            <directory>tests</directory>
         </testsuite>
         <testsuite name="unit85">
-            <directory phpVersion="8.5" suffix="Test.php85">tst85</directory>
+            <directory phpVersion="8.5" suffix="Test.php85">tests85</directory>
         </testsuite>
     </testsuites>
 </phpunit>

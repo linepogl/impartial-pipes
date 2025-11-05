@@ -11,7 +11,7 @@ return $config
     ->setFinder(new PhpCsFixer\Finder()->in([
         __DIR__.'/dev',
         __DIR__.'/src',
-        __DIR__.'/tst',
+        __DIR__ . '/tests',
     ]))
     ->setRules([
         '@PSR12' => true,

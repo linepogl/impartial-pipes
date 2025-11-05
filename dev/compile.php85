@@ -37,10 +37,10 @@ get_defined_functions()['user']
             MD);
     });
 
-new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__.'/../tst'))
-    |> p_filter(static fn(SplFileInfo $file) => $file->isFile() && $file->getExtension() === 'php' && basename($file->getPath()) !== 'tst')
+new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__ . '/../tests'))
+    |> p_filter(static fn(SplFileInfo $file) => $file->isFile() && $file->getExtension() === 'php' && basename($file->getPath()) !== 'tests')
     |> p_foreach(static function (SplFileInfo $file) {
-        $dir = substr(realpath($file->getPath()), strlen(realpath(__DIR__.'/../tst')) + 1);
+        $dir = substr(realpath($file->getPath()), strlen(realpath(__DIR__ . '/../tests')) + 1);
 
         $content = file_get_contents($file->getPathname());
         if ($file->getBasename() !== 'pipe_Test.php') {
@@ -58,6 +58,6 @@ new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__.'/../tst'))
                 |> p_implode("\n");
         }
 
-        @mkdir(__DIR__.'/../tst85/'.$dir, recursive: true);
-        file_put_contents(__DIR__."/../tst85/$dir/{$file->getBasename()}85", $content);
+        @mkdir(__DIR__.'/../tests85/'.$dir, recursive: true);
+        file_put_contents(__DIR__."/../tests85/$dir/{$file->getBasename()}85", $content);
     });
