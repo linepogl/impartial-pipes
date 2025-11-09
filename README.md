@@ -95,7 +95,7 @@ pipe($iterable)
 
 - [p_map](doc/Mapping/p_map.md)
 - [p_flat_map](doc/Mapping/p_flat_map.md)
-- [p_reindex](doc/Mapping/p_reindex.md)
+- [p_map_keys](doc/Mapping/p_map_keys.md)
 - [p_values](doc/Mapping/p_values.md)
 - [p_keys](doc/Mapping/p_keys.md)
 - [p_group_by](doc/Mapping/p_group_by.md)

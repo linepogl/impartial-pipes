@@ -17,26 +17,26 @@ p_unique_keys(
 Unique keys, based on the identity projection
 ```php
 ['a1', 'b1', 'a2', 'b2']
-|> p_reindex(fn(string $x) => $x[0]) //= iterable{'a' => 'a1', 'b' => 'b1', 'a' => 'a2', 'b' => 'b2'}
+|> p_map_keys(fn(string $x) => $x[0]) //= iterable{'a' => 'a1', 'b' => 'b1', 'a' => 'a2', 'b' => 'b2'}
 |> p_unique_keys()
 //= ['a1', 'b1']
 ```
 ```php
 ['a1', 'b1', 'a2', 'b2']
-|> p_reindex(fn(string $x) => $x[0]) //= iterable{'a' => 'a1', 'b' => 'b1', 'a' => 'a2', 'b' => 'b2'}
+|> p_map_keys(fn(string $x) => $x[0]) //= iterable{'a' => 'a1', 'b' => 'b1', 'a' => 'a2', 'b' => 'b2'}
 |> p_unique_keys(preserveKeys: true)
 //= ['a' => 'a1', 'b' => 'b1']
 ```
 Unique keys, based on some projection on keys
 ```php
 ['a1', 'b1', 'a2', 'b2']
-|> p_reindex(fn(string $x) => $x) //= iterable{'a1' => 'a1', 'b1' => 'b1', 'a2' => 'a2', 'b2' => 'b2'}
+|> p_map_keys(fn(string $x) => $x) //= iterable{'a1' => 'a1', 'b1' => 'b1', 'a2' => 'a2', 'b2' => 'b2'}
 |> p_unique_keys(fn(string $k) => $k[1])
 //= ['a1', 'a2']
 ```
 ```php
 ['a1', 'b1', 'a2', 'b2']
-|> p_reindex(fn(string $x) => $x) //= iterable{'a1' => 'a1', 'b1' => 'b1', 'a2' => 'a2', 'b2' => 'b2'}
+|> p_map_keys(fn(string $x) => $x) //= iterable{'a1' => 'a1', 'b1' => 'b1', 'a2' => 'a2', 'b2' => 'b2'}
 |> p_unique_keys(fn(string $k) => $k[1])
 //= ['a1' => 'a1', 'a2' => 'a2']
 ```
