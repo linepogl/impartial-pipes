@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="unit tests" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
     <CommandLine>
-      <PhpTestInterpreterSettings>
-        <option name="interpreterName" value="homebrew 8.4" />
-      </PhpTestInterpreterSettings>
+      <envs>
+        <env name="XDEBUG_MODE" value="off" />
+      </envs>
     </CommandLine>
     <TestRunner configuration_file="$PROJECT_DIR$/phpunit.dist.xml" directory="$PROJECT_DIR$/tests" scope="XML" options="--testsuite=unit --display-deprecations" />
     <method v="2" />

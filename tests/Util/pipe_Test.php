@@ -18,11 +18,13 @@ final class pipe_Test extends TestCase
 
     public function test_pipe(): void
     {
-        self::is('123')(pipe(123)->to(strval(...))->value);
+        pipe(123)->to(strval(...))->value
+        |> self::is('123');
     }
 
     public function test_pipe_invokable(): void
     {
-        self::is('123')(pipe(123)(strval(...))());
+        pipe(123)(strval(...))()
+        |> self::is('123');
     }
 }

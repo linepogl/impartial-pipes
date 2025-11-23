@@ -2,6 +2,7 @@ parameters:
   editorUrl: ''
   editorUrlTitle: '%%file%%:%%line%%'
   checkMissingOverrideMethodAttribute: true
+  checkMissingOverridePropertyAttribute: true
   parallel:
   	maximumNumberOfProcesses: 4
   	minimumNumberOfJobsPerProcess: 1
