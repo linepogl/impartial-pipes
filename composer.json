@@ -83,10 +83,8 @@
     "linepogl/phpunit-meta-constraints": "^0.4"
   },
   "scripts": {
-    "phpunit": "vendor/bin/phpunit --testsuite=unit",
+    "phpunit": "XDEBUG_MODE=off vendor/bin/phpunit --testsuite=unit",
     "phpunit:coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --testsuite=unit --coverage-cobertura=var/cache/.phpunit/cobertura.xml && php dev/coverage.php var/cache/.phpunit/cobertura.xml",
-    "phpunit:php85": "vendor/bin/phpunit --testsuite=unit85",
-    "phpunit:php85:coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --testsuite=unit85 --coverage-cobertura=var/cache/.phpunit/cobertura.unit85.xml && php dev/coverage.php var/cache/.phpunit/cobertura.unit85.xml",
     "cs:fix": "php-cs-fixer fix --show-progress=dots --verbose ",
     "cs:validate": "php-cs-fixer fix --show-progress=none --dry-run --no-interaction --stop-on-violation",
     "phpstan": "phpstan --memory-limit=4G"

@@ -11,7 +11,6 @@ use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_any;
-use function ImpartialPipes\pipe;
 
 /**
  * @internal
@@ -22,82 +21,82 @@ final class p_any_Test extends TestCase
 
     public function test_p_any_with_arrays(): void
     {
-        pipe([])
-        ->to(p_any(static fn (int $x) => $x % 2 === 1))
-        ->to(self::is(false));
+        []
+        |> p_any(static fn (int $x) => $x % 2 === 1)
+        |> self::is(false);
 
-        pipe([])
-        ->to(p_any(static fn (int $x, string $k) => $k[0] === 'a'))
-        ->to(self::is(false));
+        []
+        |> p_any(static fn (int $x, string $k) => $k[0] === 'a')
+        |> self::is(false);
 
-        pipe([2, 3, 4])
-        ->to(p_any(static fn (int $x) => $x % 2 === 1))
-        ->to(self::is(true));
+        [2, 3, 4]
+        |> p_any(static fn (int $x) => $x % 2 === 1)
+        |> self::is(true);
 
-        pipe([2, 4, 6])
-        ->to(p_any(static fn (int $x) => $x % 2 === 1))
-        ->to(self::is(false));
+        [2, 4, 6]
+        |> p_any(static fn (int $x) => $x % 2 === 1)
+        |> self::is(false);
 
-        pipe(['aa' => 1, 'bb' => 2, 'cc' => 3])
-        ->to(p_any(static fn (int $x, string $k) => $k[0] === 'b'))
-        ->to(self::is(true));
+        ['aa' => 1, 'bb' => 2, 'cc' => 3]
+        |> p_any(static fn (int $x, string $k) => $k[0] === 'b')
+        |> self::is(true);
 
-        pipe(['aa' => 1, 'bb' => 2, 'cc' => 3])
-        ->to(p_any(static fn (int $x, string $k) => $k[0] === 'd'))
-        ->to(self::is(false));
+        ['aa' => 1, 'bb' => 2, 'cc' => 3]
+        |> p_any(static fn (int $x, string $k) => $k[0] === 'd')
+        |> self::is(false);
     }
 
     public function test_p_any_with_iterators(): void
     {
-        pipe(new ArrayIterator([]))
-        ->to(p_any(static fn (int $x) => $x % 2 === 1))
-        ->to(self::is(false));
+        new ArrayIterator([])
+        |> p_any(static fn (int $x) => $x % 2 === 1)
+        |> self::is(false);
 
-        pipe(new ArrayIterator([]))
-        ->to(p_any(static fn (int $x, string $k) => $k[0] === 'a'))
-        ->to(self::is(false));
+        new ArrayIterator([])
+        |> p_any(static fn (int $x, string $k) => $k[0] === 'a')
+        |> self::is(false);
 
-        pipe(new ArrayIterator([2, 3, 4]))
-        ->to(p_any(static fn (int $x) => $x % 2 === 1))
-        ->to(self::is(true));
+        new ArrayIterator([2, 3, 4])
+        |> p_any(static fn (int $x) => $x % 2 === 1)
+        |> self::is(true);
 
-        pipe(new ArrayIterator([2, 4, 6]))
-        ->to(p_any(static fn (int $x) => $x % 2 === 1))
-        ->to(self::is(false));
+        new ArrayIterator([2, 4, 6])
+        |> p_any(static fn (int $x) => $x % 2 === 1)
+        |> self::is(false);
 
-        pipe(new ArrayIterator(['aa' => 1, 'bb' => 2, 'cc' => 3]))
-        ->to(p_any(static fn (int $x, string $k) => $k[0] === 'b'))
-        ->to(self::is(true));
+        new ArrayIterator(['aa' => 1, 'bb' => 2, 'cc' => 3])
+        |> p_any(static fn (int $x, string $k) => $k[0] === 'b')
+        |> self::is(true);
 
-        pipe(new ArrayIterator(['aa' => 1, 'bb' => 2, 'cc' => 3]))
-        ->to(p_any(static fn (int $x, string $k) => $k[0] === 'd'))
-        ->to(self::is(false));
+        new ArrayIterator(['aa' => 1, 'bb' => 2, 'cc' => 3])
+        |> p_any(static fn (int $x, string $k) => $k[0] === 'd')
+        |> self::is(false);
     }
 
     public function test_p_any_without_a_predicate(): void
     {
-        pipe([])
-        ->to(p_any())
-        ->to(self::is(false));
+        []
+        |> p_any()
+        |> self::is(false);
 
-        pipe([1, 2])
-        ->to(p_any())
-        ->to(self::is(true));
+        [1, 2]
+        |> p_any()
+        |> self::is(true);
 
-        pipe(new UniterableArrayIterator([]))
-        ->to(p_any())
-        ->to(self::is(false));
+        new UniterableArrayIterator([])
+        |> p_any()
+        |> self::is(false);
 
-        pipe(new UniterableArrayIterator([1, 2]))
-        ->to(p_any())
-        ->to(self::is(true));
+        new UniterableArrayIterator([1, 2])
+        |> p_any()
+        |> self::is(true);
 
-        pipe(new SimpleIterator([]))
-        ->to(p_any())
-        ->to(self::is(false));
+        new SimpleIterator([])
+        |> p_any()
+        |> self::is(false);
 
-        pipe(new SimpleIterator([1, 2]))
-        ->to(p_any())
-        ->to(self::is(true));
+        new SimpleIterator([1, 2])
+        |> p_any()
+        |> self::is(true);
     }
 }

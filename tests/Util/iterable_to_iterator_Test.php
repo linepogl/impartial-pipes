@@ -13,7 +13,6 @@ use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 use Traversable;
 
 use function ImpartialPipes\iterable_to_iterator;
-use function ImpartialPipes\pipe;
 
 /**
  * @internal
@@ -24,13 +23,13 @@ final class iterable_to_iterator_Test extends TestCase
 
     public function test_iterable_to_iterator(): void
     {
-        pipe(iterable_to_iterator([1, 2, 3]))
-        ->to($this->isInstanceOf(ArrayIterator::class));
+        iterable_to_iterator([1, 2, 3])
+        |> self::isInstanceOf(ArrayIterator::class);
 
-        pipe(iterable_to_iterator(new UniterableArrayIterator([1, 2, 3])))
-        ->to($this->isInstanceOf(UniterableArrayIterator::class));
+        iterable_to_iterator(new UniterableArrayIterator([1, 2, 3]))
+        |> self::isInstanceOf(UniterableArrayIterator::class);
 
-        pipe(iterable_to_iterator(
+        iterable_to_iterator(
             new class () implements IteratorAggregate {
                 #[Override]
                 public function getIterator(): Traversable
@@ -38,6 +37,6 @@ final class iterable_to_iterator_Test extends TestCase
                     return new UniterableArrayIterator([1, 2, 3]);
                 }
             },
-        ))->to($this->isInstanceOf(UniterableArrayIterator::class));
+        ) |> self::isInstanceOf(UniterableArrayIterator::class);
     }
 }
