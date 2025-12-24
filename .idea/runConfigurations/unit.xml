@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="unit" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+    <TestRunner configuration_file="$PROJECT_DIR$/phpunit.dist.xml" directory="$PROJECT_DIR$/tests" scope="XML" options="--testsuite=unit --display-deprecations" />
+    <method v="2" />
+  </configuration>
+</component>
