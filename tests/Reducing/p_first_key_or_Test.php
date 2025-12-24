@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_first_key_or;
-use function ImpartialPipes\pipe;
 
 /**
  * @internal
@@ -20,71 +19,71 @@ final class p_first_key_or_Test extends TestCase
 
     public function test_p_first_key_or_with_arrays(): void
     {
-        pipe([])
-        ->to(p_first_key_or(null))
-        ->to(self::is(null));
+        []
+        |> p_first_key_or(null)
+        |> self::is(null);
 
-        pipe([])
-        ->to(p_first_key_or(null, static fn (int $x) => $x > 1))
-        ->to(self::is(null));
+        []
+        |> p_first_key_or(null, static fn (int $x) => $x > 1)
+        |> self::is(null);
 
-        pipe([1,2,3])
-        ->to(p_first_key_or(null))
-        ->to(self::is(0));
+        [1,2,3]
+        |> p_first_key_or(null)
+        |> self::is(0);
 
-        pipe([1,2,3])
-        ->to(p_first_key_or(null, static fn (int $x) => $x > 1))
-        ->to(self::is(1));
+        [1,2,3]
+        |> p_first_key_or(null, static fn (int $x) => $x > 1)
+        |> self::is(1);
 
-        pipe([1,2,3])
-        ->to(p_first_key_or(null, static fn (int $x) => $x > 3))
-        ->to(self::is(null));
+        [1,2,3]
+        |> p_first_key_or(null, static fn (int $x) => $x > 3)
+        |> self::is(null);
 
-        pipe(['a' => 1, 'aa' => 2, 'aaa' => 3])
-        ->to(p_first_key_or(null))
-        ->to(self::is('a'));
+        ['a' => 1, 'aa' => 2, 'aaa' => 3]
+        |> p_first_key_or(null)
+        |> self::is('a');
 
-        pipe(['a' => 1, 'aa' => 2, 'aaa' => 3])
-        ->to(p_first_key_or(null, static fn (int $x, string $k) => strlen($k) > 1))
-        ->to(self::is('aa'));
+        ['a' => 1, 'aa' => 2, 'aaa' => 3]
+        |> p_first_key_or(null, static fn (int $x, string $k) => strlen($k) > 1)
+        |> self::is('aa');
 
-        pipe(['a' => 1, 'aa' => 2, 'aaa' => 3])
-        ->to(p_first_key_or(null, static fn (int $x, string $k) => strlen($k) > 3))
-        ->to(self::is(null));
+        ['a' => 1, 'aa' => 2, 'aaa' => 3]
+        |> p_first_key_or(null, static fn (int $x, string $k) => strlen($k) > 3)
+        |> self::is(null);
     }
 
     public function test_p_first_key_or_with_iterables(): void
     {
-        pipe(new ArrayIterator([]))
-        ->to(p_first_key_or(null))
-        ->to(self::is(null));
+        new ArrayIterator([])
+        |> p_first_key_or(null)
+        |> self::is(null);
 
-        pipe(new ArrayIterator([]))
-        ->to(p_first_key_or(null, static fn (int $x) => $x > 1))
-        ->to(self::is(null));
+        new ArrayIterator([])
+        |> p_first_key_or(null, static fn (int $x) => $x > 1)
+        |> self::is(null);
 
-        pipe(new ArrayIterator([1,2,3]))
-        ->to(p_first_key_or(null))
-        ->to(self::is(0));
+        new ArrayIterator([1,2,3])
+        |> p_first_key_or(null)
+        |> self::is(0);
 
-        pipe(new ArrayIterator([1,2,3]))
-        ->to(p_first_key_or(null, static fn (int $x) => $x > 1))
-        ->to(self::is(1));
+        new ArrayIterator([1,2,3])
+        |> p_first_key_or(null, static fn (int $x) => $x > 1)
+        |> self::is(1);
 
-        pipe(new ArrayIterator([1,2,3]))
-        ->to(p_first_key_or(null, static fn (int $x) => $x > 3))
-        ->to(self::is(null));
+        new ArrayIterator([1,2,3])
+        |> p_first_key_or(null, static fn (int $x) => $x > 3)
+        |> self::is(null);
 
-        pipe(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
-        ->to(p_first_key_or(null))
-        ->to(self::is('a'));
+        new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
+        |> p_first_key_or(null)
+        |> self::is('a');
 
-        pipe(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
-        ->to(p_first_key_or(null, static fn (int $x, string $k) => strlen($k) > 1))
-        ->to(self::is('aa'));
+        new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
+        |> p_first_key_or(null, static fn (int $x, string $k) => strlen($k) > 1)
+        |> self::is('aa');
 
-        pipe(new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3]))
-        ->to(p_first_key_or(null, static fn (int $x, string $k) => strlen($k) > 3))
-        ->to(self::is(null));
+        new ArrayIterator(['a' => 1, 'aa' => 2, 'aaa' => 3])
+        |> p_first_key_or(null, static fn (int $x, string $k) => strlen($k) > 3)
+        |> self::is(null);
     }
 }

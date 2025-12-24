@@ -29,14 +29,10 @@ jobs:
         run: composer install --prefer-dist --no-progress
 
       - name: Code style
-        run: composer run-script cs:validate
+        run: composer run-script lint
 
       - name: Code static analysis
-        run: composer run-script phpstan
+        run: composer run-script stan
 
       - name: Unit tests
-        run: composer run-script phpunit:coverage
-
-# some bug in php 8.5 results in this failing with "heap corrupted"
-#      - name: Unit tests PHP 8.5
-#        run: composer run-script phpunit:php85:coverage
+        run: composer run-script unit:coverage

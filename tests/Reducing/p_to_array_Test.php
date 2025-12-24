@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_to_array;
-use function ImpartialPipes\pipe;
 
 /**
  * @internal
@@ -21,20 +20,20 @@ final class p_to_array_Test extends TestCase
 
     public function test_p_to_array(): void
     {
-        pipe([])
-        ->to(p_to_array())
-        ->to(self::is([]));
+        []
+        |> p_to_array()
+        |> self::is([]);
 
-        pipe([1,2])
-        ->to(p_to_array())
-        ->to(self::is([1,2]));
+        [1,2]
+        |> p_to_array()
+        |> self::is([1,2]);
 
-        pipe(new SimpleIterator([1,2,3]))
-        ->to(p_to_array())
-        ->to(self::is([1,2,3]));
+        new SimpleIterator([1,2,3])
+        |> p_to_array()
+        |> self::is([1,2,3]);
 
-        pipe(new UniterableArrayIterator([1,2,3,4]))
-        ->to(p_to_array())
-        ->to(self::is([1,2,3,4]));
+        new UniterableArrayIterator([1,2,3,4])
+        |> p_to_array()
+        |> self::is([1,2,3,4]);
     }
 }
