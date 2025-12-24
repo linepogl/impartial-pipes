@@ -7,4 +7,11 @@
       </list>
     </option>
   </component>
+  <component name="phpunit">
+    <option name="directories">
+      <list>
+        <option value="$project_dir$/tests" />
+      </list>
+    </option>
+  </component>
 </project>
