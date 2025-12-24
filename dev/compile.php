@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use function ImpartialPipes\p_filter;
-use function ImpartialPipes\p_filter_out;
 use function ImpartialPipes\p_foreach;
 use function ImpartialPipes\p_implode;
 use function ImpartialPipes\p_map;
@@ -12,18 +11,20 @@ use function ImpartialPipes\p_while;
 require __DIR__.'/../vendor/autoload.php';
 
 get_defined_functions()['user']
-    |> p_filter(fn(string $fqn) => str_starts_with($fqn, 'impartialpipes\\p_'))
-    |> p_map(fn(string $fqn) => str_replace('impartialpipes\\', '\\ImpartialPipes\\', $fqn))
+    |> p_filter(fn (string $fqn) => str_starts_with($fqn, 'impartialpipes\\p_'))
+    |> p_map(fn (string $fqn) => str_replace('impartialpipes\\', '\\ImpartialPipes\\', $fqn))
     |> p_foreach(function (string $fqn) {
         $function = new ReflectionFunction($fqn);
         $name = $function->getShortName();
         $dir = substr(dirname(realpath($function->getFileName())), strlen(realpath(__DIR__.'/../src')));
 
         $doc = explode("\n", $function->getDocComment() ?: '')
-            |> p_map(fn($line) => substr($line, 3))
-            |> p_while(fn($line) => !str_starts_with($line, '@'))
-            |> p_map(function($line)use(&$toggle) {
-                if ('```' === $line && ($toggle = !$toggle)) $line = '```php';
+            |> p_map(fn ($line) => substr($line, 3))
+            |> p_while(fn ($line) => !str_starts_with($line, '@'))
+            |> p_map(function ($line) use (&$toggle) {
+                if ('```' === $line && ($toggle = !$toggle)) {
+                    $line = '```php';
+                }
                 return $line;
             })
             |> p_implode("\n");
