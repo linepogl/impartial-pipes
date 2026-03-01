@@ -21,7 +21,9 @@ final class LazyRewindableIteratorTest extends TestCase
 
     public function test_rewindable_iterator(): void
     {
-        $it = new LazyRewindableIterator(static function () { yield from [1, 2]; });
+        $it = new LazyRewindableIterator(static function () {
+            yield from [1, 2];
+        });
 
         $it->valid() |> self::is(true);
         $it->key() |> self::is(0);
@@ -64,7 +66,9 @@ final class LazyRewindableIteratorTest extends TestCase
         iterator_to_array($it);
         iterator_to_array($it) |> self::is([1,2,3]);
 
-        $it = new LazyRewindableIterator(static function () { yield from [1, 2, 3]; });
+        $it = new LazyRewindableIterator(static function () {
+            yield from [1, 2, 3];
+        });
         iterator_to_array($it);
         iterator_to_array($it);
         iterator_to_array($it) |> self::is([1,2,3]);
@@ -73,25 +77,35 @@ final class LazyRewindableIteratorTest extends TestCase
     public function test_init(): void
     {
         // test calling rewind() right away
-        $it = new LazyRewindableIterator(static function () { yield from [1, 2]; });
+        $it = new LazyRewindableIterator(static function () {
+            yield from [1, 2];
+        });
         $it->rewind();
         $it->key() |> self::is(0);
 
         // test calling next() right away
-        $it = new LazyRewindableIterator(static function () { yield from [1, 2]; });
+        $it = new LazyRewindableIterator(static function () {
+            yield from [1, 2];
+        });
         $it->next();
         $it->key() |> self::is(1);
 
         // test calling valid() right away
-        $it = new LazyRewindableIterator(static function () { yield from [1, 2]; });
+        $it = new LazyRewindableIterator(static function () {
+            yield from [1, 2];
+        });
         $it->valid() |> self::is(true);
 
         // test calling key() right away
-        $it = new LazyRewindableIterator(static function () { yield from [1, 2]; });
+        $it = new LazyRewindableIterator(static function () {
+            yield from [1, 2];
+        });
         $it->key() |> self::is(0);
 
         // test calling current() right away
-        $it = new LazyRewindableIterator(static function () { yield from [1, 2]; });
+        $it = new LazyRewindableIterator(static function () {
+            yield from [1, 2];
+        });
         $it->current() |> self::is(1);
     }
 

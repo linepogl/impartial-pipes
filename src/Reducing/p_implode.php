@@ -43,7 +43,7 @@ use Stringable;
  * //= '1--test-2.5'
  * ```
  *
- * @return callable<K,V of null|scalar|Stringable>(iterable<K, V>):string
+ * @return callable<K,V of null|scalar|Stringable>(iterable<K,V>):string
  */
 function p_implode(string $separator = ''): callable
 {

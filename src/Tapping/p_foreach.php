@@ -35,7 +35,7 @@ namespace ImpartialPipes;
  * ```
  *
  * @param callable<V,K>(V, K):mixed $callable
- * @return callable<V,K>(iterable<K, V>):iterable<K, V>
+ * @return callable<V,K>(iterable<K,V>):iterable<K,V>
  */
 function p_foreach(callable $callable): callable
 {

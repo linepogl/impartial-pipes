@@ -13,7 +13,7 @@ use Traversable;
  * @internal
  * @template K
  * @template V
- * @implements IteratorAggregate<K, V>
+ * @implements IteratorAggregate<K,V>
  */
 final class SimpleIteratorAggregate implements IteratorAggregate
 {

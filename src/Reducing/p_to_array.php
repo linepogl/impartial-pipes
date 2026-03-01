@@ -26,7 +26,7 @@ use ArrayIterator;
  * //= [1, 2, 3]
  * ```
  *
- * @return callable<K of array-key,V>(iterable<K, V>):array<K,V>
+ * @return callable<K,V>(iterable<K,V>):array<K,V>
  */
 function p_to_array(): callable
 {

@@ -20,7 +20,7 @@ namespace ImpartialPipes;
  * //= ['a', 'b']
  * ```
  *
- * @return callable<K,V>(iterable<K, V>):iterable<int, K>
+ * @return callable<K,V>(iterable<K,V>):iterable<int, K>
  */
 function p_keys(): callable
 {

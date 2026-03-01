@@ -28,7 +28,7 @@ use ArrayIterator;
  * //= 3.5
  * ```
  *
- * @return callable<K,V of float|int>(iterable<K, V>):V
+ * @return callable<K,V of float|int>(iterable<K,V>):V
  */
 function p_sum(): callable
 {

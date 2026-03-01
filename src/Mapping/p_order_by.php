@@ -139,9 +139,9 @@ function p_order_by(callable $hasher, bool $descending = false, bool $preserveKe
 {
     // @phpstan-ignore return.type (Closure is a callable)
     return $preserveKeys
-        // @phpstan-ignore argument.type ($iterable is in fact iterable<K, V>)
+        // @phpstan-ignore argument.type ($iterable is in fact iterable<K,V>)
         ? static fn (iterable $iterable): iterable => new AssociativeOrderedIterator($iterable, $hasher, $descending)
-        // @phpstan-ignore argument.type ($iterable is in fact iterable<K, V>)
+        // @phpstan-ignore argument.type ($iterable is in fact iterable<K,V>)
         : static fn (iterable $iterable): iterable => new ListOrderedIterator($iterable, $hasher, $descending)
     ;
 }

@@ -46,7 +46,7 @@ use Countable;
  * @template V
  * @param ?callable(V,K):bool $predicate
  *
- * @return ($predicate is null ? callable<KK,VV>(iterable<KK, VV>|Countable):int<0,max> : callable(iterable<K, V>):int<0,max>)
+ * @return ($predicate is null ? callable<KK,VV>(iterable<KK, VV>|Countable):int<0,max> : callable(iterable<K,V>):int<0,max>)
  */
 function p_count(?callable $predicate = null): callable
 {

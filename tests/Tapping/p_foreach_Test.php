@@ -19,27 +19,39 @@ final class p_foreach_Test extends TestCase
     public function test_p_foreach(): void
     {
         $sum = 0;
-        [] |> p_foreach(function (int $x) use (&$sum) { $sum += $x; });
+        [] |> p_foreach(function (int $x) use (&$sum) {
+            $sum += $x;
+        });
         $sum |> self::is(0);
 
         $sum = 0;
-        [0] |> p_foreach(function (int $x) use (&$sum) { $sum += $x; });
+        [0] |> p_foreach(function (int $x) use (&$sum) {
+            $sum += $x;
+        });
         $sum |> self::is(0);
 
         $sum = 0;
-        [1,2,3] |> p_foreach(function (int $x) use (&$sum) { $sum += $x; });
+        [1,2,3] |> p_foreach(function (int $x) use (&$sum) {
+            $sum += $x;
+        });
         $sum |> self::is(6);
 
         $sum = '';
-        [] |> p_foreach(function (int $x, int $key) use (&$sum) { $sum .= $key; });
+        [] |> p_foreach(function (int $x, int $key) use (&$sum) {
+            $sum .= $key;
+        });
         $sum |> self::is('');
 
         $sum = '';
-        [0] |> p_foreach(function (int $x, int $key) use (&$sum) { $sum .= $key; });
+        [0] |> p_foreach(function (int $x, int $key) use (&$sum) {
+            $sum .= $key;
+        });
         $sum |> self::is('0');
 
         $sum = '';
-        [1,2,3] |> p_foreach(function (int $x, int $key) use (&$sum) { $sum .= $key; });
+        [1,2,3] |> p_foreach(function (int $x, int $key) use (&$sum) {
+            $sum .= $key;
+        });
         $sum |> self::is('012');
     }
 }
