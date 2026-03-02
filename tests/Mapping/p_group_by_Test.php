@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_group_by;
+use function ImpartialPipes\p_keys;
 
 /**
  * @internal
@@ -41,5 +42,18 @@ final class p_group_by_Test extends TestCase
         ['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4]
         |> p_group_by(fn (int $x, string $k) => $k[0], preserveKeys: true)
         |> self::iteratesLike(['a' => ['a' => 1, 'aa' => 2], 'b' => ['b' => 3, 'bb' => 4]], rewind: true);
+    }
+
+    public function test_p_group_by_with_int_like_string_hashes(): void
+    {
+        ['a' => 1, 'b' => 2, 'c' => 1, 'd' => 2]
+        |> p_group_by(fn (int $x) => strval($x))
+        |> p_keys()
+        |> self::iteratesLike(['1', '2']);
+
+        ['a' => 1, 'b' => 2, 'c' => 1, 'd' => 2]
+        |> p_group_by(fn (int $x) => strval($x), preserveKeys: true)
+        |> p_keys()
+        |> self::iteratesLike(['1', '2']);
     }
 }

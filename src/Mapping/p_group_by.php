@@ -64,24 +64,28 @@ function p_group_by(callable $hasher, bool $preserveKeys = false): callable
     return $preserveKeys
         ? static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $hasher): iterable {
             $a = [];
+            $groupKeys = [];
             foreach ($iterable as $key => $value) {
                 $groupKey = $hasher($value, $key);
+                $groupKeys[$groupKey] ??= $groupKey; // this is necessary because php automatically converts int-like array keys to ints.
                 $a[$groupKey] ??= [];
                 $a[$groupKey][$key] = $value; // @phpstan-ignore offsetAccess.invalidOffset (TODO: keys might not be of type array-key)
             }
             foreach ($a as $groupKey => $groupValues) {
-                yield $groupKey => $groupValues;
+                yield $groupKeys[$groupKey] => $groupValues;
             }
         })
         : static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $hasher): iterable {
             $a = [];
+            $groupKeys = [];
             foreach ($iterable as $key => $value) {
                 $groupKey = $hasher($value, $key);
+                $groupKeys[$groupKey] ??= $groupKey; // this is necessary because php automatically converts int-like array keys to ints.
                 $a[$groupKey] ??= [];
                 $a[$groupKey][] = $value;
             }
             foreach ($a as $groupKey => $groupValues) {
-                yield $groupKey => $groupValues;
+                yield $groupKeys[$groupKey] => $groupValues;
             }
         });
 }
