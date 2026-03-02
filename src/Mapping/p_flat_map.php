@@ -41,9 +41,11 @@ namespace ImpartialPipes;
  *
  * @template K
  * @template V
+ * @template K2
  * @template V2
- * @param callable(V,K):iterable<V2> $valueProjection
- * @return callable(iterable<K,V>):iterable<K,V2>
+ * @param callable(V,K):iterable<K2,V2> $valueProjection
+ * @param bool $preserveKeys
+ * @return ($preserveKeys is true ? callable(iterable<K,V>):iterable<K2,V2> : callable(iterable<K,V>):iterable<int,V2>)
  */
 function p_flat_map(callable $valueProjection, bool $preserveKeys = false): callable
 {
