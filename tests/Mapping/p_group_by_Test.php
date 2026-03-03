@@ -8,8 +8,8 @@ use ImpartialPipes\LazyRewindableIterator;
 use Override;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
-
 use Util\Hashable;
+
 use function ImpartialPipes\p_group_by;
 use function ImpartialPipes\p_keys;
 use function ImpartialPipes\p_map;
@@ -52,12 +52,12 @@ final class p_group_by_Test extends TestCase
 
         ['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4]
         |> p_group_by(fn (int $x, string $k) => new TestHashableString(substr($k, 0, 1)))
-        |> self::iteratesLike(new LazyRewindableIterator(function(){
+        |> self::iteratesLike(new LazyRewindableIterator(function () {
             yield new TestHashableString('a') => [1, 2];
             yield new TestHashableString('b') => [3, 4];
         }), rewind: true);
 
-        $x = new LazyRewindableIterator(function(){
+        $x = new LazyRewindableIterator(function () {
             yield new TestHashableString('a') => 1;
             yield new TestHashableString('b') => 2;
             yield new TestHashableString('c') => 3;
@@ -66,11 +66,11 @@ final class p_group_by_Test extends TestCase
         |> p_group_by(fn (int $x) => $x % 2, preserveKeys: true)
         |> p_to_array();
 
-        $x[0] |> self::iteratesLike(new LazyRewindableIterator(function() {
+        $x[0] |> self::iteratesLike(new LazyRewindableIterator(function () {
             yield new TestHashableString('b') => 2;
             yield new TestHashableString('d') => 4;
         }), rewind: true);
-        $x[1] |> self::iteratesLike(new LazyRewindableIterator(function() {
+        $x[1] |> self::iteratesLike(new LazyRewindableIterator(function () {
             yield new TestHashableString('a') => 1;
             yield new TestHashableString('c') => 3;
         }), rewind: true);
@@ -90,10 +90,14 @@ final class p_group_by_Test extends TestCase
     }
 }
 
-
 class TestHashableString implements Hashable
 {
-    public function __construct(public readonly string $value) {}
+    public function __construct(public readonly string $value)
+    {
+    }
     #[Override]
-    public function hash(): string { return $this->value; }
+    public function hash(): string
+    {
+        return $this->value;
+    }
 }
