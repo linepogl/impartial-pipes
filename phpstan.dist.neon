@@ -10,8 +10,6 @@ parameters:
   paths:
     - src
     - tests
-  stubFiles:
-    - stubs/Ds/Hashable.stub
   fileExtensions:
     - php
   tmpDir: var/cache/.phpstan

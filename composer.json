@@ -18,6 +18,7 @@
   ],
   "autoload": {
     "files": [
+      "src/Util/as_array_key.php",
       "src/Util/pipe.php",
       "src/Util/iterable_count.php",
       "src/Util/iterable_to_iterator.php",

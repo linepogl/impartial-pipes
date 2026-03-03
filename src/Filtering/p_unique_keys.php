@@ -48,7 +48,7 @@ use Ds\Hashable;
  *
  * @template K
  * @template V
- * @param ?callable(K):(array-key|Hashable) $hasher
+ * @param ?callable(K):mixed $hasher
  * @param bool $preserveKeys
  * @return ($hasher is null
  *    ? ($preserveKeys is true ? callable<K2,V2>(iterable<K2,V2>):iterable<K2,V2> : callable<K2,V2>(iterable<K2,V2>):iterable<int,V2>)
@@ -63,8 +63,7 @@ function p_unique_keys(?callable $hasher = null, bool $preserveKeys = false): ca
         ? static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $hasher): iterable {
             $seen = [];
             foreach ($iterable as $key => $value) {
-                $hashable = $hasher($key);
-                $hash = $hashable instanceof Hashable ? strval($hashable->hash()) : $hashable;
+                $hash = as_array_key($hasher($key));
                 if (!array_key_exists($hash, $seen)) {
                     $seen[$hash] = true;
                     yield $key => $value;
@@ -74,8 +73,7 @@ function p_unique_keys(?callable $hasher = null, bool $preserveKeys = false): ca
         : static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $hasher): iterable {
             $seen = [];
             foreach ($iterable as $key => $value) {
-                $hashable = $hasher($key);
-                $hash = $hashable instanceof Hashable ? strval($hashable->hash()) : $hashable;
+                $hash = as_array_key($hasher($key));
                 if (!array_key_exists($hash, $seen)) {
                     $seen[$hash] = true;
                     yield $value;

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace ImpartialPipes;
 
-use Ds\Hashable;
-
 /**
  * Returns a partial function that maps an iterable into groups of iterables, using a projection.
  *
@@ -56,7 +54,7 @@ use Ds\Hashable;
  *
  * @template K
  * @template V
- * @template G of array-key|Hashable
+ * @template G
  * @param callable(V,K):G $hasher
  * @param bool $preserveKeys
  * @return ($preserveKeys is true ? callable(iterable<K,V>):iterable<G,iterable<K,V>> : callable(iterable<K,V>):iterable<G,iterable<int,V>>)
@@ -70,7 +68,7 @@ function p_group_by(callable $hasher, bool $preserveKeys = false): callable
             $hashables = [];
             foreach ($iterable as $key => $value) {
                 $hashable = $hasher($value, $key);
-                $hash = $hashable instanceof Hashable ? strval($hashable->hash()) : $hashable;
+                $hash = as_array_key($hashable);
                 $hashables[$hash] ??= $hashable;
                 $k[$hash] ??= [];
                 $k[$hash][] = $key;
@@ -93,7 +91,7 @@ function p_group_by(callable $hasher, bool $preserveKeys = false): callable
             $hashables = [];
             foreach ($iterable as $key => $value) {
                 $hashable = $hasher($value, $key);
-                $hash = $hashable instanceof Hashable ? strval($hashable->hash()) : $hashable;
+                $hash = as_array_key($hashable);
                 $hashables[$hash] ??= $hashable;
                 $v[$hash] ??= [];
                 $v[$hash][] = $value;

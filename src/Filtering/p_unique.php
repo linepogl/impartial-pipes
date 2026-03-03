@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace ImpartialPipes;
 
-use Ds\Hashable;
-
 /**
  * Returns a partial function that gets the unique elements of an iterable, based on an optional hashing projection.
  * If no hashing projection is provided, an identity projection is used. In that case, the elements must be stringable.
@@ -55,7 +53,7 @@ use Ds\Hashable;
  *
  * @template K
  * @template V
- * @param ?callable(V,K):(array-key|Hashable) $hasher
+ * @param ?callable(V,K):mixed $hasher
  * @param bool $preserveKeys
  * @return ($hasher is null
  *    ? ($preserveKeys is true ? callable<K2,V2>(iterable<K2,V2>):iterable<K2,V2> : callable<K2,V2>(iterable<K2,V2>):iterable<int,V2>)
@@ -69,8 +67,7 @@ function p_unique(?callable $hasher = null, bool $preserveKeys = false): callabl
         ? static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $hasher): iterable {
             $seen = [];
             foreach ($iterable as $key => $value) {
-                $hashable = $hasher($value, $key);
-                $hash = $hashable instanceof Hashable ? strval($hashable->hash()) : $hashable;
+                $hash = as_array_key($hasher($value, $key));
                 if (!array_key_exists($hash, $seen)) {
                     $seen[$hash] = true;
                     yield $key => $value;
@@ -80,8 +77,7 @@ function p_unique(?callable $hasher = null, bool $preserveKeys = false): callabl
         : static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $hasher): iterable {
             $seen = [];
             foreach ($iterable as $key => $value) {
-                $hashable = $hasher($value, $key);
-                $hash = $hashable instanceof Hashable ? strval($hashable->hash()) : $hashable;
+                $hash = as_array_key($hasher($value, $key));
                 if (!array_key_exists($hash, $seen)) {
                     $seen[$hash] = true;
                     yield $value;
