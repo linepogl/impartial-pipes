@@ -17,7 +17,7 @@ use function ImpartialPipes\as_array_key;
 /**
  * @internal
  */
-final class as_array_key_test extends testcase
+final class as_array_key_Test extends testcase
 {
     use phpunitmetaconstraintstrait;
 
