@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ImpartialPipes;
 
+use Ds\Hashable;
+
 /**
  * Returns a partial function that skips elements with repeated keys of an iterable, based on an optional hashing projection.
  * If no hashing projection is provided, an identity projection is used. In that case, the elements must be stringable.
@@ -62,7 +64,7 @@ function p_unique_keys(?callable $hasher = null, bool $preserveKeys = false): ca
             $seen = [];
             foreach ($iterable as $key => $value) {
                 $hashable = $hasher($key);
-                $hash = $hashable instanceof Hashable ? $hashable->hash() : $hashable;
+                $hash = $hashable instanceof Hashable ? strval($hashable->hash()) : $hashable;
                 if (!array_key_exists($hash, $seen)) {
                     $seen[$hash] = true;
                     yield $key => $value;
@@ -73,7 +75,7 @@ function p_unique_keys(?callable $hasher = null, bool $preserveKeys = false): ca
             $seen = [];
             foreach ($iterable as $key => $value) {
                 $hashable = $hasher($key);
-                $hash = $hashable instanceof Hashable ? $hashable->hash() : $hashable;
+                $hash = $hashable instanceof Hashable ? strval($hashable->hash()) : $hashable;
                 if (!array_key_exists($hash, $seen)) {
                     $seen[$hash] = true;
                     yield $value;

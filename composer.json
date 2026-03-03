@@ -22,7 +22,6 @@
       "src/Util/iterable_count.php",
       "src/Util/iterable_to_iterator.php",
       "src/Util/LazyRewindableIterator.php",
-      "src/Util/Hashable.php",
 
       "src/Combining/p_concat.php",
 
@@ -74,7 +73,8 @@
     }
   },
   "require": {
-    "php": "^8.4"
+    "php": "^8.4",
+    "ext-ds": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "^12.5",

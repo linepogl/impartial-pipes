@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace ImpartialPipes\Tests\Mapping;
 
-use ImpartialPipes\Hashable;
+use Ds\Hashable;
 use ImpartialPipes\LazyRewindableIterator;
+use LogicException;
 use Override;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
@@ -95,9 +96,16 @@ class TestHashableString implements Hashable
     public function __construct(public readonly string $value)
     {
     }
+
     #[Override]
     public function hash(): string
     {
         return $this->value;
+    }
+
+    #[Override]
+    public function equals($obj): bool
+    {
+        throw new LogicException('not implemented');
     }
 }
