@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ImpartialPipes;
 
+use Util\Hashable;
+
 /**
  * Returns a partial function that maps an iterable into groups of iterables, using a projection.
  *
@@ -54,38 +56,50 @@ namespace ImpartialPipes;
  *
  * @template K
  * @template V
- * @template K2 of array-key
- * @param callable(V,K):K2 $hasher
+ * @template G of array-key|Hashable
+ * @param callable(V,K):G $hasher
  * @param bool $preserveKeys
- * @return ($preserveKeys is true ? callable(iterable<K,V>):iterable<K2,iterable<K,V>> : callable(iterable<K,V>):iterable<K2,list<V>>)
+ * @return ($preserveKeys is true ? callable(iterable<K,V>):iterable<G,iterable<K,V>> : callable(iterable<K,V>):iterable<G,iterable<int,V>>)
  */
 function p_group_by(callable $hasher, bool $preserveKeys = false): callable
 {
     return $preserveKeys
         ? static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $hasher): iterable {
-            $a = [];
-            $groupKeys = [];
+            $k = [];
+            $v = [];
+            $hashables = [];
             foreach ($iterable as $key => $value) {
-                $groupKey = $hasher($value, $key);
-                $groupKeys[$groupKey] ??= $groupKey; // this is necessary because php automatically converts int-like array keys to ints.
-                $a[$groupKey] ??= [];
-                $a[$groupKey][$key] = $value; // @phpstan-ignore offsetAccess.invalidOffset (TODO: keys might not be of type array-key)
+                $hashable = $hasher($value, $key);
+                $hash = $hashable instanceof Hashable ? $hashable->hash() : $hashable;
+                $hashables[$hash] ??= $hashable;
+                $k[$hash] ??= [];
+                $k[$hash][] = $key;
+                $v[$hash] ??= [];
+                $v[$hash][] = $value;
             }
-            foreach ($a as $groupKey => $groupValues) {
-                yield $groupKeys[$groupKey] => $groupValues;
+            foreach ($hashables as $hash => $hashable) {
+                $kk = $k[$hash];
+                $vv = $v[$hash];
+                yield $hashable => new LazyRewindableIterator(static function () use ($kk, $vv): iterable {
+                    $length = count($kk);
+                    for ($i = 0; $i < $length; $i++) {
+                        yield $kk[$i] => $vv[$i];
+                    }
+                });
             }
         })
         : static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $hasher): iterable {
-            $a = [];
-            $groupKeys = [];
+            $v = [];
+            $hashables = [];
             foreach ($iterable as $key => $value) {
-                $groupKey = $hasher($value, $key);
-                $groupKeys[$groupKey] ??= $groupKey; // this is necessary because php automatically converts int-like array keys to ints.
-                $a[$groupKey] ??= [];
-                $a[$groupKey][] = $value;
+                $hashable = $hasher($value, $key);
+                $hash = $hashable instanceof Hashable ? $hashable->hash() : $hashable;
+                $hashables[$hash] ??= $hashable;
+                $v[$hash] ??= [];
+                $v[$hash][] = $value;
             }
-            foreach ($a as $groupKey => $groupValues) {
-                yield $groupKeys[$groupKey] => $groupValues;
+            foreach ($hashables as $hash => $hashable) {
+                yield $hashable => $v[$hash];
             }
         });
 }

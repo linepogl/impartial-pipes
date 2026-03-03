@@ -22,6 +22,7 @@
       "src/Util/iterable_count.php",
       "src/Util/iterable_to_iterator.php",
       "src/Util/LazyRewindableIterator.php",
+      "src/Util/Hashable.php",
 
       "src/Combining/p_concat.php",
 
@@ -79,7 +80,7 @@
     "phpunit/phpunit": "^12.5",
     "phpstan/phpstan": "^2.1",
     "friendsofphp/php-cs-fixer": "^3.90",
-    "linepogl/phpunit-meta-constraints": "^0.4"
+    "linepogl/phpunit-meta-constraints": "^0.5.1"
   },
   "scripts": {
     "unit": "XDEBUG_MODE=off vendor/bin/phpunit --testsuite=unit",

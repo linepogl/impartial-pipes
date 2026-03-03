@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ImpartialPipes;
 
+use Util\Hashable;
+
 /**
  * Returns a partial function that skips elements with repeated keys of an iterable, based on an optional hashing projection.
  * If no hashing projection is provided, an identity projection is used. In that case, the elements must be stringable.
@@ -46,7 +48,7 @@ namespace ImpartialPipes;
  *
  * @template K
  * @template V
- * @param ?callable(K):array-key $hasher
+ * @param ?callable(K):(array-key|Hashable) $hasher
  * @param bool $preserveKeys
  * @return ($hasher is null
  *    ? ($preserveKeys is true ? callable<K2,V2>(iterable<K2,V2>):iterable<K2,V2> : callable<K2,V2>(iterable<K2,V2>):iterable<int,V2>)
@@ -56,12 +58,13 @@ namespace ImpartialPipes;
 function p_unique_keys(?callable $hasher = null, bool $preserveKeys = false): callable
 {
     $hasher ??= static fn ($key) => $key;
-    /** @var callable(K):array-key $hasher */
+    /** @var callable(K):(array-key|Hashable) $hasher */
     return $preserveKeys
         ? static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $hasher): iterable {
             $seen = [];
             foreach ($iterable as $key => $value) {
-                $hash = $hasher($key);
+                $hashable = $hasher($key);
+                $hash = $hashable instanceof Hashable ? $hashable->hash() : $hashable;
                 if (!array_key_exists($hash, $seen)) {
                     $seen[$hash] = true;
                     yield $key => $value;
@@ -71,7 +74,8 @@ function p_unique_keys(?callable $hasher = null, bool $preserveKeys = false): ca
         : static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $hasher): iterable {
             $seen = [];
             foreach ($iterable as $key => $value) {
-                $hash = $hasher($key);
+                $hashable = $hasher($key);
+                $hash = $hashable instanceof Hashable ? $hashable->hash() : $hashable;
                 if (!array_key_exists($hash, $seen)) {
                     $seen[$hash] = true;
                     yield $value;
