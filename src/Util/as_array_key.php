@@ -15,7 +15,8 @@ function as_array_key(mixed $input): int|string
 
     return match(true) {
         is_string($hash) || is_int($hash) => $hash,
-        is_scalar($hash) => strval($hash),
+        is_float($hash) => strval($hash),
+        is_bool($hash) => $hash ? 1 : 0,
         default => throw new InvalidArgumentException('Cannot get a hash for input type: ' . get_debug_type($hash)),
     };
 }
