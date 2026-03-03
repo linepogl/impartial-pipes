@@ -17,9 +17,9 @@ use function ImpartialPipes\as_array_key;
 /**
  * @internal
  */
-final class as_array_key_Test extends testcase
+final class as_array_key_Test extends TestCase
 {
-    use phpunitmetaconstraintstrait;
+    use PHPUnitMetaConstraintsTrait;
 
     public function test_as_array_key(): void
     {
@@ -31,13 +31,13 @@ final class as_array_key_Test extends testcase
         as_array_key(1.000) |> self::is('1');
         as_array_key(true) |> self::is(1);
         as_array_key(false) |> self::is(0);
-        as_array_key(new asarraykeyhashable()) |> self::is('hash');
+        as_array_key(new AsArrayKeyHashable()) |> self::is('hash');
 
-        $obj = new stdclass();
+        $obj = new stdClass();
         as_array_key($obj) |> self::is(spl_object_hash($obj));
 
-        self::throws(new invalidargumentexception('Cannot get a hash for input type: null'))(static fn () => as_array_key(null));
-        self::throws(new invalidargumentexception('Cannot get a hash for input type: array'))(static fn () => as_array_key([]));
+        self::throws(new InvalidArgumentException('Cannot get a hash for input type: null'))(static fn () => as_array_key(null));
+        self::throws(new InvalidArgumentException('Cannot get a hash for input type: array'))(static fn () => as_array_key([]));
     }
 }
 
