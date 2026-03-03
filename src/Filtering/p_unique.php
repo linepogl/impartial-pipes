@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ImpartialPipes;
 
-use Util\Hashable;
+use ImpartialPipes\Hashable;
 
 /**
  * Returns a partial function that gets the unique elements of an iterable, based on an optional hashing projection.

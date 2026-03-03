@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Util;
+namespace ImpartialPipes;
 
 interface Hashable
 {

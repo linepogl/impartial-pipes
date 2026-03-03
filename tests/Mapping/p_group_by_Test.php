@@ -8,7 +8,7 @@ use ImpartialPipes\LazyRewindableIterator;
 use Override;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
-use Util\Hashable;
+use ImpartialPipes\Hashable;
 
 use function ImpartialPipes\p_group_by;
 use function ImpartialPipes\p_keys;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ImpartialPipes;
 
-use Util\Hashable;
+use ImpartialPipes\Hashable;
 
 /**
  * Returns a partial function that maps an iterable into groups of iterables, using a projection.
