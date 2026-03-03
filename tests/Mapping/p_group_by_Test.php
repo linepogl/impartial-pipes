@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace ImpartialPipes\Tests\Mapping;
 
+use ImpartialPipes\Hashable;
 use ImpartialPipes\LazyRewindableIterator;
 use Override;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
-use ImpartialPipes\Hashable;
 
 use function ImpartialPipes\p_group_by;
 use function ImpartialPipes\p_keys;
