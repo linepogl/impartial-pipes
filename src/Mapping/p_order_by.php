@@ -82,10 +82,8 @@ namespace ImpartialPipes;
  */
 function p_order_by(callable $hasher, bool $descending = false): callable
 {
-    return static function (iterable $iterable) use ($hasher, $descending): iterable {
-        /** @var iterable<K,V> $iterable */
-        return new ListOrderedIterator($iterable, $hasher, $descending);
-    };
+    // @phpstan-ignore return.type (Closure is a callable)
+    return static fn (iterable $iterable): iterable => new ListOrderedIterator($iterable, $hasher, $descending);
 }
 
 /**
@@ -167,10 +165,8 @@ function p_order_by(callable $hasher, bool $descending = false): callable
  */
 function p_assoc_order_by(callable $hasher, bool $descending = false): callable
 {
-    return static function (iterable $iterable) use ($hasher, $descending): iterable {
-        /** @var iterable<K,V> $iterable */
-        return new AssociativeOrderedIterator($iterable, $hasher, $descending);
-    };
+    // @phpstan-ignore return.type (Closure is a callable)
+    return static fn (iterable $iterable): iterable => new AssociativeOrderedIterator($iterable, $hasher, $descending);
 }
 
 /**

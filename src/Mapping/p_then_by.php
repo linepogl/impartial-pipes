@@ -145,8 +145,8 @@ namespace ImpartialPipes;
  */
 function p_then_by(callable $hasher, bool $descending = false): callable
 {
+    // @phpstan-ignore return.type (Closure is a callable)
     return static function (AssociativeOrderedIterator|ListOrderedIterator $iterable) use ($hasher, $descending) {
-        /** @var AssociativeOrderedIterator<K,V>|ListOrderedIterator<K,V> $iterable */
         return $iterable->thenBy($hasher, $descending);
     };
 }
