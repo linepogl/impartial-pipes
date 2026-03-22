@@ -6,9 +6,7 @@ Returns a partial function that takes elements of an iterable, while they are no
 
 ### Syntax
 ```php
-p_while(
-  [preserveKeys: bool = false,]
-)
+p_while_not_null()
 ```
 
 ### Examples
@@ -17,9 +15,4 @@ Take elements until a null is encountered
 [1, 2, null, 4]
 |> p_while_not_null()
 //= [1, 2]
-```
-```php
-['a' => 1, 'b' => 2, 'c' => null, 'd' => 4]
-|> p_while_not_null(preserveKeys: true)
-//= ['a' => 1, 'b' => 2]
 ```

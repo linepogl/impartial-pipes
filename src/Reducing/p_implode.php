@@ -49,9 +49,12 @@ function p_implode(string $separator = ''): callable
 {
     return static function (iterable $iterable) use ($separator): string {
         if (is_array($iterable)) {
+            /** @var array<null|scalar|Stringable> $iterable */
             return implode($separator, $iterable);
         } elseif ($iterable instanceof ArrayIterator) {
-            return implode($separator, $iterable->getArrayCopy()); // get array copy is a 0(1) operation that does not copy the array immediately!
+            /** @var array<null|scalar|Stringable> $array */
+            $array = $iterable->getArrayCopy(); // get array copy is a 0(1) operation that does not copy the array immediately!
+            return implode($separator, $array);
         }
 
         $sum = '';

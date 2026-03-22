@@ -7,39 +7,40 @@ namespace ImpartialPipes\Tests\Filtering;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
-use function ImpartialPipes\p_filter_out;
+use function ImpartialPipes\p_assoc_reject;
+use function ImpartialPipes\p_reject;
 
 /**
  * @internal
  */
-final class p_filter_out_Test extends TestCase
+final class p_reject_Test extends TestCase
 {
     use PHPUnitMetaConstraintsTrait;
 
-    public function test_p_filter_out(): void
+    public function test_p_reject(): void
     {
         []
-        |> p_filter_out(fn (int $x) => $x % 2 === 0)
+        |> p_reject(fn (int $x) => $x % 2 === 0)
         |> self::iteratesLike([], rewind: true);
 
         []
-        |> p_filter_out(fn (int $x) => $x % 2 === 0, preserveKeys: true)
+        |> p_assoc_reject(fn (int $x) => $x % 2 === 0)
         |> self::iteratesLike([], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-        |> p_filter_out(fn (int $x) => $x % 2 === 0)
+        |> p_reject(fn (int $x) => $x % 2 === 0)
         |> self::iteratesLike([1, 3], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-        |> p_filter_out(fn (int $x) => $x % 2 === 0, preserveKeys: true)
+        |> p_assoc_reject(fn (int $x) => $x % 2 === 0)
         |> self::iteratesLike(['a' => 1, 'c' => 3], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-        |> p_filter_out(fn (int $x, string $k) => $k === 'b')
+        |> p_reject(fn (int $x, string $k) => $k === 'b')
         |> self::iteratesLike([1, 3, 4], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-        |> p_filter_out(fn (int $x, string $k) => $k === 'b', preserveKeys: true)
+        |> p_assoc_reject(fn (int $x, string $k) => $k === 'b')
         |> self::iteratesLike(['a' => 1, 'c' => 3, 'd' => 4], rewind: true);
     }
 }

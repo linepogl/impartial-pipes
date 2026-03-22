@@ -5,27 +5,27 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * Returns a partial function that filters the elements of an iterable, using a predicate.
+ * Returns a partial function that filters elements out of an iterable, using a predicate.
  *
  * ### Syntax
  * ```
- * p_filter(
+ * p_reject(
  *   callable(TValue[, TKey]): bool,
  * )
  * ```
  *
  * ### Examples
- * Filter even numbers from an array
+ * Filter out even numbers from an array
  * ```
  * [1, 2, 3, 4, 5]
- * |> p_filter(static fn (int $x) => $x % 2 === 0);
- * //= [2, 4]
+ * |> p_reject(static fn (int $x) => $x % 2 === 0);
+ * //= [1, 3, 5]
  * ```
- * Filter elements with keys shorter than three characters
+ * Filter out elements with keys shorter than three characters
  * ```
  * ['a' => 1, 'bb' => 2, 'ccc' => 3]
- * |> p_filter(static fn (int $x, string $k) => strlen($k) < 3);
- * //= [1, 2]
+ * |> p_reject(static fn (int $x, string $k) => strlen($k) < 3);
+ * //= [3]
  * ```
  *
  * @template K
@@ -33,11 +33,11 @@ namespace ImpartialPipes;
  * @param callable(V,K):bool $predicate
  * @return callable(iterable<K,V>):iterable<int,V>
  */
-function p_filter(callable $predicate): callable
+function p_reject(callable $predicate): callable
 {
     return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $predicate): iterable {
         foreach ($iterable as $key => $value) {
-            if ($predicate($value, $key)) {
+            if (!$predicate($value, $key)) {
                 yield $value;
             }
         }
@@ -45,27 +45,27 @@ function p_filter(callable $predicate): callable
 }
 
 /**
- * Returns a partial function that filters the elements of an iterable, using a predicate, preserving the keys.
+ * Returns a partial function that filters elements out of an iterable, using a predicate, preserving the keys
  *
  * ### Syntax
  * ```
- * p_assoc_filter(
+ * p_assoc_reject(
  *   callable(TValue[, TKey]): bool,
  * )
  * ```
  *
  * ### Examples
- * Filter even numbers from an array
+ * Filter out even numbers from an array
  * ```
  * [1, 2, 3, 4, 5]
- * |> p_assoc_filter(static fn (int $x) => $x % 2 === 0);
- * //= [1 => 2, 3 => 4]
+ * |> p_assoc_reject(static fn (int $x) => $x % 2 === 0);
+ * //= [0 => 1, 2 => 3, 4 => 5]
  * ```
- * Filter elements with keys shorter than three characters
+ * Filter out elements with keys shorter than three characters
  * ```
  * ['a' => 1, 'bb' => 2, 'ccc' => 3]
- * |> p_assoc_filter(static fn (int $x, string $k) => strlen($k) < 3);
- * //= ['a' => 1, 'bb' => 2]
+ * |> p_assoc_reject(static fn (int $x, string $k) => strlen($k) < 3);
+ * //= ['ccc' => 3]
  * ```
  *
  * @template K
@@ -73,11 +73,11 @@ function p_filter(callable $predicate): callable
  * @param callable(V,K):bool $predicate
  * @return callable(iterable<K,V>):iterable<K,V>
  */
-function p_assoc_filter(callable $predicate): callable
+function p_assoc_reject(callable $predicate): callable
 {
     return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $predicate): iterable {
         foreach ($iterable as $key => $value) {
-            if ($predicate($value, $key)) {
+            if (!$predicate($value, $key)) {
                 yield $key => $value;
             }
         }

@@ -8,7 +8,6 @@ Returns a partial function that takes elements of an iterable, while some predic
 ```php
 p_while(
   callable(TValue[, TKey]): bool,
-  [preserveKeys: bool = false,]
 )
 ```
 
@@ -19,19 +18,9 @@ Take elements with a value predicate
 |> p_while(static fn (int $x) => $x < 3)
 //= [1, 2]
 ```
-```php
-[1, 2, 3, 4]
-|> p_while(static fn (int $x) => $x < 3, preserveKeys: true)
-//= [1, 2]
-```
 Take elements with a value and key predicate
 ```php
 ['a' => 1, 'bb' => 2, 'ccc' => 3, 'd' => 4]
 |> p_while(static fn (int $x, string $k) => strlen($k) < 3)
 //= [1, 2]
-```
-```php
-['a' => 1, 'bb' => 2, 'ccc' => 3, 'd' => 4]
-|> p_while(static fn (int $x, string $k) => strlen($k) < 3, preserveKeys: true)
-//= ['a' => 3, 'bb' => 4]
 ```

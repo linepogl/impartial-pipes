@@ -12,7 +12,6 @@ namespace ImpartialPipes;
  * ```
  * p_flat_map(
  *   callable(TValue[, TKey]): iterable<TNewValue>,
- *   [preserveKeys: bool = false,]
  * )
  * ```
  *
@@ -31,11 +30,42 @@ namespace ImpartialPipes;
  * |> p_flat_map(static fn (int $value, string $key) => [$value, $key, $key . $value])
  * //= [1, 'a', 'a1', 2, 'b', 'b2', 3, 'c', 'c3']
  * ```
+ *
+ * @template K
+ * @template V
+ * @template K2
+ * @template V2
+ * @param callable(V,K):iterable<K2,V2> $valueProjection
+ * @return callable(iterable<K,V>):iterable<int,V2>
+ */
+function p_flat_map(callable $valueProjection): callable
+{
+    return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $valueProjection): iterable {
+        foreach ($iterable as $key => $value) {
+            foreach ($valueProjection($value, $key) as $innerValue) {
+                yield $innerValue;
+            }
+        }
+    });
+}
 
+/**
+ * Returns a partial function that gets the values of an iterable using a projection to an iterable callable, flattening the result, preserving the keys.
+ *
+ * ### Syntax
+ *
+ * ```
+ * p_assoc_flat_map(
+ *   callable(TValue[, TKey]): iterable<TNewValue>,
+ * )
+ * ```
+ *
+ * ### Examples
+ *
  * Flat-map preserving keys
  * ```
  * ['a' => ['a1' => 1, 'a2' => 2], 'b' => ['b1' => 1, 'b2' => 2]]
- * |> p_flat_map(static fn (array $value, string $key) => $value |> p_map(static fn (int $innerValue) => $key), preserveKeys: true
+ * |> p_assoc_flat_map(static fn (array $value, string $key) => $value |> p_map(static fn (int $innerValue) => $key)
  * //= ['a1' => 'a', 'a2' => 'a', 'b1' => 'b', 'b2' => 'b']
  * ```
  *
@@ -44,24 +74,15 @@ namespace ImpartialPipes;
  * @template K2
  * @template V2
  * @param callable(V,K):iterable<K2,V2> $valueProjection
- * @param bool $preserveKeys
- * @return ($preserveKeys is true ? callable(iterable<K,V>):iterable<K2,V2> : callable(iterable<K,V>):iterable<int,V2>)
+ * @return callable(iterable<K,V>):iterable<K2,V2>
  */
-function p_flat_map(callable $valueProjection, bool $preserveKeys = false): callable
+function p_assoc_flat_map(callable $valueProjection): callable
 {
-    return $preserveKeys
-        ? static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $valueProjection): iterable {
-            foreach ($iterable as $key => $value) {
-                foreach ($valueProjection($value, $key) as $innerKey => $innerValue) {
-                    yield $innerKey => $innerValue;
-                }
+    return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $valueProjection): iterable {
+        foreach ($iterable as $key => $value) {
+            foreach ($valueProjection($value, $key) as $innerKey => $innerValue) {
+                yield $innerKey => $innerValue;
             }
-        })
-        : static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $valueProjection): iterable {
-            foreach ($iterable as $key => $value) {
-                foreach ($valueProjection($value, $key) as $innerValue) {
-                    yield $innerValue;
-                }
-            }
-        });
+        }
+    });
 }

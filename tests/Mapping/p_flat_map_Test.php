@@ -7,8 +7,9 @@ namespace ImpartialPipes\Tests\Mapping;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
+use function ImpartialPipes\p_assoc_flat_map;
+use function ImpartialPipes\p_assoc_map;
 use function ImpartialPipes\p_flat_map;
-use function ImpartialPipes\p_map;
 use function ImpartialPipes\p_map_keys;
 
 /**
@@ -33,10 +34,7 @@ final class p_flat_map_Test extends TestCase
         |> self::iteratesLike([1, 'a', 2, 'b', 3, 'c', 4, 'd'], rewind: true);
 
         ['a' => 1, 'b' => 2]
-        |> p_flat_map(
-            fn (int $x, string $k) => [$x, -$x] |> p_map_keys(fn (int $x) => $x) |> p_map(fn (int $x) => $k),
-            preserveKeys: true,
-        )
+        |> p_assoc_flat_map(fn (int $x, string $k) => [$x, -$x] |> p_map_keys(fn (int $x) => $x) |> p_assoc_map(fn (int $x) => $k))
         |> self::iteratesLike([1 => 'a', -1 => 'a', 2 => 'b', -2 => 'b'], rewind: true);
     }
 }

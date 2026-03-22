@@ -7,7 +7,7 @@ namespace ImpartialPipes;
 /**
  * Returns a partial function that maps the keys of an iterable using a projection. It preserves the values.
  *
- * Attention: it is possible to have repeated keys in the result, use u_unique_keys to eliminate them.
+ * Attention: it is possible to have repeated keys in the result, use p_unique_keys to eliminate them.
  *
  * ### Syntax
  *
@@ -27,7 +27,7 @@ namespace ImpartialPipes;
  * ```
  * ['a' => 1, 'b' => 2, 'c' => 2]
  * |> p_map_keys(static fn (int $value) => $value * $value)
- * //= [1 => 1, 4 => 2, 4 => 4], the key 4 is repeated, use u_unique_keys to eliminate it
+ * //= [1 => 1, 4 => 2, 4 => 4], the key 4 is repeated, use p_unique_keys to eliminate it
  * ```
  * Map keys by value and key projection
  * ```
@@ -38,7 +38,7 @@ namespace ImpartialPipes;
  * ```
  * ['a' => 1, 'bb' => 2, 'cc' => 3]
  * |> p_map_keys(static fn (int $value, string $key) => strlen($key))
- * //= [1 => 1, 2 => 2, 2 => 3], the key 2 is repeated, use u_unique_keys to eliminate it
+ * //= [1 => 1, 2 => 2, 2 => 3], the key 2 is repeated, use p_unique_keys to eliminate it
  * ```
  *
  * @template K
