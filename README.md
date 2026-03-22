@@ -98,7 +98,7 @@ pipe($iterable)
 - [p_map_keys](doc/Mapping/p_map_keys.md)
 - [p_values](doc/Mapping/p_values.md)
 - [p_keys](doc/Mapping/p_keys.md)
-- [p_group_by](doc/Mapping/p_group_by.md)
+- [p_group_by](doc/Mapping/p_group_by.md), [p_assoc_group_by](doc/Mapping/p_assoc_group_by.md)
 - [p_order_by](doc/Mapping/p_order_by.md)
 - [p_then_by](doc/Mapping/p_then_by.md)
 

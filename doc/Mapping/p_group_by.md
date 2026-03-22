@@ -8,8 +8,7 @@ Returns a partial function that maps an iterable into groups of iterables, using
 
 ```php
 p_group_by(
-  callable(TValue[, TKey]): TNewKey of array-key,
-  [preserveKeys: bool = false,]
+  callable(TValue[, TKey]): TNewKey of Hashable|array-key,
 )
 ```
 
@@ -23,14 +22,6 @@ Group with a value projection
 //    0 => [2, 4]
 //  ]
 ```
-```php
-['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-|> p_group_by(static fn (int $value) => $value % 2, preserveKeys: true)
-//= [
-//    1 => ['a' => 1, 'c' => 3],
-//    0 => ['b' => 2, 'd' => 4]
-//  ]
-```
 Group with a value and key projection
 ```php
 ['a' => 1, 'bb' => 2, 'c' => 3, 'dd' => 4]
@@ -38,13 +29,5 @@ Group with a value and key projection
 //= [
 //    1 => [1, 3],
 //    2 => [2, 4]
-//  ]
-```
-```php
-['a' => 1, 'bb' => 2, 'c' => 3, 'dd' => 4]
-* |> p_group_by(static fn (int $value, string $key) => strlen($key), preserveKeys: true)
-//= [
-//    1 => ['a' => 1, 'c' => 3],
-//    2 => ['b' => 2, 'd' => 4]
 //  ]
 ```
