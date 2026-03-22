@@ -8,7 +8,6 @@ Returns a partial function that skips the first n elements of an iterable.
 ```php
 p_skip(
   int,
-  [preserveKeys: bool = false,]
 )
 ```
 
@@ -20,17 +19,7 @@ Skip elements
 //= [3, 4]
 ```
 ```php
-[1, 2, 3, 4]
-|> p_skip(2, preserveKeys: true)
-//= [2 => 3, 3 => 4]
-```
-```php
 ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
 |> p_skip(2)
 //= [3, 4]
-```
-```php
-['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-|> p_skip(2, preserveKeys: true)
-//= ['c' => 3, 'd' => 4]
 ```

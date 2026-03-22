@@ -8,7 +8,6 @@ Returns a partial function that skips the elements of an iterable, while some pr
 ```php
 p_skip_while(
   callable(TValue[, TKey]): bool,
-  [preserveKeys: bool = false,]
 )
 ```
 
@@ -19,19 +18,9 @@ Skip elements with a value predicate
 |> p_skip_while(static fn (int $x) => $x < 3)
 //= [3, 4]
 ```
-```php
-[1, 2, 3, 4]
-|> p_skip_while(static fn (int $x) => $x < 3, preserveKeys: true)
-//= [2 => 3, 3 => 4]
-```
 Skip elements with a value and key predicate
 ```php
 ['a' => 1, 'bb' => 2, 'ccc' => 3, 'd' => 4]
 |> p_skip_while(static fn (int $x, string $k) => strlen($k) < 3)
 //= [3, 4]
-```
-```php
-['a' => 1, 'bb' => 2, 'ccc' => 3, 'd' => 4]
-|> p_skip_while(static fn (int $x, string $k) => strlen($k) < 3, preserveKeys: true)
-//= ['ccc' => 3, 'd' => 4]
 ```

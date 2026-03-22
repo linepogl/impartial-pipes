@@ -7,8 +7,8 @@ namespace ImpartialPipes\Tests\Filtering;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
+use function ImpartialPipes\p_assoc_compact;
 use function ImpartialPipes\p_compact;
-use function ImpartialPipes\p_compact_assoc;
 
 /**
  * @internal
@@ -24,7 +24,7 @@ final class p_compact_Test extends TestCase
         |> self::iteratesLike([], rewind: true);
 
         []
-        |> p_compact_assoc()
+        |> p_assoc_compact()
         |> self::iteratesLike([], rewind: true);
 
         ['a' => 1, 'b' => null, 'c' => 3, 'd' => null]
@@ -32,7 +32,7 @@ final class p_compact_Test extends TestCase
         |> self::iteratesLike([1, 3], rewind: true);
 
         ['a' => 1, 'b' => null, 'c' => 3, 'd' => null]
-        |> p_compact_assoc()
+        |> p_assoc_compact()
         |> self::iteratesLike(['a' => 1, 'c' => 3], rewind: true);
     }
 }

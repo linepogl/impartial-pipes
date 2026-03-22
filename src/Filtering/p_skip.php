@@ -11,7 +11,6 @@ namespace ImpartialPipes;
  * ```
  * p_skip(
  *   int,
- *   [preserveKeys: bool = false,]
  * )
  * ```
  *
@@ -23,46 +22,62 @@ namespace ImpartialPipes;
  * //= [3, 4]
  * ```
  * ```
- * [1, 2, 3, 4]
- * |> p_skip(2, preserveKeys: true)
- * //= [2 => 3, 3 => 4]
- * ```
- * ```
  * ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
  * |> p_skip(2)
  * //= [3, 4]
  * ```
+ *
+ * @param int $howMany
+ * @return callable<K,V>(iterable<K,V>):iterable<int,V>
+ */
+function p_skip(int $howMany): callable
+{
+    return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $howMany): iterable {
+        $i = 0;
+        foreach ($iterable as $value) {
+            if ($i++ < $howMany) {
+                continue;
+            }
+            yield $value;
+        }
+    });
+}
+
+/**
+ * Returns a partial function that skips the first n elements of an iterable, preserving the keys.
+ *
+ * ### Syntax
+ * ```
+ * p_assoc_skip(
+ *   int,
+ * )
+ * ```
+ *
+ * ### Examples
+ * Skip elements
+ * ```
+ * [1, 2, 3, 4]
+ * |> p_assoc_skip(2)
+ * //= [2 => 3, 3 => 4]
+ * ```
  * ```
  * ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
- * |> p_skip(2, preserveKeys: true)
+ * |> p_assoc_skip(2)
  * //= ['c' => 3, 'd' => 4]
  * ```
  *
- * @template K
- * @template V
  * @param int $howMany
- * @param bool $preserveKeys
- * @return ($preserveKeys is true ? callable(iterable<K,V>):iterable<K,V> : callable(iterable<K,V>):iterable<int,V>)
+ * @return callable<K,V>(iterable<K,V>):iterable<K,V>
  */
-function p_skip(int $howMany, bool $preserveKeys = false): callable
+function p_assoc_skip(int $howMany): callable
 {
-    return $preserveKeys
-        ? static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $howMany): iterable {
-            $i = 0;
-            foreach ($iterable as $key => $value) {
-                if ($i++ < $howMany) {
-                    continue;
-                }
-                yield $key => $value;
+    return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $howMany): iterable {
+        $i = 0;
+        foreach ($iterable as $key => $value) {
+            if ($i++ < $howMany) {
+                continue;
             }
-        })
-        : static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $howMany): iterable {
-            $i = 0;
-            foreach ($iterable as $value) {
-                if ($i++ < $howMany) {
-                    continue;
-                }
-                yield $value;
-            }
-        });
+            yield $key => $value;
+        }
+    });
 }

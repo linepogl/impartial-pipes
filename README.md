@@ -89,7 +89,7 @@ pipe($iterable)
 
 ### Combining partial functions
 
-- [p_concat](doc/Combining/p_concat.md), [p_concat_assoc](doc/Combining/p_concat_assoc.md)
+- [p_concat](doc/Combining/p_concat.md), [p_assoc_concat](doc/Combining/p_assoc_concat.md)
 
 ### Mapping partial functions
 
@@ -105,16 +105,16 @@ pipe($iterable)
 
 ### Filtering partial functions
 
-- [p_filter](doc/Filtering/p_filter.md), [p_filter_assoc](doc/Filtering/p_filter_assoc.md)
-- [p_reject](doc/Filtering/p_reject.md), [p_reject_assoc](doc/Filtering/p_reject_assoc.md) 
-- [p_compact](doc/Filtering/p_compact.md), [p_compact_assoc](doc/Filtering/p_compact_assoc.md)
+- [p_filter](doc/Filtering/p_filter.md), [p_assoc_filter](doc/Filtering/p_assoc_filter.md)
+- [p_reject](doc/Filtering/p_reject.md), [p_assoc_reject](doc/Filtering/p_assoc_reject.md) 
+- [p_compact](doc/Filtering/p_compact.md), [p_assoc_compact](doc/Filtering/p_assoc_compact.md)
 - [p_unique](doc/Filtering/p_unique.md)
 - [p_unique_keys](doc/Filtering/p_unique_keys.md)
 - [p_take](doc/Filtering/p_take.md)
 - [p_while](doc/Filtering/p_while.md)
 - [p_while_not_null](doc/Filtering/p_while_not_null.md)
-- [p_skip](doc/Filtering/p_skip.md)
-- [p_skip_while](doc/Filtering/p_skip_while.md)
+- [p_skip](doc/Filtering/p_skip.md), [p_assoc_skip](doc/Filtering/p_assoc_skip.md)
+- [p_skip_while](doc/Filtering/p_skip_while.md), [p_assoc_skip_while](doc/Filtering/p_assoc_skip_while.md)
 
 ### Reducing partial functions
 

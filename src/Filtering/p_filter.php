@@ -49,7 +49,7 @@ function p_filter(callable $predicate): callable
  *
  * ### Syntax
  * ```
- * p_filter_assoc(
+ * p_assoc_filter(
  *   callable(TValue[, TKey]): bool,
  * )
  * ```
@@ -58,13 +58,13 @@ function p_filter(callable $predicate): callable
  * Filter even numbers from an array
  * ```
  * [1, 2, 3, 4, 5]
- * |> p_filter_assoc(static fn (int $x) => $x % 2 === 0);
+ * |> p_assoc_filter(static fn (int $x) => $x % 2 === 0);
  * //= [1 => 2, 3 => 4]
  * ```
  * Filter elements with keys shorter than three characters
  * ```
  * ['a' => 1, 'bb' => 2, 'ccc' => 3]
- * |> p_filter_assoc(static fn (int $x, string $k) => strlen($k) < 3);
+ * |> p_assoc_filter(static fn (int $x, string $k) => strlen($k) < 3);
  * //= ['a' => 1, 'bb' => 2]
  * ```
  *
@@ -73,7 +73,7 @@ function p_filter(callable $predicate): callable
  * @param callable(V,K):bool $predicate
  * @return callable(iterable<K,V>):iterable<K,V>
  */
-function p_filter_assoc(callable $predicate): callable
+function p_assoc_filter(callable $predicate): callable
 {
     return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $predicate): iterable {
         foreach ($iterable as $key => $value) {
