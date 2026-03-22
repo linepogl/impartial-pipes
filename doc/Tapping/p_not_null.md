@@ -10,13 +10,11 @@ p_not_null()
 ```
 
 ### Examples
-```php
+
 'test'
 |> p_not_null()
 //= 'test'
-```
-```php
+
 null
 |> p_not_null()
 // throws TypeError
-```

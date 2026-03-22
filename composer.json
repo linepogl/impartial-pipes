@@ -42,7 +42,6 @@
       "src/Mapping/p_keys.php",
       "src/Mapping/p_map.php",
       "src/Mapping/p_map_keys.php",
-      "src/Mapping/p_map_keys_and_values.php",
       "src/Mapping/p_order_by.php",
       "src/Mapping/p_then_by.php",
       "src/Mapping/p_values.php",

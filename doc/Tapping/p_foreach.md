@@ -15,7 +15,7 @@ p_foreach(
 foreach value
 ```php
 [1, 2, 3]
-|> p_foreach(function (int $value) { echo $value . PHP_EOL; })
+|> p_foreach(function (int $value) { echo $value . PHP_EOL; }
 //= [1, 2, 3]
 // 1
 // 2
@@ -24,7 +24,7 @@ foreach value
 foreach value and key
 ```php
 ['a' => 1, 'b' => 2, 'c' => 3]
-|> p_foreach(function (int $value, string $key) { echo $key . ': ' . $value . PHP_EOL; })
+|> p_foreach(function (int $value, string $key) { echo $key . ': ' . $value . PHP_EOL; }
 //= ['a' => 1, 'b' => 2, 'c' => 3]
 // a: 1
 // b: 2

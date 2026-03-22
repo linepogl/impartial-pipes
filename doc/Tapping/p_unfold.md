@@ -13,7 +13,7 @@ p_unfold(
 
 ### Examples:
 
-Iterating a range, equivalent of `for($i = 0; $i < 5; $i++)`
+Iterating a range, equivalent of `fpr($i = 0; $i < 5; $i++)`
 ```php
 0
 |> p_unfold(static fn (int $x) => $x + 1)

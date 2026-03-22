@@ -9,7 +9,6 @@ Returns a partial function that gets the values of an iterable using a projectio
 ```php
 p_flat_map(
   callable(TValue[, TKey]): iterable<TNewValue>,
-  [preserveKeys: bool = false,]
 )
 ```
 
@@ -27,11 +26,4 @@ Flat-map by value and key
 ['a' => 1, 'b' => 2, 'c' => 3]
 |> p_flat_map(static fn (int $value, string $key) => [$value, $key, $key . $value])
 //= [1, 'a', 'a1', 2, 'b', 'b2', 3, 'c', 'c3']
-```
-
-Flat-map preserving keys
-```php
-['a' => ['a1' => 1, 'a2' => 2], 'b' => ['b1' => 1, 'b2' => 2]]
-|> p_flat_map(static fn (array $value, string $key) => $value |> p_map(static fn (int $innerValue) => $key), preserveKeys: true
-//= ['a1' => 'a', 'a2' => 'a', 'b1' => 'b', 'b2' => 'b']
 ```
