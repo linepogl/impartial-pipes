@@ -8,7 +8,6 @@ Returns a partial function that filters the elements of an iterable, using a pre
 ```php
 p_filter(
   callable(TValue[, TKey]): bool,
-  [preserveKeys: bool = false,]
 )
 ```
 
@@ -19,19 +18,9 @@ Filter even numbers from an array
 |> p_filter(static fn (int $x) => $x % 2 === 0);
 //= [2, 4]
 ```
-```php
-[1, 2, 3, 4, 5]
-|> p_filter(static fn (int $x) => $x % 2 === 0, preserveKeys: true);
-//= [1 => 2, 3 => 4]
-```
 Filter elements with keys shorter than three characters
 ```php
 ['a' => 1, 'bb' => 2, 'ccc' => 3]
 |> p_filter(static fn (int $x, string $k) => strlen($k) < 3);
 //= [1, 2]
-```
-```php
-['a' => 1, 'bb' => 2, 'ccc' => 3]
-|> p_filter(static fn (int $x, string $k) => strlen($k) < 3, preserveKeys: true);
-//= ['a' => 1, 'bb' => 2]
 ```

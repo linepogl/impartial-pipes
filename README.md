@@ -89,7 +89,7 @@ pipe($iterable)
 
 ### Combining partial functions
 
-- [p_concat](doc/Combining/p_concat.md)
+- [p_concat](doc/Combining/p_concat.md), [p_concat_assoc](doc/Combining/p_concat_assoc.md)
 
 ### Mapping partial functions
 
@@ -105,9 +105,9 @@ pipe($iterable)
 
 ### Filtering partial functions
 
-- [p_filter](doc/Filtering/p_filter.md)
-- [p_filter_out](doc/Filtering/p_filter_out.md)
-- [p_filter_out_nulls](doc/Filtering/p_filter_out_nulls.md)
+- [p_filter](doc/Filtering/p_filter.md), [p_filter_assoc](doc/Filtering/p_filter_assoc.md)
+- [p_reject](doc/Filtering/p_reject.md), [p_reject_assoc](doc/Filtering/p_reject_assoc.md) 
+- [p_compact](doc/Filtering/p_compact.md), [p_compact_assoc](doc/Filtering/p_compact_assoc.md)
 - [p_unique](doc/Filtering/p_unique.md)
 - [p_unique_keys](doc/Filtering/p_unique_keys.md)
 - [p_take](doc/Filtering/p_take.md)

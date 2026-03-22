@@ -27,8 +27,8 @@
       "src/Combining/p_concat.php",
 
       "src/Filtering/p_filter.php",
-      "src/Filtering/p_filter_out.php",
-      "src/Filtering/p_filter_out_nulls.php",
+      "src/Filtering/p_reject.php",
+      "src/Filtering/p_compact.php",
       "src/Filtering/p_skip.php",
       "src/Filtering/p_skip_while.php",
       "src/Filtering/p_take.php",

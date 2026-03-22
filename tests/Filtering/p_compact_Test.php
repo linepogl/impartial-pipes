@@ -7,31 +7,32 @@ namespace ImpartialPipes\Tests\Filtering;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
-use function ImpartialPipes\p_filter_out_nulls;
+use function ImpartialPipes\p_compact;
+use function ImpartialPipes\p_compact_assoc;
 
 /**
  * @internal
  */
-final class p_filter_out_nulls_Test extends TestCase
+final class p_compact_Test extends TestCase
 {
     use PHPUnitMetaConstraintsTrait;
 
-    public function test_p_filter_out_nulls(): void
+    public function test_p_compact(): void
     {
         []
-        |> p_filter_out_nulls()
+        |> p_compact()
         |> self::iteratesLike([], rewind: true);
 
         []
-        |> p_filter_out_nulls(preserveKeys: true)
+        |> p_compact_assoc()
         |> self::iteratesLike([], rewind: true);
 
         ['a' => 1, 'b' => null, 'c' => 3, 'd' => null]
-        |> p_filter_out_nulls()
+        |> p_compact()
         |> self::iteratesLike([1, 3], rewind: true);
 
         ['a' => 1, 'b' => null, 'c' => 3, 'd' => null]
-        |> p_filter_out_nulls(preserveKeys: true)
+        |> p_compact_assoc()
         |> self::iteratesLike(['a' => 1, 'c' => 3], rewind: true);
     }
 }

@@ -3,14 +3,11 @@
 ## p_concat
 
 Returns a partial function that merges two iterables.
- - If `$preserveKeys` is `false`, the result is a 0-indexed iteration.
- - If `$preserveKeys` is `true`, the keys of the two iterables are preserved. Attention: This might result in duplicated keys.
 
 ### Syntax
 ```php
 p_concat(
   iterable<TOtherKey, TOtherValue>,
-  [preserveKeys: bool = false,]
 )
 ```
 
@@ -25,15 +22,4 @@ Concatenating two iterables
 ['a' => 1, 'b' => 2]
 |> p_concat(['b' => 22,'c' => 3])
 //= [1, 2, 22, 3]
-```
-Concatenating two iterables, preserving keys. Keys might be duplicated in the result.
-```php
-[1, 2]
-|> p_concat([3, 4], preserveKeys: true)
-//= [0 => 1, 1 => 2, 0 => 3, 1 => 4]
-```
-```php
-['a' => 1,'b' => 2]
-|> p_concat(['b' => 22,'c' => 3], preserveKeys: true)
-//= ['a' => 1,'b' => 2,'b' => 22,'c' => 3]
 ```
