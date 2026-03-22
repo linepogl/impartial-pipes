@@ -13,6 +13,6 @@ p_assoc_compact()
 Filter out nulls
 ```php
 ['a' => 1, 'b' => null, 'c' => 3]
-|> p_assoc_compact(preserveKeys: true)
+|> p_assoc_compact()
 //= ['a' => 1, 'c' => 3]
 ```
