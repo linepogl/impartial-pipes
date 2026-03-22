@@ -12,9 +12,9 @@ use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
 use function ImpartialPipes\p_assoc_group_by;
+use function ImpartialPipes\p_assoc_map;
 use function ImpartialPipes\p_group_by;
 use function ImpartialPipes\p_keys;
-use function ImpartialPipes\p_map;
 use function ImpartialPipes\p_to_array;
 
 /**
@@ -40,7 +40,7 @@ final class p_group_by_Test extends TestCase
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
         |> p_assoc_group_by(fn (int $x) => $x % 2)
-        |> p_map(p_to_array())
+        |> p_assoc_map(p_to_array())
         |> self::iteratesLike([1 => ['a' => 1, 'c' => 3], 0 => ['b' => 2, 'd' => 4]], rewind: true);
 
         ['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4]
@@ -49,7 +49,7 @@ final class p_group_by_Test extends TestCase
 
         ['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4]
         |> p_assoc_group_by(fn (int $x, string $k) => $k[0])
-        |> p_map(p_to_array())
+        |> p_assoc_map(p_to_array())
         |> self::iteratesLike(['a' => ['a' => 1, 'aa' => 2], 'b' => ['b' => 3, 'bb' => 4]], rewind: true);
 
         ['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4]

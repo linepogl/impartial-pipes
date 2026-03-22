@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace ImpartialPipes;
 
 /**
- * Returns a partial function that can be chained to `p_order_by`, to provide tie-breakers. Multiple `p_then_by` calls
+ * Returns a partial function that can be chained to `p_order_by` or `p_assoc_order_by`, to provide tie-breakers. Multiple `p_then_by` calls
  * can be chained to provide multiple tie-breakers.
  *
  * It works in the same way as `p_order_by`, using a projection for comparisons. The projection
  * must return a comparable value, that is any value that can be compared with the `<=>` operator.
  *
- * Key preservation is defined on the `p_order_by` function and propagated to the entire chain.
+ * Key preservation is dictated by the `p_order_by` or `p_assoc_order_by` function and propagated to the entire chain.
  *
  * ### Syntax
  * ```
@@ -43,7 +43,7 @@ namespace ImpartialPipes;
  * 'alice' => ['name' => 'Alice', 'age' => 30],
  * 'bob' => ['name' => 'Bob', 'age' => 40]],
  * ]
- * |> p_order_by(static fn (array $person) => $person['age'], preserveKeys: true)
+ * |> p_assoc_order_by(static fn (array $person) => $person['age'])
  * |> p_then_by(static fn (array $person) => $person['name'])
  * //= [
  * //    'alice' => ['name' => 'Alice', 'age' => 30],
@@ -71,7 +71,7 @@ namespace ImpartialPipes;
  *   'alice' => ['name' => 'Alice', 'age' => 30],
  *   'bob' => ['name' => 'Bob', 'age' => 40]],
  * ]
- * |> p_order_by(static fn (array $person) => $person['age'], preserveKeys: true)
+ * |> p_assoc_order_by(static fn (array $person) => $person['age'])
  * |> p_then_by(static fn (array $person) => $person['name'], descending: true)
  * //= [
  * //    'john' => ['name' => 'John', 'age' => 30],
@@ -100,7 +100,7 @@ namespace ImpartialPipes;
  *   'alice' => ['name' => 'Alice', 'age' => 30],
  *   'bob' => ['name' => 'Bob', 'age' => 40]],
  * ]
- * |> p_order_by(static fn (array $person) => $person['age'], preserveKeys: true)
+ * |> p_assoc_order_by(static fn (array $person) => $person['age'])
  * |> p_then_by(static fn (array $person, string $key) => $key)
  * //= [
  * //    'alice' => ['name' => 'Alice', 'age' => 30],
@@ -128,7 +128,7 @@ namespace ImpartialPipes;
  *   'alice' => ['name' => 'Alice', 'age' => 30],
  *   'bob' => ['name' => 'Bob', 'age' => 40]],
  * ]
- * |> p_order_by(static fn (array $person) => $person['age'], preserveKeys: true)
+ * |> p_assoc_order_by(static fn (array $person) => $person['age'])
  * |> p_then_by(static fn (array $person, string $key) => $key, descending: true)
  * //= [
  * //    'john' => ['name' => 'John', 'age' => 30],

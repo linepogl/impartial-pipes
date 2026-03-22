@@ -11,7 +11,6 @@ a comparable value, that is any value that can be compared with the `<=>` operat
 p_order_by(
   callable(TValue[, TKey]): TComparable,
   [descending: bool = false,]
-  [preserveKeys: bool = false,]
 )
 ```
 
@@ -36,37 +35,11 @@ Order by a value projection
 'jane' => ['name' => 'Jane', 'age' => 25],
 'bob' => ['name' => 'Bob', 'age' => 40]],
 ]
-|> p_order_by(static fn (array $person) => $person['age'], preserveKeys: true)
-//= [
-//    'jane' => ['name' => 'Jane', 'age' => 25],
-//    'john' => ['name' => 'John', 'age' => 30],
-//    'bob' => ['name' => 'Bob', 'age' => 40],
-//  ]
-```
-```php
-[
-'john' => ['name'=> 'John', 'age' => 30],
-'jane' => ['name' => 'Jane', 'age' => 25],
-'bob' => ['name' => 'Bob', 'age' => 40]],
-]
 |> p_order_by(static fn (array $person) => $person['age'], descending: true)
 //= [
 //    ['name' => 'Bob', 'age' => 40],
 //    ['name' => 'John', 'age' => 30],
 //    ['name' => 'Jane', 'age' => 25],
-//  ]
-```
-```php
-[
-'john' => ['name'=> 'John', 'age' => 30],
-'jane' => ['name' => 'Jane', 'age' => 25],
-'bob' => ['name' => 'Bob', 'age' => 40]],
-]
-|> p_order_by(static fn (array $person) => $person['age'], descending: true, preserveKeys: true)
-//= [
-//    'bob' => ['name' => 'Bob', 'age' => 40],
-//    'john' => ['name' => 'John', 'age' => 30],
-//    'jane' => ['name' => 'Jane', 'age' => 25],
 //  ]
 ```
 Order by a value and key projection
@@ -89,19 +62,6 @@ Order by a value and key projection
 'jane' => ['name' => 'Jane', 'age' => 25],
 'bob' => ['name' => 'Bob', 'age' => 40]],
 ]
-|> p_order_by(static fn (array $person, string $key) => $key, preserveKeys: true)
-//= [
-//    'bob' => ['name' => 'Bob', 'age' => 40],
-//    'jane' => ['name' => 'Jane', 'age' => 25],
-//    'john' => ['name' => 'John', 'age' => 30],
-//  ]
-```
-```php
-[
-'john' => ['name'=> 'John', 'age' => 30],
-'jane' => ['name' => 'Jane', 'age' => 25],
-'bob' => ['name' => 'Bob', 'age' => 40]],
-]
 |> p_order_by(static fn (array $person, string $key) => $key, descending: true)
 //= [
 //    ['name' => 'John', 'age' => 30],
@@ -109,17 +69,3 @@ Order by a value and key projection
 //    ['name' => 'Bob', 'age' => 40],
 //  ]
 ```
-```php
-[
-'john' => ['name'=> 'John', 'age' => 30],
-'jane' => ['name' => 'Jane', 'age' => 25],
-'bob' => ['name' => 'Bob', 'age' => 40]],
-]
-|> p_order_by(static fn (array $person, string $key) => $key, descending: true, preserveKeys: true)
-//= [
-//    'john' => ['name' => 'John', 'age' => 30],
-//    'jane' => ['name' => 'Jane', 'age' => 25],
-//    'bob' => ['name' => 'Bob', 'age' => 40],
-//  ]
-```
-

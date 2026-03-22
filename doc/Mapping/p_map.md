@@ -3,7 +3,6 @@
 ## p_map
 
 Returns a partial function that maps the values of an iterable using a projection.
-It always preserves the keys.
 
 ### Syntax
 
@@ -19,12 +18,12 @@ Map by value
 ```php
 ['a' => 1, 'b' => 2]
 |> p_map(static fn (int $value) => $value * $value)
-//= ['a' => 1, 'b' => 4]
+//= [1, 4]
 ```
 
 Map by value and key
 ```php
 ['a' => 1, 'b' => 2]
 |> p_map(static fn (int $value, string $key) => $key . $value)
-//= ['a' => 'a1', 'b' => 'b2']
+//= ['a1', 'b2']
 ```

@@ -7,6 +7,7 @@ namespace ImpartialPipes\Tests\Mapping;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
+use function ImpartialPipes\p_assoc_order_by;
 use function ImpartialPipes\p_order_by;
 use function ImpartialPipes\p_then_by;
 
@@ -50,12 +51,12 @@ final class p_then_by_Test extends TestCase
         |> self::iteratesLike([-1, 1, -2, 2, -3, 3], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3]
-        |> p_order_by(fn (int $x) => abs($x), preserveKeys: true)
+        |> p_assoc_order_by(fn (int $x) => abs($x))
         |> p_then_by(fn (int $x, string $k) => $k)
         |> self::iteratesLike(['a' => 1, 'aa' => -1, 'b' => 2, 'bb' => -2, 'c' => 3, 'cc' => -3], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3]
-        |> p_order_by(fn (int $x) => abs($x), preserveKeys: true)
+        |> p_assoc_order_by(fn (int $x) => abs($x))
         |> p_then_by(fn (int $x, string $k) => $k, descending: true)
         |> self::iteratesLike(['aa' => -1, 'a' => 1, 'bb' => -2, 'b' => 2, 'cc' => -3, 'c' => 3], rewind: true);
 
@@ -70,12 +71,12 @@ final class p_then_by_Test extends TestCase
         |> self::iteratesLike([1, -1, 2, -2, 3, -3], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3]
-        |> p_order_by(fn (int $x, string $k) => $k[0], preserveKeys: true)
+        |> p_assoc_order_by(fn (int $x, string $k) => $k[0])
         |> p_then_by(fn (int $x) => $x)
         |> self::iteratesLike(['aa' => -1, 'a' => 1, 'bb' => -2, 'b' => 2, 'cc' => -3, 'c' => 3], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'aa' => -1, 'bb' => -2, 'cc' => -3]
-        |> p_order_by(fn (int $x, string $k) => $k[0], preserveKeys: true)
+        |> p_assoc_order_by(fn (int $x, string $k) => $k[0])
         |> p_then_by(fn (int $x) => $x, descending: true)
         |> self::iteratesLike(['a' => 1, 'aa' => -1, 'b' => 2, 'bb' => -2, 'c' => 3, 'cc' => -3], rewind: true);
     }

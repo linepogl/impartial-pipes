@@ -93,13 +93,13 @@ pipe($iterable)
 
 ### Mapping partial functions
 
-- [p_map](doc/Mapping/p_map.md)
+- [p_map](doc/Mapping/p_map.md), [p_assoc_map](doc/Mapping/p_assoc_map.md)
 - [p_flat_map](doc/Mapping/p_flat_map.md), [p_assoc_flat_map](doc/Mapping/p_assoc_flat_map.md)
 - [p_map_keys](doc/Mapping/p_map_keys.md)
 - [p_values](doc/Mapping/p_values.md)
 - [p_keys](doc/Mapping/p_keys.md)
 - [p_group_by](doc/Mapping/p_group_by.md), [p_assoc_group_by](doc/Mapping/p_assoc_group_by.md)
-- [p_order_by](doc/Mapping/p_order_by.md)
+- [p_order_by](doc/Mapping/p_order_by.md), [p_assoc_order_by](doc/Mapping/p_assoc_order_by.md)
 - [p_then_by](doc/Mapping/p_then_by.md)
 
 ### Filtering partial functions

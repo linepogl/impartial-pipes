@@ -14,7 +14,6 @@ namespace ImpartialPipes;
  * p_order_by(
  *   callable(TValue[, TKey]): TComparable,
  *   [descending: bool = false,]
- *   [preserveKeys: bool = false,]
  * )
  * ```
  *
@@ -39,37 +38,11 @@ namespace ImpartialPipes;
  * 'jane' => ['name' => 'Jane', 'age' => 25],
  * 'bob' => ['name' => 'Bob', 'age' => 40]],
  * ]
- * |> p_order_by(static fn (array $person) => $person['age'], preserveKeys: true)
- * //= [
- * //    'jane' => ['name' => 'Jane', 'age' => 25],
- * //    'john' => ['name' => 'John', 'age' => 30],
- * //    'bob' => ['name' => 'Bob', 'age' => 40],
- * //  ]
- * ```
- * ```
- * [
- * 'john' => ['name'=> 'John', 'age' => 30],
- * 'jane' => ['name' => 'Jane', 'age' => 25],
- * 'bob' => ['name' => 'Bob', 'age' => 40]],
- * ]
  * |> p_order_by(static fn (array $person) => $person['age'], descending: true)
  * //= [
  * //    ['name' => 'Bob', 'age' => 40],
  * //    ['name' => 'John', 'age' => 30],
  * //    ['name' => 'Jane', 'age' => 25],
- * //  ]
- * ```
- * ```
- * [
- * 'john' => ['name'=> 'John', 'age' => 30],
- * 'jane' => ['name' => 'Jane', 'age' => 25],
- * 'bob' => ['name' => 'Bob', 'age' => 40]],
- * ]
- * |> p_order_by(static fn (array $person) => $person['age'], descending: true, preserveKeys: true)
- * //= [
- * //    'bob' => ['name' => 'Bob', 'age' => 40],
- * //    'john' => ['name' => 'John', 'age' => 30],
- * //    'jane' => ['name' => 'Jane', 'age' => 25],
  * //  ]
  * ```
  * Order by a value and key projection
@@ -92,7 +65,76 @@ namespace ImpartialPipes;
  * 'jane' => ['name' => 'Jane', 'age' => 25],
  * 'bob' => ['name' => 'Bob', 'age' => 40]],
  * ]
- * |> p_order_by(static fn (array $person, string $key) => $key, preserveKeys: true)
+ * |> p_order_by(static fn (array $person, string $key) => $key, descending: true)
+ * //= [
+ * //    ['name' => 'John', 'age' => 30],
+ * //    ['name' => 'Jane', 'age' => 25],
+ * //    ['name' => 'Bob', 'age' => 40],
+ * //  ]
+ * ```
+ *
+ * @template K
+ * @template V
+ * @template TComparable
+ * @param callable(V,K):TComparable $hasher
+ * @param bool $descending
+ * @return callable(iterable<K,V>):ListOrderedIterator<K,V>
+ */
+function p_order_by(callable $hasher, bool $descending = false): callable
+{
+    // @phpstan-ignore return.type (Closure is a callable), argument.type ($iterable is in fact iterable<K,V>)
+    return static fn (iterable $iterable): iterable => new ListOrderedIterator($iterable, $hasher, $descending);
+}
+
+/**
+ * Returns a partial function that orders an iterable using a projection for comparisons, preserving the keys. The projection must return
+ * a comparable value, that is any value that can be compared with the `<=>` operator.
+ *
+ * ### Syntax
+ *
+ * ```
+ * p_assoc_order_by(
+ *   callable(TValue[, TKey]): TComparable,
+ *   [descending: bool = false,]
+ * )
+ * ```
+ *
+ * ### Examples
+ * Order by a value projection
+ * ```
+ * [
+ * 'john' => ['name'=> 'John', 'age' => 30],
+ * 'jane' => ['name' => 'Jane', 'age' => 25],
+ * 'bob' => ['name' => 'Bob', 'age' => 40]],
+ * ]
+ * |> p_assoc_order_by(static fn (array $person) => $person['age'])
+ * //= [
+ * //    'jane' => ['name' => 'Jane', 'age' => 25],
+ * //    'john' => ['name' => 'John', 'age' => 30],
+ * //    'bob' => ['name' => 'Bob', 'age' => 40],
+ * //  ]
+ * ```
+ * ```
+ * [
+ * 'john' => ['name'=> 'John', 'age' => 30],
+ * 'jane' => ['name' => 'Jane', 'age' => 25],
+ * 'bob' => ['name' => 'Bob', 'age' => 40]],
+ * ]
+ * |> p_assoc_order_by(static fn (array $person) => $person['age'], descending: true)
+ * //= [
+ * //    'bob' => ['name' => 'Bob', 'age' => 40],
+ * //    'john' => ['name' => 'John', 'age' => 30],
+ * //    'jane' => ['name' => 'Jane', 'age' => 25],
+ * //  ]
+ * ```
+ * Order by a value and key projection
+ * ```
+ * [
+ * 'john' => ['name'=> 'John', 'age' => 30],
+ * 'jane' => ['name' => 'Jane', 'age' => 25],
+ * 'bob' => ['name' => 'Bob', 'age' => 40]],
+ * ]
+ * |> p_assoc_order_by(static fn (array $person, string $key) => $key)
  * //= [
  * //    'bob' => ['name' => 'Bob', 'age' => 40],
  * //    'jane' => ['name' => 'Jane', 'age' => 25],
@@ -105,20 +147,7 @@ namespace ImpartialPipes;
  * 'jane' => ['name' => 'Jane', 'age' => 25],
  * 'bob' => ['name' => 'Bob', 'age' => 40]],
  * ]
- * |> p_order_by(static fn (array $person, string $key) => $key, descending: true)
- * //= [
- * //    ['name' => 'John', 'age' => 30],
- * //    ['name' => 'Jane', 'age' => 25],
- * //    ['name' => 'Bob', 'age' => 40],
- * //  ]
- * ```
- * ```
- * [
- * 'john' => ['name'=> 'John', 'age' => 30],
- * 'jane' => ['name' => 'Jane', 'age' => 25],
- * 'bob' => ['name' => 'Bob', 'age' => 40]],
- * ]
- * |> p_order_by(static fn (array $person, string $key) => $key, descending: true, preserveKeys: true)
+ * |> p_assoc_order_by(static fn (array $person, string $key) => $key, descending: true)
  * //= [
  * //    'john' => ['name' => 'John', 'age' => 30],
  * //    'jane' => ['name' => 'Jane', 'age' => 25],
@@ -132,18 +161,12 @@ namespace ImpartialPipes;
  * @template TComparable
  * @param callable(V,K):TComparable $hasher
  * @param bool $descending
- * @param bool $preserveKeys
- * @return ($preserveKeys is true ? callable(iterable<K,V>):AssociativeOrderedIterator<K,V> : callable(iterable<K,V>):ListOrderedIterator<K,V>)
+ * @return callable(iterable<K,V>):AssociativeOrderedIterator<K,V>
  */
-function p_order_by(callable $hasher, bool $descending = false, bool $preserveKeys = false): callable
+function p_assoc_order_by(callable $hasher, bool $descending = false): callable
 {
-    // @phpstan-ignore return.type (Closure is a callable)
-    return $preserveKeys
-        // @phpstan-ignore argument.type ($iterable is in fact iterable<K,V>)
-        ? static fn (iterable $iterable): iterable => new AssociativeOrderedIterator($iterable, $hasher, $descending)
-        // @phpstan-ignore argument.type ($iterable is in fact iterable<K,V>)
-        : static fn (iterable $iterable): iterable => new ListOrderedIterator($iterable, $hasher, $descending)
-    ;
+    // @phpstan-ignore return.type (Closure is a callable), argument.type ($iterable is in fact iterable<K,V>)
+    return static fn (iterable $iterable): iterable => new AssociativeOrderedIterator($iterable, $hasher, $descending);
 }
 
 /**
@@ -181,9 +204,9 @@ trait OrderedIteratorUtils
      * @param iterable<K,V> $iterable
      * @param array<(callable(array<array{V,K}>&):void)> $sorters
      */
-    private static function createLazy(iterable $iterable, array $sorters, bool $preserveKeys): callable
+    private static function createLazy(iterable $iterable, array $sorters, bool $associative): callable
     {
-        return static function () use ($iterable, $sorters, $preserveKeys): iterable {
+        return static function () use ($iterable, $sorters, $associative): iterable {
             $a = [];
             foreach ($iterable as $key => $value) {
                 $a[] = [$value, $key];
@@ -192,7 +215,7 @@ trait OrderedIteratorUtils
                 $sorter($a);
                 /** @var array<array{V,K}> $a -- stating that the sorter won't change the type of the passed-by-ref argument */
             }
-            if ($preserveKeys) {
+            if ($associative) {
                 foreach ($a as [$value, $key]) {
                     yield $key => $value;
                 }
@@ -230,7 +253,7 @@ final class AssociativeOrderedIterator extends LazyRewindableIterator
         array $otherSorters = [],
     ) {
         $this->sorters = [self::createSorter($hasher, $descending), ...$otherSorters];
-        parent::__construct($this->createLazy($this->inner, $this->sorters, preserveKeys: true));
+        parent::__construct($this->createLazy($this->inner, $this->sorters, associative: true));
     }
 
     /**
@@ -270,7 +293,7 @@ final class ListOrderedIterator extends LazyRewindableIterator
         array $otherSorters = [],
     ) {
         $this->sorters = [self::createSorter($hasher, $descending), ...$otherSorters];
-        parent::__construct($this->createLazy($this->inner, $this->sorters, preserveKeys: false));
+        parent::__construct($this->createLazy($this->inner, $this->sorters, associative: false));
     }
 
     /**
