@@ -7,6 +7,7 @@ namespace ImpartialPipes\Tests\Filtering;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
+use function ImpartialPipes\p_assoc_while;
 use function ImpartialPipes\p_while;
 
 /**
@@ -23,7 +24,7 @@ final class p_while_Test extends TestCase
         |> self::iteratesLike([], rewind: true);
 
         []
-        |> p_while(fn (int $x) => $x % 2 === 1, preserveKeys: true)
+        |> p_assoc_while(fn (int $x) => $x % 2 === 1)
         |> self::iteratesLike([], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
@@ -31,7 +32,7 @@ final class p_while_Test extends TestCase
         |> self::iteratesLike([1], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-        |> p_while(fn (int $x) => $x % 2 === 1, preserveKeys: true)
+        |> p_assoc_while(fn (int $x) => $x % 2 === 1)
         |> self::iteratesLike(['a' => 1], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
@@ -39,7 +40,7 @@ final class p_while_Test extends TestCase
         |> self::iteratesLike([1], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-        |> p_while(fn (int $x, string $k) => $k === 'a', preserveKeys: true)
+        |> p_assoc_while(fn (int $x, string $k) => $k === 'a')
         |> self::iteratesLike(['a' => 1], rewind: true);
     }
 }

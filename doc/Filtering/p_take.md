@@ -8,7 +8,6 @@ Returns a partial function that takes the first n elements of an iterable.
 ```php
 p_take(
   int,
-  [preserveKeys: bool = false,]
 )
 ```
 
@@ -20,17 +19,7 @@ Take elements
 //= [1, 2]
 ```
 ```php
-[1, 2, 3, 4]
-|> p_take(2, preserveKeys: true)
-//= [1, 2]
-```
-```php
 ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
 |> p_take(2)
 //= [1, 2]
-```
-```php
-['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-|> p_take(2, preserveKeys: true)
-//= ['a' => 1, 'b' => 2]
 ```

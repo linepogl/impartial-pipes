@@ -7,6 +7,7 @@ namespace ImpartialPipes\Tests\Filtering;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
+use function ImpartialPipes\p_assoc_take;
 use function ImpartialPipes\p_take;
 
 /**
@@ -23,7 +24,7 @@ final class p_take_Test extends TestCase
         |> self::iteratesLike([], rewind: true);
 
         []
-        |> p_take(2, preserveKeys: true)
+        |> p_assoc_take(2)
         |> self::iteratesLike([], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
@@ -31,7 +32,7 @@ final class p_take_Test extends TestCase
         |> self::iteratesLike([1, 2], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-        |> p_take(2, preserveKeys: true)
+        |> p_assoc_take(2)
         |> self::iteratesLike(['a' => 1, 'b' => 2], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
@@ -39,7 +40,7 @@ final class p_take_Test extends TestCase
         |> self::iteratesLike([], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-        |> p_take(-2, preserveKeys: true)
+        |> p_assoc_take(-2)
         |> self::iteratesLike([], rewind: true);
     }
 }

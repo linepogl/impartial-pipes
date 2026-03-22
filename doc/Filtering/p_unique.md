@@ -3,13 +3,12 @@
 ## p_unique
 
 Returns a partial function that gets the unique elements of an iterable, based on an optional hashing projection.
-If no hashing projection is provided, an identity projection is used. In that case, the elements must be stringable.
+If no hashing projection is provided, an identity projection is used. In that case, the elements must be hashable or stringable.
 
 ### Syntax
 ```php
 p_unique(
-  [callable(TValue $value[, TKey $key]): array-key,]
-  [preserveKeys: bool = false,]
+  [callable(TValue $value[, TKey $key]): Hashable|array-key,]
 )
 ```
 
@@ -20,30 +19,15 @@ Unique elements, based on the identity projection
 |> p_unique()
 //= [1, 2, 3]
 ```
-```php
-[1, 2, 1, 3]
-|> p_unique(preserveKeys: true)
-//= [0 => 1, 1 => 2, 3 => 3]
-```
 Unique elements, based on some projection on values
 ```php
 [1, 3, 5, 8]
 |> p_unique(static fn (int $x) => $x % 2)
 //= [1, 8]
 ```
-```php
-[1, 3, 5, 8]
-|> p_unique(static fn (int $x) => $x % 2, preserveKeys: true)
-* //= [0 => 1, 3 => 8]
-```
 Unique elements, based on some projection on values and keys
 ```php
 ['a' => 1, 'b' => 2, 'cc' => 3, 'ddd' => 4]
 |> p_unique(static fn (int $x, string $k) => strlen($k))
 //= [1, 3, 4]
-```
-```php
-['a' => 1, 'b' => 2, 'cc' => 3, 'ddd' => 4]
-|> p_unique(static fn (int $x, string $k) => strlen($k), preserveKeys: true)
-//= ['a' => 1, 'cc' => 3, 'ddd' => 4]
 ```
