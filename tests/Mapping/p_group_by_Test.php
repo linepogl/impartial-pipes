@@ -11,10 +11,10 @@ use Override;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
-use function ImpartialPipes\p_assoc_group_by;
-use function ImpartialPipes\p_assoc_map;
 use function ImpartialPipes\p_group_by;
+use function ImpartialPipes\p_group_by_preserving_keys;
 use function ImpartialPipes\p_keys;
+use function ImpartialPipes\p_map_preserving_keys;
 use function ImpartialPipes\p_to_array;
 
 /**
@@ -31,7 +31,7 @@ final class p_group_by_Test extends TestCase
         |> self::iteratesLike([], rewind: true);
 
         []
-        |> p_assoc_group_by(fn (int $x) => $x % 2)
+        |> p_group_by_preserving_keys(fn (int $x) => $x % 2)
         |> self::iteratesLike([], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
@@ -39,8 +39,8 @@ final class p_group_by_Test extends TestCase
         |> self::iteratesLike([1 => [1, 3], 0 => [2, 4]], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-        |> p_assoc_group_by(fn (int $x) => $x % 2)
-        |> p_assoc_map(p_to_array())
+        |> p_group_by_preserving_keys(fn (int $x) => $x % 2)
+        |> p_map_preserving_keys(p_to_array())
         |> self::iteratesLike([1 => ['a' => 1, 'c' => 3], 0 => ['b' => 2, 'd' => 4]], rewind: true);
 
         ['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4]
@@ -48,8 +48,8 @@ final class p_group_by_Test extends TestCase
         |> self::iteratesLike(['a' => [1, 2], 'b' => [3, 4]], rewind: true);
 
         ['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4]
-        |> p_assoc_group_by(fn (int $x, string $k) => $k[0])
-        |> p_assoc_map(p_to_array())
+        |> p_group_by_preserving_keys(fn (int $x, string $k) => $k[0])
+        |> p_map_preserving_keys(p_to_array())
         |> self::iteratesLike(['a' => ['a' => 1, 'aa' => 2], 'b' => ['b' => 3, 'bb' => 4]], rewind: true);
 
         ['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4]
@@ -65,7 +65,7 @@ final class p_group_by_Test extends TestCase
             yield new TestHashableString('c') => 3;
             yield new TestHashableString('d') => 4;
         })
-        |> p_assoc_group_by(fn (int $x) => $x % 2)
+        |> p_group_by_preserving_keys(fn (int $x) => $x % 2)
         |> p_to_array();
 
         $x[0] |> self::iteratesLike(new LazyRewindableIterator(function () {
@@ -86,7 +86,7 @@ final class p_group_by_Test extends TestCase
         |> self::iteratesLike(['1', '2']);
 
         ['a' => 1, 'b' => 2, 'c' => 1, 'd' => 2]
-        |> p_assoc_group_by(fn (int $x) => strval($x))
+        |> p_group_by_preserving_keys(fn (int $x) => strval($x))
         |> p_keys()
         |> self::iteratesLike(['1', '2']);
     }

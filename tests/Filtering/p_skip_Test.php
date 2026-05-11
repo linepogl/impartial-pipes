@@ -7,8 +7,8 @@ namespace ImpartialPipes\Tests\Filtering;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
-use function ImpartialPipes\p_assoc_skip;
 use function ImpartialPipes\p_skip;
+use function ImpartialPipes\p_skip_preserving_keys;
 
 /**
  * @internal
@@ -24,7 +24,7 @@ final class p_skip_Test extends TestCase
         |> self::iteratesLike([], rewind: true);
 
         []
-        |> p_assoc_skip(2)
+        |> p_skip_preserving_keys(2)
         |> self::iteratesLike([], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
@@ -32,7 +32,7 @@ final class p_skip_Test extends TestCase
         |> self::iteratesLike([3, 4], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-        |> p_assoc_skip(2)
+        |> p_skip_preserving_keys(2)
         |> self::iteratesLike(['c' => 3, 'd' => 4], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
@@ -40,7 +40,7 @@ final class p_skip_Test extends TestCase
         |> self::iteratesLike([1, 2, 3, 4], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-        |> p_assoc_skip(-2)
+        |> p_skip_preserving_keys(-2)
         |> self::iteratesLike(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4], rewind: true);
     }
 }

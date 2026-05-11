@@ -7,8 +7,8 @@ namespace ImpartialPipes\Tests\Filtering;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
-use function ImpartialPipes\p_assoc_skip_while;
 use function ImpartialPipes\p_skip_while;
+use function ImpartialPipes\p_skip_while_preserving_keys;
 
 /**
  * @internal
@@ -24,7 +24,7 @@ final class p_skip_while_Test extends TestCase
         |> self::iteratesLike([], rewind: true);
 
         []
-        |> p_assoc_skip_while(fn (int $x) => $x % 2 === 1)
+        |> p_skip_while_preserving_keys(fn (int $x) => $x % 2 === 1)
         |> self::iteratesLike([], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
@@ -32,7 +32,7 @@ final class p_skip_while_Test extends TestCase
         |> self::iteratesLike([2, 3, 4], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-        |> p_assoc_skip_while(fn (int $x) => $x % 2 === 1)
+        |> p_skip_while_preserving_keys(fn (int $x) => $x % 2 === 1)
         |> self::iteratesLike(['b' => 2, 'c' => 3, 'd' => 4], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
@@ -40,7 +40,7 @@ final class p_skip_while_Test extends TestCase
         |> self::iteratesLike([2, 3, 4], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-        |> p_assoc_skip_while(fn (int $x, string $k) => $k === 'a')
+        |> p_skip_while_preserving_keys(fn (int $x, string $k) => $k === 'a')
         |> self::iteratesLike(['b' => 2, 'c' => 3, 'd' => 4], rewind: true);
     }
 }

@@ -52,7 +52,7 @@ function p_map(callable $valueProjection): callable
  * ### Syntax
  *
  * ```
- * p_assoc_map(
+ * p_map_preserving_keys(
  *   callable(TValue[, TKey]): TNewValue,
  * )
  * ```
@@ -62,14 +62,14 @@ function p_map(callable $valueProjection): callable
  * Map by value
  * ```
  * ['a' => 1, 'b' => 2]
- * |> p_assoc_map(static fn (int $value) => $value * $value)
+ * |> p_map_preserving_keys(static fn (int $value) => $value * $value)
  * //= ['a' => 1, 'b' => 4]
  * ```
  *
  * Map by value and key
  * ```
  * ['a' => 1, 'b' => 2]
- * |> p_assoc_map(static fn (int $value, string $key) => $key . $value)
+ * |> p_map_preserving_keys(static fn (int $value, string $key) => $key . $value)
  * //= ['a' => 'a1', 'b' => 'b2']
  * ```
  *
@@ -79,7 +79,7 @@ function p_map(callable $valueProjection): callable
  * @param callable(V,K):V2 $valueProjection
  * @return callable(iterable<K,V>):iterable<K,V2>
  */
-function p_assoc_map(callable $valueProjection): callable
+function p_map_preserving_keys(callable $valueProjection): callable
 {
     return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $valueProjection): iterable {
         foreach ($iterable as $key => $value) {

@@ -7,8 +7,8 @@ namespace ImpartialPipes\Tests\Filtering;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
-use function ImpartialPipes\p_assoc_unique;
 use function ImpartialPipes\p_unique;
+use function ImpartialPipes\p_unique_preserving_keys;
 
 /**
  * @internal
@@ -24,7 +24,7 @@ final class p_unique_Test extends TestCase
         |> self::iteratesLike([], rewind: true);
 
         []
-        |> p_assoc_unique()
+        |> p_unique_preserving_keys()
         |> self::iteratesLike([], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 1, 'd' => 4]
@@ -32,7 +32,7 @@ final class p_unique_Test extends TestCase
         |> self::iteratesLike([1, 2, 4], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 1, 'd' => 4]
-        |> p_assoc_unique()
+        |> p_unique_preserving_keys()
         |> self::iteratesLike(['a' => 1, 'b' => 2, 'd' => 4], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
@@ -40,7 +40,7 @@ final class p_unique_Test extends TestCase
         |> self::iteratesLike([1, 2], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-        |> p_assoc_unique(static fn (int $x) => $x % 2)
+        |> p_unique_preserving_keys(static fn (int $x) => $x % 2)
         |> self::iteratesLike(['a' => 1, 'b' => 2], rewind: true);
 
         ['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4]
@@ -48,7 +48,7 @@ final class p_unique_Test extends TestCase
         |> self::iteratesLike([1, 3], rewind: true);
 
         ['a' => 1, 'aa' => 2, 'b' => 3, 'bb' => 4]
-        |> p_assoc_unique(static fn (int $x, string $k) => $k[0])
+        |> p_unique_preserving_keys(static fn (int $x, string $k) => $k[0])
         |> self::iteratesLike(['a' => 1, 'b' => 3], rewind: true);
     }
 }

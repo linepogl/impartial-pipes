@@ -8,8 +8,8 @@ use ImpartialPipes\Tests\ConcatIterator;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
-use function ImpartialPipes\p_assoc_concat;
 use function ImpartialPipes\p_concat;
+use function ImpartialPipes\p_concat_preserving_keys;
 
 /**
  * @internal
@@ -25,7 +25,7 @@ final class p_concat_Test extends TestCase
         |> self::iteratesLike([], rewind: true);
 
         []
-        |> p_assoc_concat([])
+        |> p_concat_preserving_keys([])
         |> self::iteratesLike([], rewind: true);
 
         [1,2]
@@ -33,7 +33,7 @@ final class p_concat_Test extends TestCase
         |> self::iteratesLike([1,2,3,4], rewind: true);
 
         [1,2]
-        |> p_assoc_concat([3,4])
+        |> p_concat_preserving_keys([3,4])
         |> self::iteratesLike(new ConcatIterator([0 => 1], [1 => 2], [0 => 3], [1 => 4]), rewind: true);
 
         ['a' => 1,'b' => 2,'c' => 3]
@@ -41,7 +41,7 @@ final class p_concat_Test extends TestCase
         |> self::iteratesLike([1,2,3,22,33,4], rewind: true);
 
         ['a' => 1,'b' => 2,'c' => '3']
-        |> p_assoc_concat(['b' => 2,'c' => 3,'d' => 4])
+        |> p_concat_preserving_keys(['b' => 2,'c' => 3,'d' => 4])
         |> self::iteratesLike(new ConcatIterator(['a' => 1,'b' => 2,'c' => '3'], ['b' => 2,'c' => 3,'d' => 4]), rewind: true);
     }
 }

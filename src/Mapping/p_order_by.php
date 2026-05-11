@@ -93,7 +93,7 @@ function p_order_by(callable $hasher, bool $descending = false): callable
  * ### Syntax
  *
  * ```
- * p_assoc_order_by(
+ * p_order_by_preserving_keys(
  *   callable(TValue[, TKey]): TComparable,
  *   [descending: bool = false,]
  * )
@@ -107,7 +107,7 @@ function p_order_by(callable $hasher, bool $descending = false): callable
  * 'jane' => ['name' => 'Jane', 'age' => 25],
  * 'bob' => ['name' => 'Bob', 'age' => 40]],
  * ]
- * |> p_assoc_order_by(static fn (array $person) => $person['age'])
+ * |> p_order_by_preserving_keys(static fn (array $person) => $person['age'])
  * //= [
  * //    'jane' => ['name' => 'Jane', 'age' => 25],
  * //    'john' => ['name' => 'John', 'age' => 30],
@@ -120,7 +120,7 @@ function p_order_by(callable $hasher, bool $descending = false): callable
  * 'jane' => ['name' => 'Jane', 'age' => 25],
  * 'bob' => ['name' => 'Bob', 'age' => 40]],
  * ]
- * |> p_assoc_order_by(static fn (array $person) => $person['age'], descending: true)
+ * |> p_order_by_preserving_keys(static fn (array $person) => $person['age'], descending: true)
  * //= [
  * //    'bob' => ['name' => 'Bob', 'age' => 40],
  * //    'john' => ['name' => 'John', 'age' => 30],
@@ -134,7 +134,7 @@ function p_order_by(callable $hasher, bool $descending = false): callable
  * 'jane' => ['name' => 'Jane', 'age' => 25],
  * 'bob' => ['name' => 'Bob', 'age' => 40]],
  * ]
- * |> p_assoc_order_by(static fn (array $person, string $key) => $key)
+ * |> p_order_by_preserving_keys(static fn (array $person, string $key) => $key)
  * //= [
  * //    'bob' => ['name' => 'Bob', 'age' => 40],
  * //    'jane' => ['name' => 'Jane', 'age' => 25],
@@ -147,7 +147,7 @@ function p_order_by(callable $hasher, bool $descending = false): callable
  * 'jane' => ['name' => 'Jane', 'age' => 25],
  * 'bob' => ['name' => 'Bob', 'age' => 40]],
  * ]
- * |> p_assoc_order_by(static fn (array $person, string $key) => $key, descending: true)
+ * |> p_order_by_preserving_keys(static fn (array $person, string $key) => $key, descending: true)
  * //= [
  * //    'john' => ['name' => 'John', 'age' => 30],
  * //    'jane' => ['name' => 'Jane', 'age' => 25],
@@ -163,7 +163,7 @@ function p_order_by(callable $hasher, bool $descending = false): callable
  * @param bool $descending
  * @return callable(iterable<K,V>):AssociativeOrderedIterator<K,V>
  */
-function p_assoc_order_by(callable $hasher, bool $descending = false): callable
+function p_order_by_preserving_keys(callable $hasher, bool $descending = false): callable
 {
     // @phpstan-ignore return.type (Closure is a callable)
     return static fn (iterable $iterable): iterable => new AssociativeOrderedIterator($iterable, $hasher, $descending);

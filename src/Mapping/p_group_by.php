@@ -65,7 +65,7 @@ function p_group_by(callable $hasher): callable
  * ### Syntax
  *
  * ```
- * p_assoc_group_by(
+ * p_group_by_preserving_keys(
  *   callable(TValue[, TKey]): TNewKey of Hashable|array-key,
  * )
  * ```
@@ -74,7 +74,7 @@ function p_group_by(callable $hasher): callable
  * Group with a value projection
  * ```
  * ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
- * |> p_assoc_group_by(static fn (int $value) => $value % 2)
+ * |> p_group_by_preserving_keys(static fn (int $value) => $value % 2)
  * //= [
  * //    1 => ['a' => 1, 'c' => 3],
  * //    0 => ['b' => 2, 'd' => 4]
@@ -83,7 +83,7 @@ function p_group_by(callable $hasher): callable
  * Group with a value and key projection
  * ```
  * ['a' => 1, 'bb' => 2, 'c' => 3, 'dd' => 4]
- * * |> p_assoc_group_by(static fn (int $value, string $key) => strlen($key))
+ * * |> p_group_by_preserving_keys(static fn (int $value, string $key) => strlen($key))
  * //= [
  * //    1 => ['a' => 1, 'c' => 3],
  * //    2 => ['b' => 2, 'd' => 4]
@@ -96,7 +96,7 @@ function p_group_by(callable $hasher): callable
  * @param callable(V,K):G $hasher
  * @return callable(iterable<K,V>):iterable<G,iterable<K,V>>
  */
-function p_assoc_group_by(callable $hasher): callable
+function p_group_by_preserving_keys(callable $hasher): callable
 {
     return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $hasher): iterable {
         $k = [];

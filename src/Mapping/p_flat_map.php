@@ -55,7 +55,7 @@ function p_flat_map(callable $valueProjection): callable
  * ### Syntax
  *
  * ```
- * p_assoc_flat_map(
+ * p_flat_map_preserving_keys(
  *   callable(TValue[, TKey]): iterable<TNewValue>,
  * )
  * ```
@@ -65,7 +65,7 @@ function p_flat_map(callable $valueProjection): callable
  * Flat-map preserving keys
  * ```
  * ['a' => ['a1' => 1, 'a2' => 2], 'b' => ['b1' => 1, 'b2' => 2]]
- * |> p_assoc_flat_map(static fn (array $value, string $key) => $value |> p_map(static fn (int $innerValue) => $key)
+ * |> p_flat_map_preserving_keys(static fn (array $value, string $key) => $value |> p_map(static fn (int $innerValue) => $key)
  * //= ['a1' => 'a', 'a2' => 'a', 'b1' => 'b', 'b2' => 'b']
  * ```
  *
@@ -76,7 +76,7 @@ function p_flat_map(callable $valueProjection): callable
  * @param callable(V,K):iterable<K2,V2> $valueProjection
  * @return callable(iterable<K,V>):iterable<K2,V2>
  */
-function p_assoc_flat_map(callable $valueProjection): callable
+function p_flat_map_preserving_keys(callable $valueProjection): callable
 {
     return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $valueProjection): iterable {
         foreach ($iterable as $key => $value) {

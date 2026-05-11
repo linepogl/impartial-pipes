@@ -61,7 +61,7 @@ function p_unique(?callable $hasher = null): callable
  *
  * ### Syntax
  * ```
- * p_assoc_unique(
+ * p_unique_preserving_keys(
  *   [callable(TValue $value[, TKey $key]): Hashable|array-key,]
  * )
  * ```
@@ -70,19 +70,19 @@ function p_unique(?callable $hasher = null): callable
  * Unique elements, based on the identity projection
  * ```
  * [1, 2, 1, 3]
- * |> p_assoc_unique()
+ * |> p_unique_preserving_keys()
  * //= [0 => 1, 1 => 2, 3 => 3]
  * ```
  * Unique elements, based on some projection on values
  * ```
  * [1, 3, 5, 8]
- * |> p_assoc_unique(static fn (int $x) => $x % 2)
+ * |> p_unique_preserving_keys(static fn (int $x) => $x % 2)
  * * //= [0 => 1, 3 => 8]
  * ```
  * Unique elements, based on some projection on values and keys
  * ```
  * ['a' => 1, 'b' => 2, 'cc' => 3, 'ddd' => 4]
- * |> p_assoc_unique(static fn (int $x, string $k) => strlen($k))
+ * |> p_unique_preserving_keys(static fn (int $x, string $k) => strlen($k))
  * //= ['a' => 1, 'cc' => 3, 'ddd' => 4]
  * ```
  *
@@ -91,7 +91,7 @@ function p_unique(?callable $hasher = null): callable
  * @param ?callable(V,K):mixed $hasher
  * @return ($hasher is null ? callable<K2,V2>(iterable<K2,V2>):iterable<K2,V2> : callable(iterable<K,V>):iterable<K,V>)
  */
-function p_assoc_unique(?callable $hasher = null): callable
+function p_unique_preserving_keys(?callable $hasher = null): callable
 {
     $hasher ??= static fn ($value) => $value;
     return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $hasher): iterable {

@@ -7,8 +7,8 @@ namespace ImpartialPipes\Tests\Filtering;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
-use function ImpartialPipes\p_assoc_while_not_null;
 use function ImpartialPipes\p_while_not_null;
+use function ImpartialPipes\p_while_not_null_preserving_keys;
 
 /**
  * @internal
@@ -24,7 +24,7 @@ final class p_while_not_null_Test extends TestCase
         |> self::iteratesLike([], rewind: true);
 
         []
-        |> p_assoc_while_not_null()
+        |> p_while_not_null_preserving_keys()
         |> self::iteratesLike([], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => null, 'd' => 4]
@@ -32,7 +32,7 @@ final class p_while_not_null_Test extends TestCase
         |> self::iteratesLike([1, 2], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => null, 'd' => 4]
-        |> p_assoc_while_not_null()
+        |> p_while_not_null_preserving_keys()
         |> self::iteratesLike(['a' => 1, 'b' => 2], rewind: true);
     }
 }

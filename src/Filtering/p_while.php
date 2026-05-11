@@ -51,7 +51,7 @@ function p_while(callable $predicate): callable
  *
  * ### Syntax
  * ```
- * p_assoc_while(
+ * p_while_preserving_keys(
  *   callable(TValue[, TKey]): bool,
  * )
  * ```
@@ -60,13 +60,13 @@ function p_while(callable $predicate): callable
  * Take elements with a value predicate
  * ```
  * [1, 2, 3, 4]
- * |> p_assoc_while(static fn (int $x) => $x < 3)
+ * |> p_while_preserving_keys(static fn (int $x) => $x < 3)
  * //= [1, 2]
  * ```
  * Take elements with a value and key predicate
  * ```
  * ['a' => 1, 'bb' => 2, 'ccc' => 3, 'd' => 4]
- * |> p_assoc_while(static fn (int $x, string $k) => strlen($k) < 3)
+ * |> p_while_preserving_keys(static fn (int $x, string $k) => strlen($k) < 3)
  * //= ['a' => 3, 'bb' => 4]
  * ```
  *
@@ -75,7 +75,7 @@ function p_while(callable $predicate): callable
  * @param callable(V,K):bool $predicate
  * @return callable(iterable<K,V>):iterable<K,V>
  */
-function p_assoc_while(callable $predicate): callable
+function p_while_preserving_keys(callable $predicate): callable
 {
     return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $predicate): iterable {
         foreach ($iterable as $key => $value) {

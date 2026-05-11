@@ -7,8 +7,8 @@ namespace ImpartialPipes\Tests\Mapping;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
-use function ImpartialPipes\p_assoc_map;
 use function ImpartialPipes\p_map;
+use function ImpartialPipes\p_map_preserving_keys;
 
 /**
  * @internal
@@ -24,7 +24,7 @@ final class p_map_Test extends TestCase
         |> self::iteratesLike([], rewind: true);
 
         []
-        |> p_assoc_map(fn (int $x) => $x * $x)
+        |> p_map_preserving_keys(fn (int $x) => $x * $x)
         |> self::iteratesLike([], rewind: true);
 
         [1, 2, 3, 4]
@@ -32,7 +32,7 @@ final class p_map_Test extends TestCase
         |> self::iteratesLike([1, 4, 9, 16], rewind: true);
 
         [1, 2, 3, 4]
-        |> p_assoc_map(fn (int $x) => $x * $x)
+        |> p_map_preserving_keys(fn (int $x) => $x * $x)
         |> self::iteratesLike([1, 4, 9, 16], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
@@ -40,7 +40,7 @@ final class p_map_Test extends TestCase
         |> self::iteratesLike([1, 4, 9, 16], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-        |> p_assoc_map(fn (int $x) => $x * $x)
+        |> p_map_preserving_keys(fn (int $x) => $x * $x)
         |> self::iteratesLike(['a' => 1, 'b' => 4, 'c' => 9, 'd' => 16], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
@@ -48,7 +48,7 @@ final class p_map_Test extends TestCase
         |> self::iteratesLike(['1a', '2b', '3c', '4d'], rewind: true);
 
         ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
-        |> p_assoc_map(fn (int $x, string $k) => $x . $k)
+        |> p_map_preserving_keys(fn (int $x, string $k) => $x . $k)
         |> self::iteratesLike(['a' => '1a', 'b' => '2b', 'c' => '3c', 'd' => '4d'], rewind: true);
     }
 }

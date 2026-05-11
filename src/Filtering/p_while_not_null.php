@@ -39,20 +39,20 @@ function p_while_not_null(): callable
  *
  * ### Syntax
  * ```
- * p_assoc_while_not_null()
+ * p_while_not_null_preserving_keys()
  * ```
  *
  * ### Examples
  * Take elements until a null is encountered
  * ```
  * ['a' => 1, 'b' => 2, 'c' => null, 'd' => 4]
- * |> p_assoc_while_not_null()
+ * |> p_while_not_null_preserving_keys()
  * //= ['a' => 1, 'b' => 2]
  * ```
  *
  * @return callable<K,V>(iterable<K,?V>):iterable<K,V>
  */
-function p_assoc_while_not_null(): callable
+function p_while_not_null_preserving_keys(): callable
 {
     return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable): iterable {
         foreach ($iterable as $key => $value) {

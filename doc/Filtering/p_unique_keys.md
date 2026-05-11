@@ -2,7 +2,7 @@
 
 ## p_unique_keys
 
-Returns a partial function that skips elements with repeated keys of an iterable, based on an optional hashing projection.
+Returns a partial function that skips elements with repeated keys of an iterable, based on an optional hashing projection, preserving the keys.
 If no hashing projection is provided, an identity projection is used. In that case, the elements must be hashable.
 
 ### Syntax
@@ -18,12 +18,12 @@ Unique keys, based on the identity projection
 ['a1', 'b1', 'a2', 'b2']
 |> p_map_keys(fn(string $x) => $x[0]) //= iterable{'a' => 'a1', 'b' => 'b1', 'a' => 'a2', 'b' => 'b2'}
 |> p_unique_keys()
-//= ['a1', 'b1']
+//= ['a' => 'a1', 'b' => 'b1']
 ```
 Unique keys, based on some projection on keys
 ```php
 ['a1', 'b1', 'a2', 'b2']
 |> p_map_keys(fn(string $x) => $x) //= iterable{'a1' => 'a1', 'b1' => 'b1', 'a2' => 'a2', 'b2' => 'b2'}
 |> p_unique_keys(fn(string $k) => $k[1])
-//= ['a1', 'a2']
+//= ['a1' => 'a1', 'a2' => 'a2']
 ```

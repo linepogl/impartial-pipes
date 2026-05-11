@@ -38,20 +38,20 @@ function p_compact(): callable
  *
  * ### Syntax
  * ```
- * p_assoc_compact()
+ * p_compact_preserving_keys()
  * ```
  *
  * ### Examples
  * Filter out nulls
  * ```
  * ['a' => 1, 'b' => null, 'c' => 3]
- * |> p_assoc_compact()
+ * |> p_compact_preserving_keys()
  * //= ['a' => 1, 'c' => 3]
  * ```
  *
  * @return callable<K,V>(iterable<K,V>):iterable<K,V>
  */
-function p_assoc_compact(): callable
+function p_compact_preserving_keys(): callable
 {
     return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable): iterable {
         foreach ($iterable as $key => $value) {

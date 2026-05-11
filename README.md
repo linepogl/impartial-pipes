@@ -89,31 +89,32 @@ pipe($iterable)
 
 ### Combining partial functions
 
-- [p_concat](doc/Combining/p_concat.md), [p_assoc_concat](doc/Combining/p_assoc_concat.md)
+- [p_concat](doc/Combining/p_concat.md), [p_concat_preserving_keys](doc/Combining/p_concat_preserving_keys.md)
 
 ### Mapping partial functions
 
-- [p_map](doc/Mapping/p_map.md), [p_assoc_map](doc/Mapping/p_assoc_map.md)
-- [p_flat_map](doc/Mapping/p_flat_map.md), [p_assoc_flat_map](doc/Mapping/p_assoc_flat_map.md)
+- [p_map](doc/Mapping/p_map.md), [p_map_preserving_keys](doc/Mapping/p_map_preserving_keys.md)
+- [p_flat_map](doc/Mapping/p_flat_map.md), [p_flat_map_preserving_keys](doc/Mapping/p_flat_map_preserving_keys.md)
 - [p_map_keys](doc/Mapping/p_map_keys.md)
+- [p_map_keys_and_values](doc/Mapping/p_map_keys_and_values.md)
 - [p_values](doc/Mapping/p_values.md)
 - [p_keys](doc/Mapping/p_keys.md)
-- [p_group_by](doc/Mapping/p_group_by.md), [p_assoc_group_by](doc/Mapping/p_assoc_group_by.md)
-- [p_order_by](doc/Mapping/p_order_by.md), [p_assoc_order_by](doc/Mapping/p_assoc_order_by.md)
+- [p_group_by](doc/Mapping/p_group_by.md), [p_group_by_preserving_keys](doc/Mapping/p_group_by_preserving_keys.md)
+- [p_order_by](doc/Mapping/p_order_by.md), [p_order_by_preserving_keys](doc/Mapping/p_order_by_preserving_keys.md)
 - [p_then_by](doc/Mapping/p_then_by.md)
 
 ### Filtering partial functions
 
-- [p_filter](doc/Filtering/p_filter.md), [p_assoc_filter](doc/Filtering/p_assoc_filter.md)
-- [p_reject](doc/Filtering/p_reject.md), [p_assoc_reject](doc/Filtering/p_assoc_reject.md) 
-- [p_compact](doc/Filtering/p_compact.md), [p_assoc_compact](doc/Filtering/p_assoc_compact.md)
-- [p_unique](doc/Filtering/p_unique.md), [p_assoc_unique](doc/Filtering/p_assoc_unique.md)
-- [p_unique_keys](doc/Filtering/p_unique_keys.md), [p_assoc_unique_keys](doc/Filtering/p_assoc_unique_keys.md)
-- [p_take](doc/Filtering/p_take.md), [p_assoc_take](doc/Filtering/p_assoc_take.md)
-- [p_while](doc/Filtering/p_while.md), [p_assoc_while](doc/Filtering/p_assoc_while.md)
-- [p_while_not_null](doc/Filtering/p_while_not_null.md), [p_assoc_while_not_null](doc/Filtering/p_assoc_while_not_null.md)
-- [p_skip](doc/Filtering/p_skip.md), [p_assoc_skip](doc/Filtering/p_assoc_skip.md)
-- [p_skip_while](doc/Filtering/p_skip_while.md), [p_assoc_skip_while](doc/Filtering/p_assoc_skip_while.md)
+- [p_filter](doc/Filtering/p_filter.md), [p_filter_preserving_keys](doc/Filtering/p_filter_preserving_keys.md)
+- [p_reject](doc/Filtering/p_reject.md), [p_reject_preserving_keys](doc/Filtering/p_reject_preserving_keys.md) 
+- [p_compact](doc/Filtering/p_compact.md), [p_compact_preserving_keys](doc/Filtering/p_compact_preserving_keys.md)
+- [p_unique](doc/Filtering/p_unique.md), [p_unique_preserving_keys](doc/Filtering/p_unique_preserving_keys.md)
+- [p_unique_keys](doc/Filtering/p_unique_keys.md), [p_unique_keys_preserving_keys](doc/Filtering/p_unique_keys_preserving_keys.md)
+- [p_take](doc/Filtering/p_take.md), [p_take_preserving_keys](doc/Filtering/p_take_preserving_keys.md)
+- [p_while](doc/Filtering/p_while.md), [p_while_preserving_keys](doc/Filtering/p_while_preserving_keys.md)
+- [p_while_not_null](doc/Filtering/p_while_not_null.md), [p_while_not_null_preserving_keys](doc/Filtering/p_while_not_null_preserving_keys.md)
+- [p_skip](doc/Filtering/p_skip.md), [p_skip_preserving_keys](doc/Filtering/p_skip_preserving_keys.md)
+- [p_skip_while](doc/Filtering/p_skip_while.md), [p_skip_while_preserving_keys](doc/Filtering/p_skip_while_preserving_keys.md)
 
 ### Reducing partial functions
 

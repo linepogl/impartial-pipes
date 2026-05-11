@@ -49,19 +49,19 @@ function p_concat(iterable $other): callable
  *
  * ### Syntax
  * ```
- * p_assoc_concat(
+ * p_concat_preserving_keys(
  *   iterable<TOtherKey, TOtherValue>,
  * )
  * ```
  * Concatenating two iterables, preserving keys. Keys might be duplicated in the result.
  * ```
  * [1, 2]
- * |> p_assoc_concat([3, 4])
+ * |> p_concat_preserving_keys([3, 4])
  * //= [0 => 1, 1 => 2, 0 => 3, 1 => 4]
  * ```
  * ```
  * ['a' => 1,'b' => 2]
- * |> p_assoc_concat(['b' => 22,'c' => 3])
+ * |> p_concat_preserving_keys(['b' => 22,'c' => 3])
  * //= ['a' => 1,'b' => 2,'b' => 22,'c' => 3]
  * ```
  *
@@ -70,7 +70,7 @@ function p_concat(iterable $other): callable
  * @param iterable<K2,V2> $other
  * @return callable<K1,V1>(iterable<K1,V1>):iterable<K1|K2,V1|V2>
  */
-function p_assoc_concat(iterable $other): callable
+function p_concat_preserving_keys(iterable $other): callable
 {
     return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $other): iterable {
         foreach ($iterable as $key => $value) {

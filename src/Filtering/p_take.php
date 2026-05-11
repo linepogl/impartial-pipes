@@ -48,7 +48,7 @@ function p_take(int $howMany): callable
  *
  * ### Syntax
  * ```
- * p_assoc_take(
+ * p_take_preserving_keys(
  *   int,
  * )
  * ```
@@ -57,20 +57,20 @@ function p_take(int $howMany): callable
  * Take elements
  * ```
  * [1, 2, 3, 4]
- * |> p_assoc_take(2)
+ * |> p_take_preserving_keys(2)
  * //= [1, 2]
  * ```
  * ```
  * ```
  * ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]
- * |> p_assoc_take(2)
+ * |> p_take_preserving_keys(2)
  * //= ['a' => 1, 'b' => 2]
  * ```
  *
  * @param int $howMany
  * @return callable<K,V>(iterable<K,V>):iterable<K,V>
  */
-function p_assoc_take(int $howMany): callable
+function p_take_preserving_keys(int $howMany): callable
 {
     return static fn (iterable $iterable): iterable => new LazyRewindableIterator(static function () use ($iterable, $howMany): iterable {
         $i = 0;

@@ -8,7 +8,6 @@ use ImpartialPipes\Tests\ConcatIterator;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 
-use function ImpartialPipes\p_assoc_unique_keys;
 use function ImpartialPipes\p_unique_keys;
 
 /**
@@ -24,24 +23,12 @@ final class p_unique_keys_Test extends TestCase
         |> p_unique_keys()
         |> self::iteratesLike([], rewind: true);
 
-        []
-        |> p_assoc_unique_keys()
-        |> self::iteratesLike([], rewind: true);
-
         new ConcatIterator(['a' => 1], ['a' => 2], ['b' => 3], ['b' => 4])
         |> p_unique_keys()
-        |> self::iteratesLike([1, 3], rewind: true);
-
-        new ConcatIterator(['a' => 1], ['a' => 2], ['b' => 3], ['b' => 4])
-        |> p_assoc_unique_keys()
         |> self::iteratesLike(['a' => 1, 'b' => 3], rewind: true);
 
         ['a' => 1, 'b' => 2, 'cc' => 3, 'dd' => 4]
         |> p_unique_keys(static fn (string $k) => strlen($k))
-        |> self::iteratesLike([1, 3], rewind: true);
-
-        ['a' => 1, 'b' => 2, 'cc' => 3, 'dd' => 4]
-        |> p_assoc_unique_keys(static fn (string $k) => strlen($k))
         |> self::iteratesLike(['a' => 1, 'cc' => 3], rewind: true);
     }
 }
