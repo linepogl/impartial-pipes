@@ -20,7 +20,7 @@ namespace ImpartialPipes;
  * //= [1, 2, 3]
  * ```
  *
- * @return callable<K,V>(iterable<K,V>):iterable<int,V>
+ * @return callable<K,V>(iterable<K,?V>):iterable<int,V>
  */
 function p_compact(): callable
 {
@@ -49,7 +49,7 @@ function p_compact(): callable
  * //= ['a' => 1, 'c' => 3]
  * ```
  *
- * @return callable<K,V>(iterable<K,V>):iterable<K,V>
+ * @return callable<K,V>(iterable<K,?V>):iterable<K,V>
  */
 function p_compact_preserving_keys(): callable
 {
