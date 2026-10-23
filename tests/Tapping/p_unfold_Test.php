@@ -29,7 +29,7 @@ final class p_unfold_Test extends TestCase
         new TestUnfoldNode(0, new TestUnfoldNode(1, new TestUnfoldNode(2, new TestUnfoldNode(3, new TestUnfoldNode(4)))))
         |> p_unfold(static fn (?TestUnfoldNode $x) => $x?->next)
         |> p_while_not_null()
-        |> p_map(static fn (TestUnfoldNode $x) => $x->x) // @phpstan-ignore argument.type
+        |> p_map(static fn (TestUnfoldNode $x) => $x->x)
         |> self::iteratesLike([0, 1, 2, 3, 4], rewind: true);
     }
 }

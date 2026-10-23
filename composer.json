@@ -77,9 +77,9 @@
     "php-ds/php-ds": "^1.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^12.5",
-    "phpstan/phpstan": "^2.1",
-    "friendsofphp/php-cs-fixer": "^3.90",
+    "phpunit/phpunit": "^13.1",
+    "phpstan/phpstan": "^2.3",
+    "friendsofphp/php-cs-fixer": "^3.95",
     "linepogl/phpunit-meta-constraints": "^0.5.1"
   },
   "scripts": {
